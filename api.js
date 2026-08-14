@@ -48,7 +48,7 @@ async function loadProjects() {
       topics: r.topics || [],
       size: r.size ?? null,
       updated: r.pushed_at || null,
-      homepage: r.homepage || null,
+      homepage: p.liveUrl || r.homepage || null,
       url: `https://github.com/${MSR.GH_USER}/${p.repo}`
     };
   });
