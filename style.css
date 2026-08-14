@@ -481,14 +481,16 @@ html.reduce-motion .reveal{opacity:1;transform:none}
 .xp-stack{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
 
 /* ---------- Achievements ---------- */
-.ach-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px;margin-bottom:34px}
+.ach-grid{display:grid;grid-template-columns:1fr;gap:18px;margin-bottom:34px}
 .ach-card{border-radius:var(--radius);background:var(--surface);border:1px solid var(--border);padding:18px;display:flex;flex-direction:column;gap:12px;transition:transform .35s var(--ease),border-color .35s;overflow:hidden}
 .ach-card:hover{transform:translateY(-5px);border-color:var(--primary)}
 .ach-card img{margin:0 auto;max-height:190px;object-fit:contain}
 .ach-wide{grid-column:1/-1}
-.ach-card figcaption{font-size:.7rem;color:var(--muted);letter-spacing:.16em;text-transform:uppercase}
+.ach-langs{width:50%;margin:0 auto}
+.ach-card figcaption{font-size:.7rem;color:var(--muted);letter-spacing:.16em;text-transform:uppercase;text-align:center}
 .ach-card.ach-fallback{min-height:120px;align-items:center;justify-content:center}
 .ach-card.ach-fallback::before{content:"Live badge unavailable right now — try refreshing later.";font-size:.8rem;color:var(--muted);text-align:center;padding:0 8px}
+@media(max-width:720px){.ach-langs{width:100%}}
 
 /* ---------- Contribution graph (custom, green, animated) ---------- */
 :root{
