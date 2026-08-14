@@ -439,22 +439,40 @@ html.reduce-motion .reveal{opacity:1;transform:none}
 .course-meta a{margin-left:auto;font-weight:600}
 
 /* ---------- LeetCode ---------- */
-.lc-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.lc-grid{display:grid;grid-template-columns:1fr;gap:20px}
 .lc-card{padding:26px;border-radius:var(--radius);background:var(--surface);border:1px solid var(--border);backdrop-filter:blur(12px)}
 .lc-wide{grid-column:1/-1}
-.lc-label{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--primary);margin-bottom:14px}
-.lc-big{font-family:var(--font-display);font-size:3.4rem;font-weight:700;line-height:1;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
 .lc-sub{color:var(--muted);font-size:.8rem;margin-top:8px}
-.lc-bars{margin-top:22px;display:grid;gap:14px}
-.lc-bar-row{display:grid;grid-template-columns:64px 1fr 60px;align-items:center;gap:12px;font-size:.78rem}
-.lc-bar-row .diff{color:var(--muted);font-weight:600}
-.lc-bar-track{height:8px;border-radius:6px;background:color-mix(in srgb,var(--border) 60%,transparent);overflow:hidden}
-.lc-bar-fill{display:block;height:100%;width:0;border-radius:6px;transition:width 1.2s var(--ease) .2s}
-.lc-bar-row .val{text-align:right;color:var(--text)}
-.chart-shell{position:relative}
-.chart-center-label{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;pointer-events:none;line-height:1}
-.chart-center-label span{font-family:var(--font-display);font-weight:700;font-size:1.9rem;color:var(--text)}
-.chart-center-label small{font-family:var(--font-mono);font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-top:4px}
+
+/* ---------- LeetCode gauge card (Solved <-> Acceptance on hover) ---------- */
+:root{ --lc-easy:#22C55E; --lc-med:#F5A623; --lc-hard:#EF4444; --lc-track:color-mix(in srgb,var(--border) 70%,transparent); }
+.lc-gauge-card{display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:center}
+.lc-gauge-shell{position:relative;width:190px;height:190px;flex-shrink:0;cursor:pointer}
+.lc-gauge-svg{width:100%;height:100%;transform:rotate(-90deg)}
+.lc-gauge-track,.lc-gauge-seg{fill:none;stroke-width:12}
+.lc-gauge-track{stroke:var(--lc-track)}
+.lc-gauge-seg{stroke-linecap:round;transition:stroke-dasharray 1.1s var(--ease) .1s,stroke-dashoffset 1.1s var(--ease) .1s}
+.lc-gauge-easy{stroke:var(--lc-easy)}
+.lc-gauge-med{stroke:var(--lc-med)}
+.lc-gauge-hard{stroke:var(--lc-hard)}
+.lc-gauge-center{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center}
+.lc-gauge-face{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .3s var(--ease),transform .3s var(--ease)}
+.lc-face-accept{opacity:0;transform:scale(.92)}
+.lc-gauge-card.show-accept .lc-face-solved{opacity:0;transform:scale(.92)}
+.lc-gauge-card.show-accept .lc-face-accept{opacity:1;transform:scale(1)}
+.lc-gauge-big{font-family:var(--font-display);font-weight:700;font-size:2.1rem;line-height:1;color:var(--text)}
+.lc-gauge-big small{font-size:1.1rem;color:var(--muted);font-weight:500;margin-left:2px}
+.lc-gauge-tag{display:flex;align-items:center;gap:6px;font-size:.85rem;color:var(--lc-easy);font-weight:600;margin-top:6px}
+.lc-face-accept .lc-gauge-tag{color:var(--text)}
+.lc-gauge-sub{font-size:.72rem;color:var(--muted);margin-top:6px}
+.lc-diff-boxes{display:grid;gap:10px}
+.lc-diff-box{padding:14px 18px;border-radius:10px;background:var(--bg-2);border:1px solid var(--border);text-align:center}
+.lc-diff-label{display:block;font-size:.78rem;font-weight:600;margin-bottom:4px}
+.lc-diff-easy .lc-diff-label{color:var(--lc-easy)}
+.lc-diff-med .lc-diff-label{color:var(--lc-med)}
+.lc-diff-hard .lc-diff-label{color:var(--lc-hard)}
+.lc-diff-val{display:block;font-family:var(--font-mono);font-size:.92rem;color:var(--text);font-weight:600}
+@media(max-width:640px){.lc-gauge-card{grid-template-columns:1fr;justify-items:center;text-align:center}.lc-diff-boxes{grid-template-columns:1fr 1fr 1fr;width:100%}}
 
 /* ---------- LeetCode submission calendar (amber, mirrors the GitHub graph) ---------- */
 :root{ --lc-0:color-mix(in srgb,var(--border) 55%,transparent); --lc-1:#FFE1A8; --lc-2:#FFC24B; --lc-3:#F5A623; --lc-4:#C87A0A; --lc-glow:rgba(245,166,35,.55); }
@@ -462,6 +480,10 @@ html[data-mode="dark"]{ --lc-0:rgba(255,255,255,.06); --lc-1:#4A3300; --lc-2:#8A
 .lc-contrib{padding:24px 22px;gap:18px}
 .lc-contrib .contrib-count span{color:var(--lc-4)}
 html[data-mode="dark"] .lc-contrib .contrib-count span{text-shadow:0 0 12px var(--lc-glow)}
+.contrib-stats-row{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.contrib-stat{font-size:.78rem;color:var(--muted)}
+.contrib-stat strong{color:var(--text);font-family:var(--font-mono)}
+.contrib-legend{display:flex;align-items:center;gap:5px;font-family:var(--font-mono);font-size:.68rem;color:var(--muted)}
 .lc-cell{background:var(--lc-0)}
 .lc-cell[data-l="1"]{background:var(--lc-1)}
 .lc-cell[data-l="2"]{background:var(--lc-2)}
