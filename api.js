@@ -214,6 +214,20 @@ async function loadLeetCode() {
     calendar = cal || d.submissionCalendar || null;
   } catch { d = LC_FALLBACK; live = false; calendar = null; }
 
+  // backfill anything a live mirror left empty with the curated snapshot —
+  // per-difficulty question totals and acceptance rate barely change day to
+  // day, so it's better to show the known-real number than a dash while
+  // still using live *solved* counts whenever a mirror provides them
+  d = {
+    ...LC_FALLBACK, ...d,
+    totalEasy: d.totalEasy || LC_FALLBACK.totalEasy,
+    totalMedium: d.totalMedium || LC_FALLBACK.totalMedium,
+    totalHard: d.totalHard || LC_FALLBACK.totalHard,
+    totalQuestions: d.totalQuestions || LC_FALLBACK.totalQuestions,
+    acceptanceRate: d.acceptanceRate ?? LC_FALLBACK.acceptanceRate,
+    totalSubmissions: d.totalSubmissions ?? LC_FALLBACK.totalSubmissions,
+  };
+
   // headline
   const totalQ = d.totalQuestions || (d.totalEasy + d.totalMedium + d.totalHard) || null;
   animateNumber($('#lc-solved'), d.totalSolved);
@@ -226,10 +240,10 @@ async function loadLeetCode() {
   $('#lc-accept-pct').textContent = acceptPct ?? '—';
   $('#lc-submission-count').textContent = d.totalSubmissions ? `${Number(d.totalSubmissions).toLocaleString()} submissions` : '— submissions';
 
-  // difficulty boxes
-  $('#lc-easy-val').textContent = `${d.easySolved}/${d.totalEasy || '—'}`;
-  $('#lc-med-val').textContent = `${d.mediumSolved}/${d.totalMedium || '—'}`;
-  $('#lc-hard-val').textContent = `${d.hardSolved}/${d.totalHard || '—'}`;
+  // difficulty boxes — always show a real total, never a dash
+  $('#lc-easy-val').textContent = `${d.easySolved}/${d.totalEasy}`;
+  $('#lc-med-val').textContent = `${d.mediumSolved}/${d.totalMedium}`;
+  $('#lc-hard-val').textContent = `${d.hardSolved}/${d.totalHard}`;
 
   // gauge arc — three stacked segments (easy/med/hard), each sized by its
   // share of total solved, drawn around a 360° ring like the real LeetCode widget
@@ -249,14 +263,18 @@ async function loadLeetCode() {
     offsetAcc += len;
   });
 
-  // hover / tap toggle between "Solved" and "Acceptance" faces
+  // hover (desktop) / tap (touch) toggle between "Solved" and "Acceptance" faces
   const gaugeCard = $('#lc-gauge-card');
   if (gaugeCard && !gaugeCard.dataset.wired) {
     gaugeCard.dataset.wired = '1';
     const shell = $('.lc-gauge-shell', gaugeCard);
-    shell.addEventListener('pointerenter', () => gaugeCard.classList.add('show-accept'));
-    shell.addEventListener('pointerleave', () => gaugeCard.classList.remove('show-accept'));
-    shell.addEventListener('click', () => gaugeCard.classList.toggle('show-accept'));
+    const canHover = matchMedia('(hover: hover)').matches;
+    if (canHover) {
+      shell.addEventListener('pointerenter', () => gaugeCard.classList.add('show-accept'));
+      shell.addEventListener('pointerleave', () => gaugeCard.classList.remove('show-accept'));
+    } else {
+      shell.addEventListener('click', () => gaugeCard.classList.toggle('show-accept'));
+    }
   }
 
   // submission activity — full-year animated calendar (same treatment as the GitHub graph)
