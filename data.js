@@ -98,7 +98,8 @@ MSR.PROJECTS = [
     arch: 'LangGraph supervisor routes intent → specialist agents (FAQ / order / escalation) → RAG over FAISS knowledge base → grounded LLM response with tool calls.',
     timeline: '2025 · 6 weeks',
     features: ['Multi-agent orchestration with LangGraph state machines', 'RAG grounding with Sentence Transformers + FAISS', 'Tool-calling agents for order lookup & ticket escalation', 'FastAPI backend with JWT-secured endpoints'],
-    fallbackDesc: 'A production-style multi-agent customer support system powered by LLMs, LangGraph routing and retrieval-augmented answers.'
+    fallbackDesc: 'A production-style multi-agent customer support system powered by LLMs, LangGraph routing and retrieval-augmented answers.',
+    liveUrl: 'https://techmart-ai-support.vercel.app/chat'
   },
   {
     repo: 'Facial-Emotion-Recognition-System',
@@ -106,7 +107,8 @@ MSR.PROJECTS = [
     arch: 'Haar-cascade face detection → preprocessing pipeline → CNN classifier (Keras) trained on FER-style data → real-time OpenCV inference loop.',
     timeline: '2025 · 4 weeks',
     features: ['Real-time webcam emotion detection', 'Custom CNN with data augmentation', 'Class-imbalance handling & evaluation dashboards', 'Seven-emotion classification head'],
-    fallbackDesc: 'Real-time facial emotion recognition using CNNs and OpenCV — detecting seven emotions from live video.'
+    fallbackDesc: 'Real-time facial emotion recognition using CNNs and OpenCV — detecting seven emotions from live video.',
+    liveUrl: 'https://deepfer-q8kd.onrender.com/'
   },
   {
     repo: 'Emotion-Recognition-from-Speech',
@@ -138,7 +140,8 @@ MSR.PROJECTS = [
     arch: 'E-commerce transactions → RFM feature construction → K-Means segmentation + collaborative filtering recommender → Streamlit app.',
     timeline: '2025 · 3 weeks',
     features: ['RFM-based customer segmentation', 'Item-similarity product recommendations', 'Interactive Streamlit analytics app'],
-    fallbackDesc: 'Customer segmentation and product recommendation system built on real e-commerce transaction data.'
+    fallbackDesc: 'Customer segmentation and product recommendation system built on real e-commerce transaction data.',
+    liveUrl: 'https://shopper-spectrum-app.streamlit.app/'
   },
   {
     repo: 'Flipkart-CSAT-Prediction',
@@ -146,7 +149,8 @@ MSR.PROJECTS = [
     arch: 'Support interaction data → text & categorical feature engineering → gradient-boosted / deep models → CSAT score prediction with drivers analysis.',
     timeline: '2025 · 3 weeks',
     features: ['Customer satisfaction driver analysis', 'Mixed text + tabular feature pipeline', 'Business-readable evaluation reporting'],
-    fallbackDesc: 'Predicting customer satisfaction (CSAT) for e-commerce support interactions from behavioural and textual signals.'
+    fallbackDesc: 'Predicting customer satisfaction (CSAT) for e-commerce support interactions from behavioural and textual signals.',
+    liveUrl: 'https://flipkart-csat-prediction-app.streamlit.app/'
   },
   {
     repo: 'Interactive-Web-Apps-with-Streamlit',
