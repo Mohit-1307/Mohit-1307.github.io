@@ -145,6 +145,14 @@ const LC_MIRRORS = [
   `https://alfa-leetcode-api.onrender.com/${LC_USER}/solved`,
   `https://leetcodeapi-v1.vercel.app/${LC_USER}`,
 ];
+// dedicated calendar endpoints — some stats mirrors above (like the /solved
+// endpoint) never return submissionCalendar at all, so the heatmap needs its
+// own fetch chain instead of depending on whichever stats mirror answered first
+const LC_CALENDAR_MIRRORS = [
+  `https://leetcode-stats-api.herokuapp.com/${LC_USER}`,
+  `https://alfa-leetcode-api.onrender.com/${LC_USER}/calendar`,
+  `https://leetcode-stats.tashif.codes/${LC_USER}`,
+];
 
 async function fetchLeetCodeLive() {
   for (const url of LC_MIRRORS) {
@@ -154,6 +162,22 @@ async function fetchLeetCodeLive() {
       const raw = await res.json();
       const d = normalizeLC(raw);
       if (d && d.totalSolved) return d;
+    } catch { /* try next mirror */ }
+  }
+  return null;
+}
+
+async function fetchLeetCodeCalendar() {
+  for (const url of LC_CALENDAR_MIRRORS) {
+    try {
+      const res = await fetch(url, { cache: 'no-store' });
+      if (!res.ok) continue;
+      const raw = await res.json();
+      // shapes seen in the wild: {submissionCalendar:{...}} (stringified or object),
+      // or a bare {"<ts>":count,...} object from the dedicated /calendar endpoint
+      let cal = raw.submissionCalendar ?? raw;
+      if (typeof cal === 'string') cal = JSON.parse(cal);
+      if (cal && typeof cal === 'object' && Object.keys(cal).length) return cal;
     } catch { /* try next mirror */ }
   }
   return null;
@@ -176,10 +200,12 @@ function normalizeLC(raw) {
 
 async function loadLeetCode() {
   let d = LC_FALLBACK, live = true;
+  let calendar = null;
   try {
-    const fresh = await fetchLeetCodeLive();
+    const [fresh, cal] = await Promise.all([fetchLeetCodeLive(), fetchLeetCodeCalendar().catch(() => null)]);
     if (fresh) d = fresh; else throw new Error('all mirrors failed');
-  } catch { d = LC_FALLBACK; live = false; }
+    calendar = cal || d.submissionCalendar || null;
+  } catch { d = LC_FALLBACK; live = false; calendar = null; }
 
   // headline
   animateNumber($('#lc-solved'), d.totalSolved);
@@ -229,7 +255,7 @@ async function loadLeetCode() {
   }
 
   // submission activity — full-year animated calendar (same treatment as the GitHub graph)
-  renderHeatmap(d.submissionCalendar);
+  renderHeatmap(calendar);
 }
 
 function animateNumber(el, end) {
@@ -245,21 +271,36 @@ function renderHeatmap(calendar) {
   const grid = $('#lc-heatmap'), monthsRow = $('#lc-contrib-months'), tip = $('#lc-heatmap-note'), totalEl = $('#lc-contrib-total');
   if (!grid) return;
 
+  // LeetCode's submissionCalendar keys are UTC-midnight unix seconds. Bucketing
+  // must stay in UTC end-to-end (not local time) or every lookup silently
+  // shifts by hours and lands in the wrong day — the previous bug here.
+  const utcDayKey = ms => Math.floor(ms / 86400000) * 86400; // -> unix seconds, UTC day start
+
   let counts = null;
   if (calendar) {
     try {
       const cal = typeof calendar === 'string' ? JSON.parse(calendar) : calendar;
       counts = {};
-      for (const [ts, c] of Object.entries(cal)) counts[Math.floor(+ts / 86400) * 86400] = c;
+      for (const [k, c] of Object.entries(cal)) {
+        // some mirrors key by unix-seconds ("1719878400"), others by an
+        // ISO date string ("2024-07-02") — handle both without misreading one as the other
+        const isNumericKey = /^\d+$/.test(k);
+        const key = isNumericKey ? Math.floor(+k / 86400) * 86400 : utcDayKey(Date.parse(k + 'T00:00:00Z'));
+        if (Number.isNaN(key)) continue;
+        counts[key] = (counts[key] || 0) + Number(c);
+      }
     } catch { calendar = null; }
   }
 
-  const today = new Date(); today.setHours(0, 0, 0, 0);
-  const start = new Date(today); start.setDate(start.getDate() - 370);
-  start.setDate(start.getDate() - start.getDay()); // align to preceding Sunday
+  // iterate in UTC so every square maps to the exact same calendar day LeetCode used
+  const now = new Date();
+  const today = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()));
+  const start = new Date(today); start.setUTCDate(start.getUTCDate() - 370);
+  start.setUTCDate(start.getUTCDate() - start.getUTCDay()); // align to preceding Sunday (UTC)
+  const rangeStart = new Date(Date.UTC(today.getUTCFullYear() - 1, today.getUTCMonth(), today.getUTCDate()));
 
   const seedCount = d => { // deterministic pseudo-pattern, used only when live data is unavailable
-    const seed = (d.getDate() * 7 + d.getMonth() * 3 + d.getDay() * 5) % 11;
+    const seed = (d.getUTCDate() * 7 + d.getUTCMonth() * 3 + d.getUTCDay() * 5) % 11;
     return seed > 6 ? seed - 6 : 0;
   };
   const levelOf = c => c === 0 ? 0 : c < 2 ? 1 : c < 4 ? 2 : c < 7 ? 3 : 4;
@@ -267,13 +308,13 @@ function renderHeatmap(calendar) {
   const weeks = [];
   let cur = new Date(start), total = 0, week = [];
   while (cur <= today) {
-    const key = Math.floor(cur.getTime() / 1000 / 86400) * 86400;
-    const inRange = cur >= new Date(today.getFullYear() - 1, today.getMonth(), today.getDate());
+    const key = utcDayKey(cur.getTime());
+    const inRange = cur >= rangeStart;
     const count = counts ? (counts[key] ?? 0) : seedCount(cur);
     if (inRange) total += count;
     week.push({ date: new Date(cur), count, inRange });
-    if (cur.getDay() === 6) { weeks.push(week); week = []; }
-    cur.setDate(cur.getDate() + 1);
+    if (cur.getUTCDay() === 6) { weeks.push(week); week = []; }
+    cur.setUTCDate(cur.getUTCDate() + 1);
   }
   if (week.length) weeks.push(week);
 
@@ -283,8 +324,8 @@ function renderHeatmap(calendar) {
   let lastMonth = -1;
   weeks.forEach((w, wi) => {
     const firstValid = w.find(d => d.inRange) || w[0];
-    const m = firstValid.date.getMonth();
-    if (m !== lastMonth) { monthLabels.push({ i: wi, label: firstValid.date.toLocaleString('en-US', { month: 'short' }) }); lastMonth = m; }
+    const m = firstValid.date.getUTCMonth();
+    if (m !== lastMonth) { monthLabels.push({ i: wi, label: firstValid.date.toLocaleString('en-US', { month: 'short', timeZone: 'UTC' }) }); lastMonth = m; }
   });
   monthsRow.innerHTML = monthLabels.map((m, i) => {
     const nextI = monthLabels[i + 1]?.i ?? weeks.length;
@@ -292,10 +333,11 @@ function renderHeatmap(calendar) {
   }).join('');
   monthsRow.style.gridTemplateColumns = `repeat(${weeks.length},1fr)`;
 
+  const fmtUTCDate = d => d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
   grid.style.gridTemplateColumns = `repeat(${weeks.length},1fr)`;
   grid.innerHTML = weeks.map((w, wi) => `
     <div class="contrib-col">${w.map((d, di) => d.inRange
-      ? `<span class="contrib-cell lc-cell" data-l="${levelOf(d.count)}" style="--i:${wi * 7 + di}" data-date="${d.date.toDateString()}" data-count="${d.count}"></span>`
+      ? `<span class="contrib-cell lc-cell" data-l="${levelOf(d.count)}" style="--i:${wi * 7 + di}" data-date="${fmtUTCDate(d.date)}" data-count="${d.count}"></span>`
       : `<span class="contrib-cell contrib-cell-empty" aria-hidden="true"></span>`
     ).join('')}</div>`).join('');
 
@@ -347,15 +389,19 @@ function buildGithubContribGraph(liveMap) {
   const grid = $('#gh-contrib-grid'), monthsRow = $('#gh-contrib-months'), tip = $('#gh-contrib-tip'), totalEl = $('#gh-contrib-total');
   if (!grid) return;
 
-  const today = new Date();
-  const start = new Date(today); start.setDate(start.getDate() - 370);
-  // align to the preceding Sunday so weeks stack into clean columns
-  start.setDate(start.getDate() - start.getDay());
+  // GitHub's calendar keys are calendar-date strings (YYYY-MM-DD, no time zone
+  // attached) — every date computed here must stay in UTC end-to-end, or the
+  // lookup silently shifts by a day depending on the visitor's local offset.
+  const now = new Date();
+  const today = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()));
+  const start = new Date(today); start.setUTCDate(start.getUTCDate() - 370);
+  start.setUTCDate(start.getUTCDate() - start.getUTCDay()); // align to preceding Sunday (UTC)
+  const rangeStart = new Date(Date.UTC(today.getUTCFullYear() - 1, today.getUTCMonth(), today.getUTCDate()));
 
   const dayKey = d => d.toISOString().slice(0, 10);
   const seedCount = d => { // deterministic pseudo-pattern, used only when live data is unavailable
-    const seed = (d.getDate() * 7 + d.getMonth() * 5 + d.getDay() * 3) % 13;
-    const isWeekend = d.getDay() === 0 || d.getDay() === 6;
+    const seed = (d.getUTCDate() * 7 + d.getUTCMonth() * 5 + d.getUTCDay() * 3) % 13;
+    const isWeekend = d.getUTCDay() === 0 || d.getUTCDay() === 6;
     const base = seed > 8 ? seed - 8 : (seed > 5 ? 1 : 0);
     return isWeekend ? Math.max(0, base - 1) : base;
   };
@@ -365,12 +411,12 @@ function buildGithubContribGraph(liveMap) {
   let cur = new Date(start), total = 0, week = [];
   while (cur <= today) {
     const key = dayKey(cur);
-    const inRange = cur >= new Date(today.getFullYear() - 1, today.getMonth(), today.getDate());
+    const inRange = cur >= rangeStart;
     const count = liveMap ? (liveMap[key] ?? 0) : seedCount(cur);
     if (inRange) total += count;
     week.push({ date: new Date(cur), count, inRange });
-    if (cur.getDay() === 6) { weeks.push(week); week = []; }
-    cur.setDate(cur.getDate() + 1);
+    if (cur.getUTCDay() === 6) { weeks.push(week); week = []; }
+    cur.setUTCDate(cur.getUTCDate() + 1);
   }
   if (week.length) weeks.push(week);
 
@@ -382,8 +428,8 @@ function buildGithubContribGraph(liveMap) {
   let lastMonth = -1;
   weeks.forEach((w, wi) => {
     const firstValid = w.find(d => d.inRange) || w[0];
-    const m = firstValid.date.getMonth();
-    if (m !== lastMonth) { monthLabels.push({ i: wi, label: firstValid.date.toLocaleString('en-US', { month: 'short' }) }); lastMonth = m; }
+    const m = firstValid.date.getUTCMonth();
+    if (m !== lastMonth) { monthLabels.push({ i: wi, label: firstValid.date.toLocaleString('en-US', { month: 'short', timeZone: 'UTC' }) }); lastMonth = m; }
   });
   monthsRow.innerHTML = monthLabels.map((m, i) => {
     const nextI = monthLabels[i + 1]?.i ?? weeks.length;
@@ -392,10 +438,11 @@ function buildGithubContribGraph(liveMap) {
   }).join('');
   monthsRow.style.gridTemplateColumns = `repeat(${weeks.length},1fr)`;
 
+  const fmtUTCDate = d => d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
   grid.style.gridTemplateColumns = `repeat(${weeks.length},1fr)`;
   grid.innerHTML = weeks.map((w, wi) => `
     <div class="contrib-col">${w.map((d, di) => d.inRange
-      ? `<span class="contrib-cell" data-l="${levelOf(d.count)}" style="--i:${wi * 7 + di}" data-date="${d.date.toDateString()}" data-count="${d.count}"></span>`
+      ? `<span class="contrib-cell" data-l="${levelOf(d.count)}" style="--i:${wi * 7 + di}" data-date="${fmtUTCDate(d.date)}" data-count="${d.count}"></span>`
       : `<span class="contrib-cell contrib-cell-empty" aria-hidden="true"></span>`
     ).join('')}</div>`).join('');
 
