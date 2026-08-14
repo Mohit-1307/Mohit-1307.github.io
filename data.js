@@ -111,6 +111,24 @@ MSR.PROJECTS = [
     liveUrl: 'https://deepfer-q8kd.onrender.com/'
   },
   {
+    repo: 'Shopper-Spectrum',
+    cat: 'Machine Learning', icon: 'fa-solid fa-cart-shopping',
+    arch: 'E-commerce transactions → RFM feature construction → K-Means segmentation + collaborative filtering recommender → Streamlit app.',
+    timeline: '2025 · 3 weeks',
+    features: ['RFM-based customer segmentation', 'Item-similarity product recommendations', 'Interactive Streamlit analytics app'],
+    fallbackDesc: 'Customer segmentation and product recommendation system built on real e-commerce transaction data.',
+    liveUrl: 'https://shopper-spectrum-app.streamlit.app/'
+  },
+  {
+    repo: 'Flipkart-CSAT-Prediction',
+    cat: 'NLP & ML', icon: 'fa-solid fa-star-half-stroke',
+    arch: 'Support interaction data → text & categorical feature engineering → gradient-boosted / deep models → CSAT score prediction with drivers analysis.',
+    timeline: '2025 · 3 weeks',
+    features: ['Customer satisfaction driver analysis', 'Mixed text + tabular feature pipeline', 'Business-readable evaluation reporting'],
+    fallbackDesc: 'Predicting customer satisfaction (CSAT) for e-commerce support interactions from behavioural and textual signals.',
+    liveUrl: 'https://flipkart-csat-prediction-app.streamlit.app/'
+  },
+  {
     repo: 'Emotion-Recognition-from-Speech',
     cat: 'Audio & Speech', icon: 'fa-solid fa-microphone-lines',
     arch: 'Librosa feature extraction (MFCC, chroma, mel) → feature stacking → deep classifier → evaluation across speaker-independent splits.',
@@ -135,22 +153,12 @@ MSR.PROJECTS = [
     fallbackDesc: 'A convolutional neural network that reads handwritten digits — the project that started my deep learning journey.'
   },
   {
-    repo: 'Shopper-Spectrum',
-    cat: 'Machine Learning', icon: 'fa-solid fa-cart-shopping',
-    arch: 'E-commerce transactions → RFM feature construction → K-Means segmentation + collaborative filtering recommender → Streamlit app.',
-    timeline: '2025 · 3 weeks',
-    features: ['RFM-based customer segmentation', 'Item-similarity product recommendations', 'Interactive Streamlit analytics app'],
-    fallbackDesc: 'Customer segmentation and product recommendation system built on real e-commerce transaction data.',
-    liveUrl: 'https://shopper-spectrum-app.streamlit.app/'
-  },
-  {
-    repo: 'Flipkart-CSAT-Prediction',
-    cat: 'NLP & ML', icon: 'fa-solid fa-star-half-stroke',
-    arch: 'Support interaction data → text & categorical feature engineering → gradient-boosted / deep models → CSAT score prediction with drivers analysis.',
-    timeline: '2025 · 3 weeks',
-    features: ['Customer satisfaction driver analysis', 'Mixed text + tabular feature pipeline', 'Business-readable evaluation reporting'],
-    fallbackDesc: 'Predicting customer satisfaction (CSAT) for e-commerce support interactions from behavioural and textual signals.',
-    liveUrl: 'https://flipkart-csat-prediction-app.streamlit.app/'
+    repo: 'AI-Agents-and-RAG-Systems',
+    cat: 'GenAI & Agents', icon: 'fa-solid fa-diagram-project',
+    arch: 'LangChain + LangGraph experiments → embedding pipelines → FAISS vector stores → agentic RAG with OpenAI / Claude / Groq / Ollama backends.',
+    timeline: '2025 · ongoing',
+    features: ['Agent design patterns & tool use', 'Multi-provider LLM abstraction (OpenAI, Claude, Groq, Ollama)', 'Chunking & retrieval quality experiments'],
+    fallbackDesc: 'A living lab of AI agent architectures and retrieval-augmented generation systems across multiple LLM providers.'
   },
   {
     repo: 'Interactive-Web-Apps-with-Streamlit',
@@ -159,14 +167,6 @@ MSR.PROJECTS = [
     timeline: '2024 · ongoing',
     features: ['Collection of interactive data/ML apps', 'State management & caching patterns', 'Deployment-ready app templates'],
     fallbackDesc: 'A collection of interactive Streamlit web apps turning ML models and datasets into usable products.'
-  },
-  {
-    repo: 'AI-Agents-and-RAG-Systems',
-    cat: 'GenAI & Agents', icon: 'fa-solid fa-diagram-project',
-    arch: 'LangChain + LangGraph experiments → embedding pipelines → FAISS vector stores → agentic RAG with OpenAI / Claude / Groq / Ollama backends.',
-    timeline: '2025 · ongoing',
-    features: ['Agent design patterns & tool use', 'Multi-provider LLM abstraction (OpenAI, Claude, Groq, Ollama)', 'Chunking & retrieval quality experiments'],
-    fallbackDesc: 'A living lab of AI agent architectures and retrieval-augmented generation systems across multiple LLM providers.'
   }
 ];
 
