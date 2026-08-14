@@ -328,11 +328,31 @@
       <p class="lc-label mono">difficulty distribution</p>
       <div class="chart-shell" style="height:230px"><canvas id="lc-doughnut" aria-label="LeetCode difficulty distribution chart" role="img"></canvas><div class="chart-center-label"><span id="lc-doughnut-total">—</span><small>solved</small></div></div>
     </div>
-    <div class="lc-card lc-wide reveal">
-      <p class="lc-label mono">submission activity</p>
-      <div id="lc-heatmap" class="lc-heatmap" aria-label="Submission calendar heatmap"></div>
-      <p class="lc-sub" id="lc-heatmap-note"></p>
-    </div>
+    <article class="lc-card lc-wide lc-contrib reveal" id="lc-contrib-card">
+      <div class="contrib-head">
+        <div>
+          <p class="lc-label mono">submission activity</p>
+          <p class="contrib-count"><span id="lc-contrib-total">—</span> submissions in the last year</p>
+        </div>
+        <div class="contrib-legend" aria-hidden="true">
+          <span>Less</span>
+          <span class="contrib-cell lc-cell" data-l="0"></span>
+          <span class="contrib-cell lc-cell" data-l="1"></span>
+          <span class="contrib-cell lc-cell" data-l="2"></span>
+          <span class="contrib-cell lc-cell" data-l="3"></span>
+          <span class="contrib-cell lc-cell" data-l="4"></span>
+          <span>More</span>
+        </div>
+      </div>
+      <div class="contrib-scroll">
+        <div class="contrib-months mono" id="lc-contrib-months" aria-hidden="true"></div>
+        <div class="contrib-body">
+          <div class="contrib-days mono" aria-hidden="true"><span></span><span>Mon</span><span></span><span>Wed</span><span></span><span>Fri</span><span></span></div>
+          <div class="contrib-grid lc-contrib-grid" id="lc-heatmap" aria-label="LeetCode submission calendar"></div>
+        </div>
+      </div>
+      <p class="contrib-tip mono" id="lc-heatmap-note">hover a square for details</p>
+    </article>
   </div>
 </section>
 
