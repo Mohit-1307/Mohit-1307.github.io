@@ -455,12 +455,20 @@ html.reduce-motion .reveal{opacity:1;transform:none}
 .chart-center-label{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;pointer-events:none;line-height:1}
 .chart-center-label span{font-family:var(--font-display);font-weight:700;font-size:1.9rem;color:var(--text)}
 .chart-center-label small{font-family:var(--font-mono);font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-top:4px}
-.lc-heatmap{display:grid;grid-auto-flow:column;grid-template-rows:repeat(7,12px);gap:3px;overflow-x:auto;padding-bottom:8px}
-.hm-cell{width:12px;height:12px;border-radius:3px;background:color-mix(in srgb,var(--border) 55%,transparent)}
-.hm-cell[data-l="1"]{background:color-mix(in srgb,var(--primary) 30%,transparent)}
-.hm-cell[data-l="2"]{background:color-mix(in srgb,var(--primary) 55%,transparent)}
-.hm-cell[data-l="3"]{background:color-mix(in srgb,var(--primary) 80%,transparent)}
-.hm-cell[data-l="4"]{background:var(--primary);box-shadow:0 0 6px var(--glow)}
+
+/* ---------- LeetCode submission calendar (amber, mirrors the GitHub graph) ---------- */
+:root{ --lc-0:color-mix(in srgb,var(--border) 55%,transparent); --lc-1:#FFE1A8; --lc-2:#FFC24B; --lc-3:#F5A623; --lc-4:#C87A0A; --lc-glow:rgba(245,166,35,.55); }
+html[data-mode="dark"]{ --lc-0:rgba(255,255,255,.06); --lc-1:#4A3300; --lc-2:#8A5D00; --lc-3:#E0961A; --lc-4:#FFB629; --lc-glow:rgba(255,182,41,.6); }
+.lc-contrib{padding:24px 22px;gap:18px}
+.lc-contrib .contrib-count span{color:var(--lc-4)}
+html[data-mode="dark"] .lc-contrib .contrib-count span{text-shadow:0 0 12px var(--lc-glow)}
+.lc-cell{background:var(--lc-0)}
+.lc-cell[data-l="1"]{background:var(--lc-1)}
+.lc-cell[data-l="2"]{background:var(--lc-2)}
+.lc-cell[data-l="3"]{background:var(--lc-3)}
+.lc-cell[data-l="4"]{background:var(--lc-4);box-shadow:0 0 5px var(--lc-glow)}
+.lc-cell[data-date]:hover{box-shadow:0 0 0 1.5px var(--lc-4),0 0 10px var(--lc-glow)}
+.lc-contrib.contrib-fallback .contrib-count::after{content:" (representative pattern)";color:var(--muted);font-size:.7rem;font-family:var(--font-mono)}
 @media(max-width:820px){.lc-grid{grid-template-columns:1fr}}
 
 /* ---------- Experience ---------- */
