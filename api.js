@@ -228,7 +228,7 @@ async function loadLeetCode() {
     });
   }
 
-  // heatmap (last 26 weeks)
+  // submission activity — full-year animated calendar (same treatment as the GitHub graph)
   renderHeatmap(d.submissionCalendar);
 }
 
@@ -242,31 +242,79 @@ function animateNumber(el, end) {
 }
 
 function renderHeatmap(calendar) {
-  const wrap = $('#lc-heatmap');
-  const weeks = 26, days = weeks * 7;
-  const now = new Date(); now.setHours(0, 0, 0, 0);
-  let counts = {};
+  const grid = $('#lc-heatmap'), monthsRow = $('#lc-contrib-months'), tip = $('#lc-heatmap-note'), totalEl = $('#lc-contrib-total');
+  if (!grid) return;
+
+  let counts = null;
   if (calendar) {
     try {
       const cal = typeof calendar === 'string' ? JSON.parse(calendar) : calendar;
+      counts = {};
       for (const [ts, c] of Object.entries(cal)) counts[Math.floor(+ts / 86400) * 86400] = c;
-      $('#lc-heatmap-note').textContent = 'Live submission calendar · last 6 months';
     } catch { calendar = null; }
   }
-  if (!calendar) $('#lc-heatmap-note').textContent = 'Representative activity pattern · live calendar unavailable';
-  let cells = '';
-  for (let i = days - 1; i >= 0; i--) {
-    const day = new Date(now); day.setDate(now.getDate() - i);
-    const key = Math.floor(day.getTime() / 1000 / 86400) * 86400;
-    let c = counts[key] ?? 0;
-    if (!calendar) { // deterministic pseudo-pattern so the section still reads well
-      const seed = (day.getDate() * 7 + day.getMonth() * 3 + day.getDay() * 5) % 11;
-      c = seed > 6 ? seed - 6 : 0;
-    }
-    const l = c === 0 ? 0 : c < 2 ? 1 : c < 4 ? 2 : c < 7 ? 3 : 4;
-    cells += `<span class="hm-cell" data-l="${l}" title="${day.toDateString()}: ${c} submissions"></span>`;
+
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  const start = new Date(today); start.setDate(start.getDate() - 370);
+  start.setDate(start.getDate() - start.getDay()); // align to preceding Sunday
+
+  const seedCount = d => { // deterministic pseudo-pattern, used only when live data is unavailable
+    const seed = (d.getDate() * 7 + d.getMonth() * 3 + d.getDay() * 5) % 11;
+    return seed > 6 ? seed - 6 : 0;
+  };
+  const levelOf = c => c === 0 ? 0 : c < 2 ? 1 : c < 4 ? 2 : c < 7 ? 3 : 4;
+
+  const weeks = [];
+  let cur = new Date(start), total = 0, week = [];
+  while (cur <= today) {
+    const key = Math.floor(cur.getTime() / 1000 / 86400) * 86400;
+    const inRange = cur >= new Date(today.getFullYear() - 1, today.getMonth(), today.getDate());
+    const count = counts ? (counts[key] ?? 0) : seedCount(cur);
+    if (inRange) total += count;
+    week.push({ date: new Date(cur), count, inRange });
+    if (cur.getDay() === 6) { weeks.push(week); week = []; }
+    cur.setDate(cur.getDate() + 1);
   }
-  wrap.innerHTML = cells;
+  if (week.length) weeks.push(week);
+
+  totalEl.textContent = total.toLocaleString();
+
+  const monthLabels = [];
+  let lastMonth = -1;
+  weeks.forEach((w, wi) => {
+    const firstValid = w.find(d => d.inRange) || w[0];
+    const m = firstValid.date.getMonth();
+    if (m !== lastMonth) { monthLabels.push({ i: wi, label: firstValid.date.toLocaleString('en-US', { month: 'short' }) }); lastMonth = m; }
+  });
+  monthsRow.innerHTML = monthLabels.map((m, i) => {
+    const nextI = monthLabels[i + 1]?.i ?? weeks.length;
+    return `<span style="grid-column:span ${nextI - m.i}">${m.label}</span>`;
+  }).join('');
+  monthsRow.style.gridTemplateColumns = `repeat(${weeks.length},1fr)`;
+
+  grid.style.gridTemplateColumns = `repeat(${weeks.length},1fr)`;
+  grid.innerHTML = weeks.map((w, wi) => `
+    <div class="contrib-col">${w.map((d, di) => d.inRange
+      ? `<span class="contrib-cell lc-cell" data-l="${levelOf(d.count)}" style="--i:${wi * 7 + di}" data-date="${d.date.toDateString()}" data-count="${d.count}"></span>`
+      : `<span class="contrib-cell contrib-cell-empty" aria-hidden="true"></span>`
+    ).join('')}</div>`).join('');
+
+  requestAnimationFrame(() => $$('.lc-cell[data-l]', grid).forEach(c => {
+    setTimeout(() => c.classList.add('in'), Number(c.style.getPropertyValue('--i')) * 2.2);
+  }));
+
+  grid.addEventListener('pointerover', e => {
+    const c = e.target.closest('.lc-cell[data-date]');
+    if (!c) return;
+    const n = Number(c.dataset.count);
+    tip.textContent = `${n} submission${n === 1 ? '' : 's'} on ${c.dataset.date}`;
+  });
+  grid.addEventListener('pointerleave', () => {
+    tip.textContent = calendar ? 'Live submission calendar · hover a square for details' : 'Representative activity pattern · hover a square for details';
+  }, true);
+  tip.textContent = calendar ? 'Live submission calendar · hover a square for details' : 'Representative activity pattern · live calendar unavailable';
+  const card = $('#lc-contrib-card');
+  if (card) card.classList.toggle('contrib-fallback', !calendar);
 }
 
 /* ════════ GITHUB CONTRIBUTION GRAPH (custom-built, animated) ════════
