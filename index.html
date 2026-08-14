@@ -317,31 +317,51 @@
     <p class="section-sub">Live stats from <a href="https://leetcode.com/u/MOHIT_SINGH_RAJPUT/" target="_blank" rel="noopener">leetcode.com/u/MOHIT_SINGH_RAJPUT</a> · solutions archived in <a href="https://github.com/Mohit-1307/LeetCode-Submissions" target="_blank" rel="noopener">LeetCode-Submissions</a>.</p>
   </header>
   <div class="lc-grid">
-    <div class="lc-card lc-total reveal">
-      <p class="lc-label mono">total solved</p>
-      <p class="lc-big" id="lc-solved">—</p>
-      <p class="lc-sub" id="lc-rank">global ranking —</p>
-      <p class="lc-sub mono" id="lc-refresh-note" style="opacity:.6;font-size:.75rem">auto-refreshing every 30s</p>
-      <div class="lc-bars" id="lc-bars"></div>
-    </div>
-    <div class="lc-card reveal">
-      <p class="lc-label mono">difficulty distribution</p>
-      <div class="chart-shell" style="height:230px"><canvas id="lc-doughnut" aria-label="LeetCode difficulty distribution chart" role="img"></canvas><div class="chart-center-label"><span id="lc-doughnut-total">—</span><small>solved</small></div></div>
-    </div>
+    <article class="lc-card lc-gauge-card reveal" id="lc-gauge-card">
+      <div class="lc-gauge-shell">
+        <svg viewBox="0 0 200 200" class="lc-gauge-svg" aria-hidden="true">
+          <circle class="lc-gauge-track" cx="100" cy="100" r="86"></circle>
+          <circle class="lc-gauge-seg lc-gauge-easy" cx="100" cy="100" r="86"></circle>
+          <circle class="lc-gauge-seg lc-gauge-med" cx="100" cy="100" r="86"></circle>
+          <circle class="lc-gauge-seg lc-gauge-hard" cx="100" cy="100" r="86"></circle>
+        </svg>
+        <div class="lc-gauge-center" id="lc-gauge-center">
+          <div class="lc-gauge-face lc-face-solved">
+            <p class="lc-gauge-big"><span id="lc-solved">—</span><small id="lc-gauge-total-q">/—</small></p>
+            <p class="lc-gauge-tag"><i class="fa-solid fa-check"></i> Solved</p>
+            <p class="lc-gauge-sub" id="lc-attempting">— Attempting</p>
+          </div>
+          <div class="lc-gauge-face lc-face-accept">
+            <p class="lc-gauge-big"><span id="lc-accept-pct">—</span><small>%</small></p>
+            <p class="lc-gauge-tag">Acceptance</p>
+            <p class="lc-gauge-sub" id="lc-submission-count">— submissions</p>
+          </div>
+        </div>
+      </div>
+      <div class="lc-diff-boxes">
+        <div class="lc-diff-box lc-diff-easy"><span class="lc-diff-label">Easy</span><span class="lc-diff-val" id="lc-easy-val">—/—</span></div>
+        <div class="lc-diff-box lc-diff-med"><span class="lc-diff-label">Med.</span><span class="lc-diff-val" id="lc-med-val">—/—</span></div>
+        <div class="lc-diff-box lc-diff-hard"><span class="lc-diff-label">Hard</span><span class="lc-diff-val" id="lc-hard-val">—/—</span></div>
+      </div>
+      <p class="lc-sub mono" id="lc-refresh-note" style="opacity:.6;font-size:.72rem;grid-column:1/-1">auto-refreshing every 30s</p>
+    </article>
     <article class="lc-card lc-wide lc-contrib reveal" id="lc-contrib-card">
       <div class="contrib-head">
         <div>
-          <p class="lc-label mono">submission activity</p>
-          <p class="contrib-count"><span id="lc-contrib-total">—</span> submissions in the last year</p>
+          <p class="contrib-count"><span id="lc-contrib-total">—</span> submissions in the past one year</p>
         </div>
-        <div class="contrib-legend" aria-hidden="true">
-          <span>Less</span>
-          <span class="contrib-cell lc-cell" data-l="0"></span>
-          <span class="contrib-cell lc-cell" data-l="1"></span>
-          <span class="contrib-cell lc-cell" data-l="2"></span>
-          <span class="contrib-cell lc-cell" data-l="3"></span>
-          <span class="contrib-cell lc-cell" data-l="4"></span>
-          <span>More</span>
+        <div class="contrib-stats-row">
+          <span class="contrib-stat">Total active days: <strong id="lc-active-days">—</strong></span>
+          <span class="contrib-stat">Max streak: <strong id="lc-max-streak">—</strong></span>
+          <span class="contrib-legend" aria-hidden="true">
+            <span>Less</span>
+            <span class="contrib-cell lc-cell" data-l="0"></span>
+            <span class="contrib-cell lc-cell" data-l="1"></span>
+            <span class="contrib-cell lc-cell" data-l="2"></span>
+            <span class="contrib-cell lc-cell" data-l="3"></span>
+            <span class="contrib-cell lc-cell" data-l="4"></span>
+            <span>More</span>
+          </span>
         </div>
       </div>
       <div class="contrib-scroll">
@@ -543,7 +563,6 @@
 
 <div id="toast-stack" aria-live="polite"></div>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" defer></script>
 <script src="data.js" defer></script>
 <script src="main.js" defer></script>
