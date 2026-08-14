@@ -268,7 +268,7 @@ const counterObs = new IntersectionObserver(entries => {
 $$('.counter').forEach(el => counterObs.observe(el));
 
 /* ════════ SKILLS ════════ */
-const skillState = { cat: 'Programming Languages', q: '' };
+const skillState = { cat: 'All', q: '' };
 function renderSkillFilters() {
   const cats = ['All', ...MSR.SKILL_CATS];
   $('#skill-filters').innerHTML = cats.map(c =>
