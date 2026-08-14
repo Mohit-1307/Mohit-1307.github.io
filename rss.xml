@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>Mohit Singh Rajput — Notes from the Loss Curve</title>
+    <link>./index.html#blog-section</link>
+    <description>Essays on AI/ML engineering — LLM agents, RAG, computer vision, deployment and honest data science.</description>
+    <language>en</language>
+    <item>
+      <title>What Building a Multi-Agent Support System Taught Me About LLM Orchestration</title>
+      <description>Supervisor agents sound elegant on whiteboards. In practice, routing, state and failure recovery are where the real engineering lives.</description>
+      <pubDate>Wed, 15 Jul 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>RAG Is a Retrieval Problem Before It Is a Generation Problem</title>
+      <description>Most bad RAG answers are bad retrieval. Chunking strategy, embedding choice and evaluation loops matter more than the model behind the prompt.</description>
+      <pubDate>Wed, 10 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Reading Emotions: CNNs for Faces vs. Features for Speech</title>
+      <description>I built emotion recognition twice — once from pixels, once from audio. Comparing the two pipelines reveals a lot about representation learning.</description>
+      <pubDate>Wed, 15 Apr 2026 00:00:00 GMT</pubDate>
+    </item>
+  </channel>
+</rss>
