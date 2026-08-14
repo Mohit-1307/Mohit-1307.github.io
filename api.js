@@ -136,8 +136,11 @@ $('#projects-grid').addEventListener('click', e => {
 modal.addEventListener('click', e => { if (e.target.closest('[data-pm-close]')) modal.hidden = true; });
 
 /* ════════ LEETCODE ════════ */
-const LC_COLORS = { Easy: '#22c55e', Medium: '#f59e0b', Hard: '#ef4444' };
-const LC_FALLBACK = { totalSolved: 475, easySolved: 173, totalEasy: 958, mediumSolved: 198, totalMedium: 2098, hardSolved: 104, totalHard: 961, ranking: null, submissionCalendar: null };
+const LC_FALLBACK = {
+  totalSolved: 490, totalQuestions: 4019, easySolved: 178, totalEasy: 958,
+  mediumSolved: 202, totalMedium: 2099, hardSolved: 110, totalHard: 962,
+  acceptanceRate: 89.63, totalSubmissions: 1300, ranking: null, submissionCalendar: null
+};
 
 const LC_USER = 'MOHIT_SINGH_RAJPUT';
 const LC_MIRRORS = [
@@ -185,13 +188,17 @@ async function fetchLeetCodeCalendar() {
 
 // different mirrors use different field names — normalize to one shape
 function normalizeLC(raw) {
-  if (raw.totalSolved != null) return raw; // leetcode-stats-api shape
-  if (raw.solvedProblem != null || raw.easySolved != null) {
+  if (raw.totalSolved != null && raw.acceptanceRate != null) return raw; // leetcode-stats-api shape (has everything we need)
+  if (raw.totalSolved != null || raw.solvedProblem != null || raw.easySolved != null) {
+    const totalSolved = raw.solvedProblem ?? raw.totalSolved ?? 0;
+    const totalSubmissions = raw.totalSubmissions?.find?.(s => s.difficulty === 'All')?.submissions ?? raw.totalSubmissions ?? null;
     return {
-      totalSolved: raw.solvedProblem ?? raw.totalSolved ?? 0,
+      totalSolved,
+      totalQuestions: raw.totalQuestions ?? null,
       easySolved: raw.easySolved ?? 0, totalEasy: raw.totalEasy ?? raw.easyTotal ?? 0,
       mediumSolved: raw.mediumSolved ?? 0, totalMedium: raw.totalMedium ?? raw.mediumTotal ?? 0,
       hardSolved: raw.hardSolved ?? 0, totalHard: raw.totalHard ?? raw.hardTotal ?? 0,
+      acceptanceRate: raw.acceptanceRate ?? null, totalSubmissions,
       ranking: raw.ranking ?? null, submissionCalendar: raw.submissionCalendar ?? null
     };
   }
@@ -208,50 +215,48 @@ async function loadLeetCode() {
   } catch { d = LC_FALLBACK; live = false; calendar = null; }
 
   // headline
+  const totalQ = d.totalQuestions || (d.totalEasy + d.totalMedium + d.totalHard) || null;
   animateNumber($('#lc-solved'), d.totalSolved);
-  $('#lc-rank').textContent = d.ranking ? `global ranking #${Number(d.ranking).toLocaleString()}` : (live ? 'live from LeetCode' : 'snapshot · live API unavailable');
+  $('#lc-gauge-total-q').textContent = totalQ ? `/${totalQ.toLocaleString()}` : '';
+  $('#lc-attempting').textContent = live ? 'live from LeetCode' : 'snapshot · live API unavailable';
   const noteEl = $('#lc-refresh-note');
   if (noteEl) noteEl.textContent = live ? `live · updated ${new Date().toLocaleTimeString()} · refreshes every 30s` : 'snapshot shown · retrying every 30s';
-  const centerTotal = $('#lc-doughnut-total');
-  if (centerTotal) animateNumber(centerTotal, d.totalSolved);
 
-  // difficulty bars — scale relative to solved counts (site-wide totals aren't
-  // reliably returned by every mirror, so anchoring to them left bars empty)
-  const rows = [
-    ['Easy', d.easySolved, d.totalEasy], ['Medium', d.mediumSolved, d.totalMedium], ['Hard', d.hardSolved, d.totalHard]
+  const acceptPct = d.acceptanceRate != null ? Number(d.acceptanceRate).toFixed(2) : null;
+  $('#lc-accept-pct').textContent = acceptPct ?? '—';
+  $('#lc-submission-count').textContent = d.totalSubmissions ? `${Number(d.totalSubmissions).toLocaleString()} submissions` : '— submissions';
+
+  // difficulty boxes
+  $('#lc-easy-val').textContent = `${d.easySolved}/${d.totalEasy || '—'}`;
+  $('#lc-med-val').textContent = `${d.mediumSolved}/${d.totalMedium || '—'}`;
+  $('#lc-hard-val').textContent = `${d.hardSolved}/${d.totalHard || '—'}`;
+
+  // gauge arc — three stacked segments (easy/med/hard), each sized by its
+  // share of total solved, drawn around a 360° ring like the real LeetCode widget
+  const R = 86, C = 2 * Math.PI * R;
+  const solvedTotal = Math.max(d.totalSolved || 1, 1);
+  const segs = [
+    ['lc-gauge-easy', d.easySolved], ['lc-gauge-med', d.mediumSolved], ['lc-gauge-hard', d.hardSolved]
   ];
-  const maxSolved = Math.max(d.easySolved || 0, d.mediumSolved || 0, d.hardSolved || 0, 1);
-  $('#lc-bars').innerHTML = rows.map(([n, v, t]) => `
-    <div class="lc-bar-row">
-      <span class="diff" style="color:${LC_COLORS[n]}">${n}</span>
-      <span class="lc-bar-track"><span class="lc-bar-fill" data-w="${Math.max((v || 0) / maxSolved * 100, v ? 4 : 0)}" style="background:${LC_COLORS[n]}"></span></span>
-      <span class="val mono">${v}${t ? ' / ' + t : ''}</span>
-    </div>`).join('');
-  requestAnimationFrame(() => setTimeout(() =>
-    $$('.lc-bar-fill').forEach(b => b.style.width = b.dataset.w + '%'), 60));
+  let offsetAcc = 0;
+  segs.forEach(([cls, val]) => {
+    const frac = (val || 0) / solvedTotal;
+    const len = frac * C;
+    const el = $('.' + cls);
+    if (!el) return;
+    el.style.strokeDasharray = `${len} ${C - len}`;
+    el.style.strokeDashoffset = `${-offsetAcc}`;
+    offsetAcc += len;
+  });
 
-  // doughnut chart
-  if (window.Chart) {
-    const styles = getComputedStyle(document.documentElement);
-    // avoid leaking/duplicating chart instances if loadLeetCode() ever runs twice
-    const existing = Chart.getChart($('#lc-doughnut'));
-    if (existing) existing.destroy();
-    new Chart($('#lc-doughnut'), {
-      type: 'doughnut',
-      data: {
-        labels: ['Easy', 'Medium', 'Hard'],
-        datasets: [{
-          data: [d.easySolved, d.mediumSolved, d.hardSolved],
-          backgroundColor: Object.values(LC_COLORS),
-          borderWidth: 0, hoverOffset: 10
-        }]
-      },
-      options: {
-        responsive: true, maintainAspectRatio: false, cutout: '68%',
-        plugins: { legend: { position: 'bottom', labels: { color: styles.getPropertyValue('--muted').trim(), usePointStyle: true, padding: 18, font: { family: 'Inter', size: 12 } } } },
-        animation: { animateRotate: true, duration: 1400, easing: 'easeOutQuart' }
-      }
-    });
+  // hover / tap toggle between "Solved" and "Acceptance" faces
+  const gaugeCard = $('#lc-gauge-card');
+  if (gaugeCard && !gaugeCard.dataset.wired) {
+    gaugeCard.dataset.wired = '1';
+    const shell = $('.lc-gauge-shell', gaugeCard);
+    shell.addEventListener('pointerenter', () => gaugeCard.classList.add('show-accept'));
+    shell.addEventListener('pointerleave', () => gaugeCard.classList.remove('show-accept'));
+    shell.addEventListener('click', () => gaugeCard.classList.toggle('show-accept'));
   }
 
   // submission activity — full-year animated calendar (same treatment as the GitHub graph)
@@ -307,11 +312,16 @@ function renderHeatmap(calendar) {
 
   const weeks = [];
   let cur = new Date(start), total = 0, week = [];
+  let activeDays = 0, curStreak = 0, maxStreak = 0;
   while (cur <= today) {
     const key = utcDayKey(cur.getTime());
     const inRange = cur >= rangeStart;
     const count = counts ? (counts[key] ?? 0) : seedCount(cur);
-    if (inRange) total += count;
+    if (inRange) {
+      total += count;
+      if (count > 0) { activeDays++; curStreak++; maxStreak = Math.max(maxStreak, curStreak); }
+      else curStreak = 0;
+    }
     week.push({ date: new Date(cur), count, inRange });
     if (cur.getUTCDay() === 6) { weeks.push(week); week = []; }
     cur.setUTCDate(cur.getUTCDate() + 1);
@@ -319,6 +329,9 @@ function renderHeatmap(calendar) {
   if (week.length) weeks.push(week);
 
   totalEl.textContent = total.toLocaleString();
+  const activeDaysEl = $('#lc-active-days'), maxStreakEl = $('#lc-max-streak');
+  if (activeDaysEl) activeDaysEl.textContent = activeDays.toLocaleString();
+  if (maxStreakEl) maxStreakEl.textContent = maxStreak.toLocaleString();
 
   const monthLabels = [];
   let lastMonth = -1;
