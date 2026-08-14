@@ -59,7 +59,7 @@ function toast(msg, icon = 'fa-circle-check') {
    Six selectable color themes ("Signal" family) each with its own
    light/dark mode pair. Both choices persist. */
 const themeEngine = {
-  theme: store.get('theme', 'signal'),
+  theme: store.get('theme', 'ocean'),
   mode: store.get('mode', 'light'),
   apply(animate = true) {
     if (animate && !html.classList.contains('reduce-motion')) {
