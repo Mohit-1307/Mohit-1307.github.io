@@ -167,6 +167,15 @@ MSR.PROJECTS = [
     timeline: '2024 · ongoing',
     features: ['Collection of interactive data/ML apps', 'State management & caching patterns', 'Deployment-ready app templates'],
     fallbackDesc: 'A collection of interactive Streamlit web apps turning ML models and datasets into usable products.'
+  },
+  {
+    repo: 'Loan-Eligibility-EMI-Predict-AI',
+    cat: 'Machine Learning', icon: 'fa-solid fa-sack-dollar',
+    arch: 'Applicant financial data → preprocessing & feature engineering → ML classification for loan eligibility + regression for EMI estimation → interactive Streamlit app.',
+    timeline: '2026',
+    features: ['Loan eligibility prediction from applicant financial data', 'EMI amount estimation with regression modeling', 'Interactive Streamlit interface for real-time predictions'],
+    fallbackDesc: 'An AI-powered app that predicts loan eligibility and estimates EMI amounts from applicant financial data.',
+    liveUrl: 'https://loan-eligibility-and-emi-predict-ai.streamlit.app'
   }
 ];
 
