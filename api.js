@@ -94,7 +94,7 @@ function renderProjects() {
         <div class="project-actions">
           <button class="mini-btn solid" data-details="${p.repo}"><i class="fa-solid fa-circle-info"></i> Details</button>
           <a class="mini-btn" href="${p.url}" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i> Code</a>
-          ${p.homepage ? `<a class="mini-btn" href="${p.homepage}" target="_blank" rel="noopener"><i class="fa-solid fa-arrow-up-right-from-square"></i> Demo</a>` : ''}
+          ${p.homepage ? `<a class="mini-btn" href="${p.homepage}" target="_blank" rel="noopener"><i class="fa-solid fa-arrow-up-right-from-square"></i> App</a>` : ''}
         </div>
       </div>
     </article>`).join('')
@@ -129,7 +129,7 @@ $('#projects-grid').addEventListener('click', e => {
     ${p.topics.length ? `<div class="pm-section"><h4>Topics</h4><div class="project-langs">${p.topics.map(t => `<span class="lang-tag">${t}</span>`).join('')}</div></div>` : ''}
     <div class="project-actions">
       <a class="mini-btn solid" href="${p.url}" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i> View on GitHub</a>
-      ${p.homepage ? `<a class="mini-btn" href="${p.homepage}" target="_blank" rel="noopener"><i class="fa-solid fa-arrow-up-right-from-square"></i> Live Demo</a>` : ''}
+      ${p.homepage ? `<a class="mini-btn" href="${p.homepage}" target="_blank" rel="noopener"><i class="fa-solid fa-arrow-up-right-from-square"></i> Live App</a>` : ''}
     </div>`;
   modal.hidden = false;
 });
