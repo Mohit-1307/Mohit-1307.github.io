@@ -60,7 +60,7 @@ function toast(msg, icon = 'fa-circle-check') {
    light/dark mode pair. Both choices persist. */
 const themeEngine = {
   theme: store.get('theme', 'ocean'),
-  mode: store.get('mode', 'light'),
+  mode: store.get('mode', 'dark'),
   apply(animate = true) {
     if (animate && !html.classList.contains('reduce-motion')) {
       html.classList.add('theme-anim');
