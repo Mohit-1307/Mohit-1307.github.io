@@ -102,15 +102,6 @@ MSR.PROJECTS = [
     liveUrl: 'https://techmart-ai-support.vercel.app/chat'
   },
   {
-    repo: 'Loan-Eligibility-EMI-Predict-AI',
-    cat: 'Machine Learning', icon: 'fa-solid fa-sack-dollar',
-    arch: 'Applicant financial data → preprocessing & feature engineering → ML classification for loan eligibility + regression for EMI estimation → interactive Streamlit app.',
-    timeline: '2026',
-    features: ['Loan eligibility prediction from applicant financial data', 'EMI amount estimation with regression modeling', 'Interactive Streamlit interface for real-time predictions'],
-    fallbackDesc: 'An AI-powered app that predicts loan eligibility and estimates EMI amounts from applicant financial data.',
-    liveUrl: 'https://loan-eligibility-and-emi-predict-ai.streamlit.app'
-  },
-  {
     repo: 'Facial-Emotion-Recognition-System',
     cat: 'Computer Vision', icon: 'fa-solid fa-face-smile',
     arch: 'Haar-cascade face detection → preprocessing pipeline → CNN classifier (Keras) trained on FER-style data → real-time OpenCV inference loop.',
@@ -118,6 +109,24 @@ MSR.PROJECTS = [
     features: ['Real-time webcam emotion detection', 'Custom CNN with data augmentation', 'Class-imbalance handling & evaluation dashboards', 'Seven-emotion classification head'],
     fallbackDesc: 'Real-time facial emotion recognition using CNNs and OpenCV — detecting seven emotions from live video.',
     liveUrl: 'https://deepfer-q8kd.onrender.com/'
+  },
+  {
+    repo: 'Loan-Eligibility-and-EMI-Prediction-AI',
+    cat: 'Machine Learning', icon: 'fa-solid fa-sack-dollar',
+    arch: 'Applicant financial data → preprocessing & feature engineering → ML classification for loan eligibility + regression for EMI estimation → interactive Streamlit app.',
+    timeline: '2026',
+    features: ['Loan eligibility prediction from applicant financial data', 'EMI amount estimation with regression modeling', 'Interactive Streamlit interface for real-time predictions'],
+    fallbackDesc: 'An AI-powered app that predicts loan eligibility and estimates EMI amounts from applicant financial data.',
+    liveUrl: 'https://loan-eligibility-and-emi-prediction-ai.streamlit.app/'
+  },
+  {
+    repo: 'Tourism-Experience-Analytics-System',
+    cat: 'Machine Learning', icon: 'fa-solid fa-earth-asia',
+    arch: 'Tourism dataset → EDA & feature engineering → ML models for experience prediction → interactive Streamlit analytics dashboard.',
+    timeline: '2025',
+    features: ['Tourism experience prediction from visitor data', 'Comprehensive EDA with tourism feature insights', 'Interactive Streamlit analytics dashboard', 'Multi-model comparison and evaluation'],
+    fallbackDesc: 'An analytics system for predicting and understanding tourism experiences using machine learning.',
+    liveUrl: 'https://tourism-experience-analytics-system.streamlit.app/'
   },
   {
     repo: 'Shopper-Spectrum',
@@ -162,20 +171,20 @@ MSR.PROJECTS = [
     fallbackDesc: 'A convolutional neural network that reads handwritten digits — the project that started my deep learning journey.'
   },
   {
-    repo: 'AI-Agents-and-RAG-Systems',
-    cat: 'GenAI & Agents', icon: 'fa-solid fa-diagram-project',
-    arch: 'LangChain + LangGraph experiments → embedding pipelines → FAISS vector stores → agentic RAG with OpenAI / Claude / Groq / Ollama backends.',
-    timeline: '2025 · ongoing',
-    features: ['Agent design patterns & tool use', 'Multi-provider LLM abstraction (OpenAI, Claude, Groq, Ollama)', 'Chunking & retrieval quality experiments'],
-    fallbackDesc: 'A living lab of AI agent architectures and retrieval-augmented generation systems across multiple LLM providers.'
-  },
-  {
     repo: 'Interactive-Web-Apps-with-Streamlit',
     cat: 'ML Engineering', icon: 'fa-solid fa-window-restore',
     arch: 'Reusable Streamlit component patterns → data apps with caching, forms, charts → deployable ML demo templates.',
     timeline: '2024 · ongoing',
     features: ['Collection of interactive data/ML apps', 'State management & caching patterns', 'Deployment-ready app templates'],
     fallbackDesc: 'A collection of interactive Streamlit web apps turning ML models and datasets into usable products.'
+  },
+  {
+    repo: 'AI-Agents-and-RAG-Systems',
+    cat: 'GenAI & Agents', icon: 'fa-solid fa-diagram-project',
+    arch: 'LangChain + LangGraph experiments → embedding pipelines → FAISS vector stores → agentic RAG with OpenAI / Claude / Groq / Ollama backends.',
+    timeline: '2025 · ongoing',
+    features: ['Agent design patterns & tool use', 'Multi-provider LLM abstraction (OpenAI, Claude, Groq, Ollama)', 'Chunking & retrieval quality experiments'],
+    fallbackDesc: 'A living lab of AI agent architectures and retrieval-augmented generation systems across multiple LLM providers.'
   }
 ];
 
