@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="ocean" data-mode="dark">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mohit Singh Rajput — AI/ML Engineer</title>
 <meta name="description" content="Mohit Singh Rajput — AI/ML Engineer crafting intelligent systems with Deep Learning, LLMs, RAG pipelines, Computer Vision and Generative AI.">
 <meta name="author" content="Mohit Singh Rajput">
-<meta name="theme-color" content="#F7F5EF">
+<meta name="theme-color" content="#F5F2EC">
 <link rel="canonical" href="./">
 <link rel="manifest" href="manifest.json">
 <link rel="alternate" type="application/rss+xml" title="MSR.ai Blog" href="rss.xml">
@@ -43,11 +43,11 @@
 }
 </script>
 
-<link rel="icon" id="favicon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2333533C'/%3E%3Ctext x='32' y='43' font-size='28' font-family='Georgia' font-weight='600' fill='%23F7F5EF' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E">
+<link rel="icon" id="favicon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23006b8f'/%3E%3Ctext x='32' y='43' font-size='28' font-family='Georgia' font-weight='600' fill='%23F7F5EF' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;450;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer">
 <script>
   // Fallback: if the primary Font Awesome CDN fails to load (blocked network, ad-block, etc.),
@@ -113,12 +113,6 @@
     <div class="nav-actions">
       <button id="cmdk-trigger" class="nav-icon-btn" title="Command palette (Ctrl+K)" aria-label="Open command palette">
         <i class="fa-solid fa-magnifying-glass"></i>
-      </button>
-      <button id="mode-toggle" class="nav-icon-btn" title="Toggle light / dark" aria-label="Toggle light or dark mode">
-        <i class="fa-solid fa-moon"></i>
-      </button>
-      <button id="theme-trigger" class="nav-icon-btn" title="Color theme" aria-label="Open color theme picker">
-        <i class="fa-solid fa-palette"></i>
       </button>
       <button id="nav-burger" class="nav-icon-btn burger" aria-label="Open menu" aria-expanded="false">
         <span></span><span></span>
@@ -498,36 +492,43 @@
   </div>
 </div>
 
-<!-- ═══════════ THEME PICKER ═══════════ -->
-<aside id="theme-panel" aria-label="Color theme picker" hidden>
-  <div class="tp-head"><h3><i class="fa-solid fa-palette"></i> Color Theme</h3><button id="theme-close" class="nav-icon-btn" aria-label="Close theme picker"><i class="fa-solid fa-xmark"></i></button></div>
-  <p class="tp-label mono">theme</p>
-  <div class="tp-theme">
-    <button data-theme-set="oracle" class="tp-theme-btn"><span class="swatch"></span> Oracle AI</button>
-    <button data-theme-set="ocean" class="tp-theme-btn"><span class="swatch"></span> Ocean</button>
-    <button data-theme-set="signal" class="tp-theme-btn"><span class="swatch"></span> Signal</button>
-    <button data-theme-set="mono" class="tp-theme-btn"><span class="swatch"></span> Light</button>
-    <button data-theme-set="crimson" class="tp-theme-btn"><span class="swatch"></span> Crimson</button>
-  </div>
-  <p class="tp-label mono">mode</p>
-  <div class="tp-mode">
-    <button data-mode-set="light" class="tp-mode-btn"><i class="fa-solid fa-sun"></i> Light</button>
-    <button data-mode-set="dark" class="tp-mode-btn"><i class="fa-solid fa-moon"></i> Dark</button>
-  </div>
-</aside>
+
 
 <!-- ═══════════ BACK TO TOP ═══════════ -->
 <button id="back-to-top" aria-label="Back to top" title="Back to top">
   <i class="fa-solid fa-arrow-up"></i>
 </button>
 
+<!-- ═══════════ ORACLE CONTACT WIDGET ═══════════ -->
+<div id="oracle-widget" aria-label="Contact options">
+  <button id="ocw-chat-btn" class="ocw-btn" title="Chat with MSR AI" aria-label="Open AI assistant">
+    <i class="fa-solid fa-comments"></i>
+  </button>
+  <button id="ocw-call-btn" class="ocw-btn ocw-phone-btn" title="Contact" aria-label="Contact information">
+    <i class="fa-solid fa-phone"></i>
+  </button>
+</div>
+
+<!-- ═══════════ ORACLE CONTACT POPUP ═══════════ -->
+<div id="oracle-contact-popup" hidden aria-label="Contact options">
+  <button class="ocp-close" id="ocp-close" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+  <div class="ocp-chat-row" id="ocp-open-chat">
+    <span class="ocp-icon ocp-icon-chat"><i class="fa-solid fa-comments"></i></span>
+    <span class="ocp-chat-label">Chat now</span>
+  </div>
+  <hr class="ocp-divider">
+  <div class="ocp-call-row">
+    <span class="ocp-icon ocp-icon-call"><i class="fa-solid fa-phone"></i></span>
+    <span class="ocp-call-label">Call</span>
+  </div>
+  <div class="ocp-phone">+91 98879 94311</div>
+  <p class="ocp-link"><a href="mailto:mohitsinghrajput1307@gmail.com">mohitsinghrajput1307@gmail.com</a></p>
+</div>
+
 <!-- ═══════════ AI ASSISTANT ═══════════ -->
-<button id="chat-fab" aria-label="Open AI assistant" title="Ask my AI assistant">
-  <i class="fa-solid fa-robot"></i><span class="fab-ping"></span>
-</button>
 <aside id="chat-panel" aria-label="AI assistant" hidden>
   <header class="chat-head">
-    <div class="chat-id"><span class="brand-orb"></span><div><strong>MSR Assistant</strong><span class="chat-status mono"><i class="pulse-dot"></i> online · local model</span></div></div>
+    <div class="chat-id"><div style="width:34px;height:34px;border-radius:8px;background:#c74b1f;display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="fa-solid fa-comments" style="color:#fff;font-size:.9rem"></i></div><div><strong>MSR Assistant</strong><span class="chat-status mono"><i class="pulse-dot"></i> CONNECTED</span></div></div>
     <button id="chat-close" class="nav-icon-btn" aria-label="Close assistant"><i class="fa-solid fa-xmark"></i></button>
   </header>
   <div class="chat-log" id="chat-log" aria-live="polite"></div>
