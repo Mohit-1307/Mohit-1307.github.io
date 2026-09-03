@@ -115,6 +115,140 @@
   --shadow:0 24px 60px -22px rgba(0,0,0,.6);
 }
 
+/* — Oracle AI — exact Oracle Artificial Intelligence marketing site palette.
+   Light mode: warm cream ground (#F5F2EC), Oracle teal accent (#006b8f),
+   deep warm-dark surface (#312d2a), Oracle red CTA (#c74b1f).
+   Dark mode: true black surface (#000000), teal primary, muted dark ground (#312d2a). — */
+[data-theme="oracle"][data-mode="light"]{
+  --bg:#F5F2EC; --bg-2:#EBE8E1; --surface:rgba(255,255,255,.90); --surface-2:rgba(255,255,255,.98);
+  --border:rgba(22,21,19,.12); --text:#161513; --muted:#4a4845;
+  --primary:#006b8f; --accent:#008db5; --pop:#c74b1f; --glow:rgba(0,107,143,.28);
+  --grad:linear-gradient(120deg,#006b8f,#008db5 60%,#c74b1f);
+  --shadow:0 24px 50px -28px rgba(22,21,19,.16);
+}
+[data-theme="oracle"][data-mode="dark"]{
+  --bg:#000000; --bg-2:#1a1715; --surface:rgba(49,45,42,.72); --surface-2:rgba(49,45,42,.96);
+  --border:rgba(245,242,236,.10); --text:#f5f2ec; --muted:#a8a49e;
+  --primary:#00a8d4; --accent:#33c3ee; --pop:#e8602a; --glow:rgba(0,168,212,.34);
+  --grad:linear-gradient(120deg,#00a8d4,#33c3ee 60%,#e8602a);
+  --shadow:0 24px 60px -22px rgba(0,0,0,.72);
+}
+
+/* Oracle font stack — closest web-safe approximation of OracleSansVF */
+[data-theme="oracle"]{
+  --font-body:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI','Helvetica Neue',sans-serif;
+  --font-display:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI','Helvetica Neue',sans-serif;
+  --font-mono:'JetBrains Mono',ui-monospace,monospace;
+  --radius:6px;
+  --radius-sm:5.73px;
+  --radius-btn:6px;
+}
+
+/* Oracle dark mode nav: black bar, exact match */
+[data-theme="oracle"][data-mode="dark"] #site-nav{
+  background:rgba(0,0,0,.95);
+  border-bottom-color:rgba(245,242,236,.10);
+}
+[data-theme="oracle"][data-mode="light"] #site-nav{
+  background:rgba(245,242,236,.94);
+}
+/* Oracle hero heading — heavier, tighter — matches OracleAI hero h1 */
+[data-theme="oracle"] .hero-name{
+  font-weight:700;
+  font-size:clamp(2.4rem,5.5vw,4rem);
+  letter-spacing:-.02em;
+  font-style:normal;
+}
+[data-theme="oracle"] .grad-text{
+  background:none;
+  -webkit-background-clip:unset;
+  background-clip:unset;
+  color:var(--text);
+}
+/* Oracle primary CTA button — dark filled, Oracle style */
+[data-theme="oracle"] .btn-primary{
+  background:#161513;
+  color:#ffffff;
+  border:1.5px solid #161513;
+  box-shadow:none;
+  border-radius:var(--radius-btn);
+  font-weight:600;
+  letter-spacing:.01em;
+}
+[data-theme="oracle"][data-mode="dark"] .btn-primary{
+  background:#f5f2ec;
+  color:#161513;
+  border-color:#f5f2ec;
+}
+[data-theme="oracle"] .btn-primary:hover{
+  background:var(--primary);
+  border-color:var(--primary);
+  color:#ffffff;
+  box-shadow:0 8px 28px -8px var(--glow);
+  transform:translateY(-1px);
+}
+/* Oracle ghost button */
+[data-theme="oracle"] .btn-ghost{
+  border-color:var(--text);
+  color:var(--text);
+}
+[data-theme="oracle"] .btn-ghost:hover{
+  border-color:var(--primary);
+  color:var(--primary);
+  transform:translateY(-1px);
+}
+/* Section eyebrow: Oracle uses a subtle teal label */
+[data-theme="oracle"] .section-eyebrow{
+  color:var(--primary);
+  font-size:.7rem;
+  letter-spacing:.18em;
+}
+/* Section title: Oracle uses weight 400–500, not heavy serif */
+[data-theme="oracle"] .section-title{
+  font-weight:600;
+  font-family:var(--font-body);
+}
+/* Hero greeting */
+[data-theme="oracle"] .hero-greeting{
+  color:var(--muted);
+  font-family:var(--font-body);
+}
+/* Nav links in Oracle theme: clean sans, slightly smaller */
+[data-theme="oracle"] .nav-links{
+  font-family:var(--font-body);
+  font-size:.8rem;
+}
+[data-theme="oracle"] .nav-brand{
+  font-family:var(--font-body);
+  font-weight:700;
+}
+/* Cards: Oracle uses clean lines, minimal radius */
+[data-theme="oracle"] .project-card,
+[data-theme="oracle"] .skill-card,
+[data-theme="oracle"] .cert-card,
+[data-theme="oracle"] .lc-card,
+[data-theme="oracle"] .ach-card,
+[data-theme="oracle"] .xp-card,
+[data-theme="oracle"] .course-card,
+[data-theme="oracle"] .blog-card,
+[data-theme="oracle"] .edu-card{
+  border-radius:var(--radius);
+}
+/* Oracle dark: stronger surface contrast */
+[data-theme="oracle"][data-mode="dark"] .project-card,
+[data-theme="oracle"][data-mode="dark"] .skill-card,
+[data-theme="oracle"][data-mode="dark"] .cert-card,
+[data-theme="oracle"][data-mode="dark"] .xp-card,
+[data-theme="oracle"][data-mode="dark"] .course-card,
+[data-theme="oracle"][data-mode="dark"] .blog-card,
+[data-theme="oracle"][data-mode="dark"] .edu-card,
+[data-theme="oracle"][data-mode="dark"] .contact-form{
+  background:rgba(26,23,21,.85);
+  border-color:rgba(245,242,236,.12);
+}
+/* Swatch for theme picker */
+.tp-theme-btn[data-theme-set="oracle"] .swatch{background:linear-gradient(120deg,#006b8f,#008db5)}
+
 /* High-contrast override */
 html.hc{ --border:rgba(128,128,128,.55); --muted:inherit; }
 html.hc body{ --muted:var(--text); }
