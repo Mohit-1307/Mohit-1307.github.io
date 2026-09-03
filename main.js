@@ -55,52 +55,55 @@ function toast(msg, icon = 'fa-circle-check') {
   setTimeout(() => { el.classList.add('out'); setTimeout(() => el.remove(), 450); }, 2600);
 }
 
-/* ════════ THEME ENGINE ════════
-   Six selectable color themes ("Signal" family) each with its own
-   light/dark mode pair. Both choices persist. */
-const themeEngine = {
-  theme: store.get('theme', 'ocean'),
-  mode: store.get('mode', 'dark'),
-  apply(animate = true) {
-    if (animate && !html.classList.contains('reduce-motion')) {
-      html.classList.add('theme-anim');
-      setTimeout(() => html.classList.remove('theme-anim'), 650);
-    }
-    html.dataset.theme = this.theme;
-    html.dataset.mode = this.mode;
-    store.set('theme', this.theme);
-    store.set('mode', this.mode);
-    $('#mode-toggle i').className = this.mode === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
-    $$('.tp-mode-btn').forEach(b => b.classList.toggle('active', b.dataset.modeSet === this.mode));
-    $$('.tp-theme-btn').forEach(b => b.classList.toggle('active', b.dataset.themeSet === this.theme));
-    const meta = $('meta[name="theme-color"]');
-    if (meta) meta.content = getComputedStyle(html).getPropertyValue('--bg').trim() || '#F7F5EF';
-    this.favicon();
-  },
-  favicon() {
-    const p = encodeURIComponent(getComputedStyle(html).getPropertyValue('--primary').trim() || '#33533C');
-    $('#favicon').href = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='${p}'/%3E%3Ctext x='32' y='43' font-size='28' font-family='Georgia' font-weight='600' fill='white' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E`;
-  },
-  toggleMode() { this.mode = this.mode === 'dark' ? 'light' : 'dark'; this.apply(); sound.pop(); },
-  setTheme(t) { this.theme = t; this.apply(); sound.pop(); }
+/* ════════ ORACLE AI THEME ════════
+   Single hardcoded Oracle AI theme — no switching.
+   Favicon uses Oracle teal. */
+function toggleThemePanel() {} // stub so command palette reference doesn't break
+(() => {
+  const p = encodeURIComponent('#006b8f');
+  const fav = $('#favicon');
+  if (fav) fav.href = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='${p}'/%3E%3Ctext x='32' y='43' font-size='28' font-family='Inter' font-weight='700' fill='white' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E`;
+  const meta = $('meta[name="theme-color"]');
+  if (meta) meta.content = '#F5F2EC';
+})();
+
+/* ════════ ORACLE CONTACT WIDGET ════════
+   Two stacked icon buttons on the right side (chat + call).
+   Chat opens the AI assistant panel.
+   Call/info button shows the contact popup (image 2 style). */
+const oracleWidget = {
+  popup: null,
+  init() {
+    this.popup = $('#oracle-contact-popup');
+    const chatBtn = $('#ocw-chat-btn');
+    const callBtn = $('#ocw-call-btn');
+    const closeBtn = $('#ocp-close');
+    const openChatRow = $('#ocp-open-chat');
+    const togglePopup = (show) => { if (this.popup) this.popup.hidden = !show; };
+
+    chatBtn?.addEventListener('click', () => {
+      // chat button directly opens AI assistant
+      openChat(chatPanel.hidden);
+      togglePopup(false);
+    });
+    callBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      togglePopup(!!this.popup?.hidden);
+    });
+    closeBtn?.addEventListener('click', () => togglePopup(false));
+    openChatRow?.addEventListener('click', () => {
+      togglePopup(false);
+      openChat(true);
+    });
+    document.addEventListener('click', (e) => {
+      if (!this.popup?.hidden &&
+          !this.popup?.contains(e.target) &&
+          !callBtn?.contains(e.target)) {
+        togglePopup(false);
+      }
+    });
+  }
 };
-
-$('#mode-toggle').addEventListener('click', () => themeEngine.toggleMode());
-$$('.tp-mode-btn').forEach(b => b.addEventListener('click', () => { themeEngine.mode = b.dataset.modeSet; themeEngine.apply(); }));
-$$('.tp-theme-btn').forEach(b => b.addEventListener('click', () => themeEngine.setTheme(b.dataset.themeSet)));
-themeEngine.apply(false);
-
-/* theme panel open/close */
-const themePanel = $('#theme-panel');
-function toggleThemePanel(open) {
-  if (open) { themePanel.hidden = false; requestAnimationFrame(() => themePanel.classList.add('open')); }
-  else { themePanel.classList.remove('open'); setTimeout(() => themePanel.hidden = true, 500); }
-}
-$('#theme-trigger').addEventListener('click', () => toggleThemePanel(themePanel.hidden));
-$('#theme-close').addEventListener('click', () => toggleThemePanel(false));
-document.addEventListener('click', e => {
-  if (!themePanel.hidden && !themePanel.contains(e.target) && !$('#theme-trigger').contains(e.target)) toggleThemePanel(false);
-});
 
 /* ════════ ACCESSIBILITY (auto, follows system preference) ════════ */
 html.classList.toggle('reduce-motion', prefersReduced);
@@ -441,8 +444,6 @@ let cmdItems = [], cmdSel = 0;
 function buildCommands() {
   cmdItems = [
     ...MSR.CMD_SECTIONS.map(([label, target, icon]) => ({ label, icon, kind: 'section', run: () => { $(target)?.scrollIntoView({ behavior: 'smooth' }); } })),
-    { label: 'Toggle Light / Dark', icon: 'fa-solid fa-circle-half-stroke', kind: 'action', run: () => themeEngine.toggleMode() },
-    { label: 'Change Color Theme', icon: 'fa-solid fa-palette', kind: 'action', run: () => toggleThemePanel(true) },
     { label: 'Open AI Assistant', icon: 'fa-solid fa-robot', kind: 'action', run: () => openChat(true) },
     ...MSR.CMD_LINKS.map(([label, url, icon]) => ({ label, icon, kind: 'link', run: () => window.open(url, '_blank', 'noopener') }))
   ];
@@ -483,7 +484,7 @@ cmdkInput.addEventListener('keydown', e => {
 /* keyboard shortcuts */
 document.addEventListener('keydown', e => {
   if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); openCmdk(cmdk.hidden); }
-  if (e.key === 'Escape') { openCmdk(false); lightbox.hidden = true; $('#project-modal').hidden = true; $('#blog-modal').hidden = true; toggleThemePanel(false); openChat(false); }
+  if (e.key === 'Escape') { openCmdk(false); lightbox.hidden = true; $('#project-modal').hidden = true; $('#blog-modal').hidden = true; if ($('#oracle-contact-popup')) $('#oracle-contact-popup').hidden = true; openChat(false); }
   if (e.key === '/' && !e.target.matches('input,textarea')) { e.preventDefault(); $('#skill-search').focus(); }
 });
 
@@ -516,7 +517,7 @@ function botAnswer(q) {
   const rule = MSR.BOT.rules.find(r => r.k.some(k => l.includes(k)));
   botSay(rule ? rule.a : MSR.BOT.fallback);
 }
-$('#chat-fab').addEventListener('click', () => openChat(chatPanel.hidden));
+// chat-fab replaced by Oracle widget — see oracleWidget.init()
 $('#chat-close').addEventListener('click', () => openChat(false));
 $('#chat-suggest').addEventListener('click', e => {
   if (!e.target.matches('button')) return;
@@ -529,6 +530,9 @@ chatForm.addEventListener('submit', e => {
   chatInput.value = '';
   botAnswer(q);
 });
+
+/* ════════ ORACLE WIDGET INIT ════════ */
+oracleWidget.init();
 
 /* ════════ VISITOR COUNTER + FOOTER ════════ */
 (() => {
@@ -554,10 +558,7 @@ chatForm.addEventListener('submit', e => {
   $('.nav-brand').addEventListener('click', () => {
     clicks++; clearTimeout(timer);
     timer = setTimeout(() => clicks = 0, 1200);
-    if (clicks === 5) { toast('🎉 You found the easter egg!', 'fa-wand-magic-sparkles');
-      themeEngine.toggleMode();
-      clicks = 0;
-    }
+    if (clicks === 5) { toast('🎉 You found the easter egg!', 'fa-wand-magic-sparkles'); clicks = 0; }
   });
 })();
 })();
