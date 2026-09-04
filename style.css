@@ -1273,3 +1273,447 @@ html.theme-anim body::after { animation-duration: 0s; }
 @media print {
   #oracle-widget,#oracle-contact-popup { display: none !important; }
 }
+
+/* ═══ ORACLE DUAL-BAR NAV + ALL VISUAL UPDATES ═══ */
+
+/* ── Dual bar nav variables ── */
+:root {
+  --nav-top-h: 60px;
+  --nav-sec-h: 46px;
+}
+
+/* ── Oracle white top bar ── */
+#site-nav {
+  display: flex;
+  flex-direction: column;
+  background: transparent;
+  box-shadow: none;
+  border: none;
+}
+.nav-top {
+  background: #ffffff;
+  border-bottom: 1px solid rgba(22,21,19,.12);
+  height: var(--nav-top-h);
+  display: flex;
+  align-items: center;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+.nav-top .nav-dock {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  padding: 0 32px;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+/* Oracle dark secondary bar */
+.nav-secondary {
+  background: #2a2825;
+  height: var(--nav-sec-h);
+  display: flex;
+  align-items: center;
+  border-bottom: none;
+}
+.nav-secondary .nav-dock {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 32px;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+/* Nav links in dark secondary bar */
+.nav-links {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  margin: 0; padding: 0;
+  gap: 0;
+  height: 100%;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.nav-links::-webkit-scrollbar { display: none; }
+.nav-links li { height: 100%; display: flex; align-items: stretch; }
+.nav-links a {
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  color: rgba(255,255,255,.82);
+  font-family: var(--font-body);
+  font-size: .83rem;
+  font-weight: 400;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  transition: color .18s, border-color .18s;
+  text-decoration: none;
+}
+.nav-links a:hover { color: #ffffff; }
+.nav-links a.active {
+  color: #ffffff;
+  font-weight: 500;
+  border-bottom-color: #e8b060; /* Oracle amber/golden active indicator */
+}
+.nav-links a::after { display: none !important; } /* remove old underline pseudo */
+/* Adjust brand and action in top bar */
+.nav-brand {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: #161513;
+  letter-spacing: .01em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+}
+.nav-brand i {
+  font-style: normal;
+  color: var(--pop);
+}
+.brand-orb {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--primary);
+  flex-shrink: 0;
+}
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.nav-icon-btn {
+  border: 1px solid rgba(22,21,19,.15);
+  color: #4a4845;
+}
+.nav-icon-btn:hover { color: #161513; border-color: rgba(22,21,19,.3); transform: none; }
+/* Update hero section top padding for dual nav */
+#hero-section {
+  padding-top: calc(var(--nav-top-h) + var(--nav-sec-h) + 3rem) !important;
+  scroll-margin-top: calc(var(--nav-top-h) + var(--nav-sec-h));
+}
+/* Update scroll-margin for all sections */
+section[id], #hero-section {
+  scroll-margin-top: calc(var(--nav-top-h) + var(--nav-sec-h) + 0.5rem);
+}
+/* Mobile: stack nav, hide secondary if needed */
+@media(max-width: 768px) {
+  .nav-links { gap: 0; }
+  .nav-links a { padding: 0 10px; font-size: .78rem; }
+  .nav-top .nav-dock { padding: 0 16px; }
+  .nav-secondary .nav-dock { padding: 0 12px; }
+  #hero-section { padding-top: calc(var(--nav-top-h) + var(--nav-sec-h) + 2rem) !important; }
+}
+
+/* ── Oracle exact button color (#2a2825 — exact Oracle CTA match) ── */
+.btn-primary,
+.btn-primary:not(:hover) {
+  background: #2a2825 !important;
+  border-color: #2a2825 !important;
+  color: #ffffff !important;
+}
+.btn-primary:hover {
+  background: #3d3834 !important;
+  border-color: #3d3834 !important;
+}
+.mini-btn.solid {
+  background: #2a2825 !important;
+  border-color: #2a2825 !important;
+  color: #ffffff !important;
+}
+.mini-btn.solid:hover { background: #3d3834 !important; border-color: #3d3834 !important; }
+.btn-ghost { border-color: #2a2825 !important; color: #2a2825 !important; }
+.btn-ghost:hover { border-color: var(--primary) !important; color: var(--primary) !important; }
+
+/* ── Hero heading: Oracle style (lighter weight, Oracle font feel) ── */
+.hero-name {
+  font-weight: 300 !important;
+  font-size: clamp(2.4rem, 5.5vw, 4.2rem) !important;
+  letter-spacing: -.02em !important;
+  color: #161513 !important;
+  line-height: 1.05 !important;
+}
+.grad-text {
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  background-clip: unset !important;
+  color: #161513 !important;
+  font-weight: 300 !important;
+}
+
+/* ── Oracle AI video card (replaces hologram card) ── */
+.oracle-ai-card {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4/3;
+  border-radius: 14px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #0c2f3f 0%, #0e3a4b 45%, #0a2c3a 100%);
+  box-shadow: 0 20px 64px rgba(0,0,0,.38), 0 4px 20px rgba(0,0,0,.18);
+}
+.oac-bg {
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(rgba(255,255,255,.022) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.022) 1px, transparent 1px);
+  background-size: 28px 28px;
+  mask-image: radial-gradient(ellipse at 40% 50%, #000 25%, transparent 72%);
+  -webkit-mask-image: radial-gradient(ellipse at 40% 50%, #000 25%, transparent 72%);
+}
+/* Abstract organic shapes matching Oracle AI card colors */
+.oac-shapes { position: absolute; right: 0; top: 0; bottom: 0; left: 40%; pointer-events: none; }
+.oac-sh { position: absolute; border-radius: 50%; mix-blend-mode: screen; }
+.oac-sh1 {
+  width: 55%; height: 55%; right: -10%; top: -15%;
+  background: radial-gradient(circle, rgba(199,75,31,.75) 0%, rgba(199,75,31,.25) 55%, transparent 75%);
+}
+.oac-sh2 {
+  width: 48%; height: 65%; right: 10%; bottom: -10%;
+  background: radial-gradient(ellipse, rgba(195,100,140,.65) 0%, rgba(150,75,130,.28) 55%, transparent 75%);
+  border-radius: 40% 60%;
+}
+.oac-sh3 {
+  width: 38%; height: 38%; right: 28%; top: 28%;
+  background: radial-gradient(circle, rgba(180,140,70,.5) 0%, transparent 65%);
+}
+/* Subtle dotted particle lines from Oracle card */
+.oac-shapes::after {
+  content: '';
+  position: absolute;
+  right: 30%; top: 30%;
+  width: 45%; height: 60%;
+  background-image: radial-gradient(circle, rgba(255,255,255,.45) 1px, transparent 1px);
+  background-size: 7px 7px;
+  mask-image: linear-gradient(135deg, transparent 20%, rgba(0,0,0,.6) 50%, transparent 80%);
+  -webkit-mask-image: linear-gradient(135deg, transparent 20%, rgba(0,0,0,.6) 50%, transparent 80%);
+}
+.oac-content {
+  position: absolute;
+  left: 24px; top: 20px; right: 42%;
+}
+.oac-label {
+  font-family: var(--font-body);
+  font-size: .65rem;
+  font-weight: 600;
+  letter-spacing: .2em;
+  color: rgba(255,255,255,.65);
+  text-transform: uppercase;
+  margin: 0 0 18px;
+}
+.oac-heading {
+  font-family: var(--font-serif);
+  font-size: clamp(1.4rem, 2.8vw, 2.1rem);
+  font-weight: 300;
+  color: #ffffff;
+  line-height: 1.22;
+  margin: 0;
+  letter-spacing: -.01em;
+}
+.oac-play-btn {
+  position: absolute;
+  right: 18px; bottom: 40px;
+  width: 54px; height: 54px;
+  border-radius: 50%;
+  background: rgba(20,18,16,.78);
+  border: none;
+  color: #ffffff;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background .2s, transform .2s;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  padding-left: 3px; /* optical center for ▶ */
+}
+.oac-play-btn:hover { background: rgba(20,18,16,.96); transform: scale(1.1); }
+/* Waveform bars (animated while speaking) */
+.oac-wave {
+  position: absolute;
+  bottom: 50px; left: 22px; right: 58%;
+  display: flex; align-items: flex-end; gap: 3px; height: 22px;
+}
+.oac-wave span {
+  flex: 1;
+  background: rgba(255,255,255,.7);
+  border-radius: 2px 2px 0 0;
+  animation: owave .85s ease-in-out infinite alternate;
+}
+.oac-wave span:nth-child(1){animation-delay:0s}
+.oac-wave span:nth-child(2){animation-delay:.1s}
+.oac-wave span:nth-child(3){animation-delay:.18s}
+.oac-wave span:nth-child(4){animation-delay:.26s}
+.oac-wave span:nth-child(5){animation-delay:.34s}
+.oac-wave span:nth-child(6){animation-delay:.42s}
+.oac-wave span:nth-child(7){animation-delay:.5s}
+@keyframes owave { from { height: 3px; } to { height: 20px; } }
+.oac-caption {
+  position: absolute; bottom: 12px; left: 20px; right: 20px;
+  font-family: var(--font-body); font-size: .73rem;
+  color: rgba(255,255,255,.5); margin: 0;
+}
+
+/* ── Compact project cards (half height, no desc, SI logos) ── */
+.project-card {
+  padding: 0 !important;
+  min-height: unset !important;
+}
+.project-banner {
+  height: 110px !important;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 8px;
+  background: linear-gradient(135deg, rgba(0,107,143,.1), rgba(0,141,181,.06)) !important;
+  border-radius: 0 !important;
+  margin: 0 !important;
+  position: relative;
+}
+.project-banner .project-cat {
+  position: absolute; top: 10px; left: 12px;
+  font-size: .6rem; letter-spacing: .12em;
+  color: var(--muted); text-transform: uppercase;
+  background: rgba(255,255,255,.85); border: 1px solid var(--border);
+  padding: 2px 8px; border-radius: 20px;
+}
+.project-banner i {
+  font-size: 2rem;
+  color: var(--primary);
+}
+.proj-si-logo {
+  width: 48px; height: 48px;
+  object-fit: contain;
+}
+.project-body {
+  padding: 14px 18px 18px !important;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.project-name {
+  font-size: .92rem !important;
+  font-weight: 700 !important;
+  line-height: 1.3 !important;
+  color: var(--text) !important;
+}
+.project-desc { display: none !important; } /* hidden on card; shown in modal */
+.project-langs { display: none !important; }
+.project-meta { font-size: .75rem !important; gap: 8px !important; }
+.project-actions { margin-top: 4px !important; }
+.project-card .mini-btn { font-size: .75rem !important; padding: 7px 13px !important; }
+
+/* ── Skills grid: logo + name only ── */
+.skills-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)) !important;
+  gap: 12px !important;
+}
+/* Remove old skill filters */
+#skill-filters { display: none !important; }
+#skill-search { display: none !important; }
+.skill-card {
+  background: #ffffff !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 8px !important;
+  padding: 16px 10px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 10px !important;
+  box-shadow: none !important;
+  text-align: center !important;
+  cursor: default !important;
+  min-height: unset !important;
+  transition: transform .2s, border-color .2s, box-shadow .2s !important;
+}
+.skill-card:hover {
+  transform: translateY(-3px) !important;
+  border-color: var(--primary) !important;
+  box-shadow: 0 8px 20px rgba(0,107,143,.1) !important;
+}
+.skill-card::before { display: none !important; }
+.skill-icon {
+  width: 42px; height: 42px;
+  display: flex; align-items: center; justify-content: center;
+}
+.skill-icon img {
+  width: 36px; height: 36px;
+  object-fit: contain;
+}
+.skill-icon i {
+  font-size: 2rem;
+}
+.skill-name {
+  font-family: var(--font-body);
+  font-size: .7rem;
+  font-weight: 500;
+  color: var(--text);
+  line-height: 1.3;
+}
+/* Remove old skill card innards */
+.skill-card-top,
+.skill-bar-track,
+.skill-card-bottom { display: none !important; }
+/* Skills summary: compact */
+.skills-summary li {
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 14px 16px;
+}
+.skills-summary strong {
+  font-size: 1.5rem !important;
+  color: var(--primary) !important;
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  background-clip: unset !important;
+}
+
+/* ── Compact cert cards (half height, icon + title + view) ── */
+.cert-art {
+  height: 100px !important;
+  background: linear-gradient(135deg, rgba(0,107,143,.12), rgba(0,141,181,.06)) !important;
+  display: flex; align-items: center; justify-content: center;
+}
+.cert-art i { font-size: 2.2rem !important; color: var(--primary) !important; }
+.cert-body { padding: 14px 18px 18px !important; }
+.cert-body h3 {
+  font-size: .88rem !important;
+  font-weight: 700 !important;
+  line-height: 1.3 !important;
+  margin-bottom: 6px !important;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.cert-issuer {
+  font-size: .75rem !important;
+  color: var(--muted) !important;
+  margin-bottom: 10px !important;
+}
+.cert-issuer i { color: var(--primary) !important; }
+.cert-tag { display: none !important; }
+.cert-card .mini-btn.solid { font-size: .76rem !important; padding: 7px 14px !important; }
+
+/* ── Compact course cards ── */
+.course-card { padding: 18px 18px 20px !important; }
+.course-card h3 { font-size: .9rem !important; font-weight: 700 !important; }
+.course-card h3 i { font-size: 1.1rem !important; }
+.course-desc { display: none !important; }
+.course-meta { font-size: .75rem !important; }
+.course-card .mini-btn { font-size: .76rem !important; padding: 7px 14px !important; margin-top: 10px !important; }
+
+/* ── Remove old hologram card elements (now replaced by .oracle-ai-card) ── */
+.hologram-card, .holo-grid, .holo-avatar, .avatar-ring,
+.holo-meter, .holo-title, .meter-wrap, .meter-label, .meter-track {
+  display: none !important;
+}
+
+/* ── Mobile nav adjustments ── */
+@media(max-width: 640px) {
+  .nav-top .nav-dock { padding: 0 14px; }
+  .nav-secondary { overflow-x: auto; }
+  .nav-links a { padding: 0 10px; font-size: .76rem; }
+  .skills-grid { grid-template-columns: repeat(auto-fill, minmax(76px, 1fr)) !important; }
+}
