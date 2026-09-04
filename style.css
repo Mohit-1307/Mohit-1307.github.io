@@ -1984,3 +1984,39 @@ section[id], #hero-section {
     grid-template-columns: auto 1fr !important;
   }
 }
+
+/* ═══ MAGNETIC EFFECT — REMOVE ALL COMPETING CSS TRANSFORMS ═══
+   JS handles 100% of all card movement. CSS must not fight it.
+   ══════════════════════════════════════════════════════════════ */
+
+/* Strip every hover transform from every card type */
+.project-card:hover,
+.skill-card:hover,
+.cert-card:hover,
+.course-card:hover,
+.edu-card:hover,
+.blog-card:hover,
+.ach-card:hover,
+.xp-card:hover,
+.lc-card:hover,
+.hero-stats li:hover,
+.profile-links a:hover,
+.hero-socials a:hover,
+.hero-stats li:hover {
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* Remove transition from all cards in CSS (JS sets it per-event) */
+.project-card, .skill-card, .cert-card, .course-card,
+.edu-card, .blog-card, .ach-card, .xp-card, .lc-card,
+.hero-stats li, .profile-links a {
+  transition: border-color .2s !important;  /* only colour transitions */
+  will-change: transform;
+}
+
+/* Magnetic buttons keep their own transition */
+.magnetic {
+  transition: none !important;
+  will-change: transform;
+}
