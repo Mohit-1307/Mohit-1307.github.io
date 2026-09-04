@@ -301,12 +301,11 @@ MSR.POSTS = [
 MSR.CMD_SECTIONS = [
   ['Home', '#hero-section', 'fa-solid fa-house'],
   ['About', '#about-section', 'fa-solid fa-user'],
-  ['Skills', '#skills-section', 'fa-solid fa-layer-group'],
-  ['Projects', '#projects-section', 'fa-solid fa-cube'],
-  ['Learning Trail', '#courses-section', 'fa-solid fa-graduation-cap'],
-  ['LeetCode', '#leetcode-section', 'fa-solid fa-code'],
+  ['Education', '#education-section', 'fa-solid fa-graduation-cap'],
   ['Experience', '#experience-section', 'fa-solid fa-briefcase'],
-  ['Achievements', '#achievements-section', 'fa-solid fa-trophy'],
+  ['Projects', '#projects-section', 'fa-solid fa-cube'],
+  ['Skills', '#skills-section', 'fa-solid fa-layer-group'],
+  ['Learning Trail', '#courses-section', 'fa-solid fa-book-open'],
   ['Certificates', '#certificates-section', 'fa-solid fa-certificate'],
   ['Contact', '#contact-section', 'fa-solid fa-paper-plane']
 ];
