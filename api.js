@@ -89,9 +89,13 @@ function renderProjectFilters() {
 }
 
 function renderProjects() {
-  const list = projState.data.filter(p =>
-    (projState.cat === 'All' || p.cat === projState.cat) &&
-    (!projState.q || (p.repo + ' ' + p.desc + ' ' + p.topics.join(' ')).toLowerCase().includes(projState.q)));
+  const list = projState.data.filter(p => {
+    if (projState.cat !== 'All' && p.cat !== projState.cat) return false;
+    if (!projState.q) return true;
+    const repoNorm = p.repo.replace(/-/g, ' ');
+    const haystack = (repoNorm + ' ' + p.repo + ' ' + (p.desc || '') + ' ' + p.topics.join(' ')).toLowerCase();
+    return haystack.includes(projState.q);
+  });
   const grid = $('#projects-grid');
   grid.innerHTML = list.length ? list.map((p, i) => `
     <article class="project-card" style="--i:${i}">
