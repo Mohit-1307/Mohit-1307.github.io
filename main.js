@@ -55,52 +55,55 @@ function toast(msg, icon = 'fa-circle-check') {
   setTimeout(() => { el.classList.add('out'); setTimeout(() => el.remove(), 450); }, 2600);
 }
 
-/* ════════ THEME ENGINE ════════
-   Six selectable color themes ("Signal" family) each with its own
-   light/dark mode pair. Both choices persist. */
-const themeEngine = {
-  theme: store.get('theme', 'ocean'),
-  mode: store.get('mode', 'dark'),
-  apply(animate = true) {
-    if (animate && !html.classList.contains('reduce-motion')) {
-      html.classList.add('theme-anim');
-      setTimeout(() => html.classList.remove('theme-anim'), 650);
-    }
-    html.dataset.theme = this.theme;
-    html.dataset.mode = this.mode;
-    store.set('theme', this.theme);
-    store.set('mode', this.mode);
-    $('#mode-toggle i').className = this.mode === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
-    $$('.tp-mode-btn').forEach(b => b.classList.toggle('active', b.dataset.modeSet === this.mode));
-    $$('.tp-theme-btn').forEach(b => b.classList.toggle('active', b.dataset.themeSet === this.theme));
-    const meta = $('meta[name="theme-color"]');
-    if (meta) meta.content = getComputedStyle(html).getPropertyValue('--bg').trim() || '#F7F5EF';
-    this.favicon();
-  },
-  favicon() {
-    const p = encodeURIComponent(getComputedStyle(html).getPropertyValue('--primary').trim() || '#33533C');
-    $('#favicon').href = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='${p}'/%3E%3Ctext x='32' y='43' font-size='28' font-family='Georgia' font-weight='600' fill='white' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E`;
-  },
-  toggleMode() { this.mode = this.mode === 'dark' ? 'light' : 'dark'; this.apply(); sound.pop(); },
-  setTheme(t) { this.theme = t; this.apply(); sound.pop(); }
+/* ════════ ORACLE AI THEME ════════
+   Single hardcoded Oracle AI theme — no switching.
+   Favicon uses Oracle teal. */
+function toggleThemePanel() {} // stub so command palette reference doesn't break
+(() => {
+  const p = encodeURIComponent('#006b8f');
+  const fav = $('#favicon');
+  if (fav) fav.href = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='${p}'/%3E%3Ctext x='32' y='43' font-size='28' font-family='Inter' font-weight='700' fill='white' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E`;
+  const meta = $('meta[name="theme-color"]');
+  if (meta) meta.content = '#F5F2EC';
+})();
+
+/* ════════ ORACLE CONTACT WIDGET ════════
+   Two stacked icon buttons on the right side (chat + call).
+   Chat opens the AI assistant panel.
+   Call/info button shows the contact popup (image 2 style). */
+const oracleWidget = {
+  popup: null,
+  init() {
+    this.popup = $('#oracle-contact-popup');
+    const chatBtn = $('#ocw-chat-btn');
+    const callBtn = $('#ocw-call-btn');
+    const closeBtn = $('#ocp-close');
+    const openChatRow = $('#ocp-open-chat');
+    const togglePopup = (show) => { if (this.popup) this.popup.hidden = !show; };
+
+    chatBtn?.addEventListener('click', () => {
+      // chat button directly opens AI assistant
+      openChat(chatPanel.hidden);
+      togglePopup(false);
+    });
+    callBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      togglePopup(!!this.popup?.hidden);
+    });
+    closeBtn?.addEventListener('click', () => togglePopup(false));
+    openChatRow?.addEventListener('click', () => {
+      togglePopup(false);
+      openChat(true);
+    });
+    document.addEventListener('click', (e) => {
+      if (!this.popup?.hidden &&
+          !this.popup?.contains(e.target) &&
+          !callBtn?.contains(e.target)) {
+        togglePopup(false);
+      }
+    });
+  }
 };
-
-$('#mode-toggle').addEventListener('click', () => themeEngine.toggleMode());
-$$('.tp-mode-btn').forEach(b => b.addEventListener('click', () => { themeEngine.mode = b.dataset.modeSet; themeEngine.apply(); }));
-$$('.tp-theme-btn').forEach(b => b.addEventListener('click', () => themeEngine.setTheme(b.dataset.themeSet)));
-themeEngine.apply(false);
-
-/* theme panel open/close */
-const themePanel = $('#theme-panel');
-function toggleThemePanel(open) {
-  if (open) { themePanel.hidden = false; requestAnimationFrame(() => themePanel.classList.add('open')); }
-  else { themePanel.classList.remove('open'); setTimeout(() => themePanel.hidden = true, 500); }
-}
-$('#theme-trigger').addEventListener('click', () => toggleThemePanel(themePanel.hidden));
-$('#theme-close').addEventListener('click', () => toggleThemePanel(false));
-document.addEventListener('click', e => {
-  if (!themePanel.hidden && !themePanel.contains(e.target) && !$('#theme-trigger').contains(e.target)) toggleThemePanel(false);
-});
 
 /* ════════ ACCESSIBILITY (auto, follows system preference) ════════ */
 html.classList.toggle('reduce-motion', prefersReduced);
@@ -267,46 +270,31 @@ const counterObs = new IntersectionObserver(entries => {
 }, { threshold: .6 });
 $$('.counter').forEach(el => counterObs.observe(el));
 
-/* ════════ SKILLS ════════ */
-const skillState = { cat: 'All', q: '' };
-function renderSkillFilters() {
-  const cats = ['All', ...MSR.SKILL_CATS];
-  $('#skill-filters').innerHTML = cats.map(c =>
-    `<button class="chip${c === skillState.cat ? ' active' : ''}" data-cat="${c}" role="tab" aria-selected="${c === skillState.cat}">${c}</button>`).join('');
-}
+/* ════════ SKILLS (logo grid — official icons, no bars/levels) ════════ */
+function renderSkillFilters() {} // filters removed — all 27 skills shown
 function renderSkills() {
-  const list = MSR.SKILLS.filter(s =>
-    (skillState.cat === 'All' || s.cat === skillState.cat) &&
-    (!skillState.q || s.name.toLowerCase().includes(skillState.q) || s.cat.toLowerCase().includes(skillState.q)));
   const grid = $('#skills-grid');
-  grid.innerHTML = list.length ? list.map((s, i) => `
-    <article class="skill-card" style="--i:${i}" data-name="${s.name}">
-      <div class="skill-card-top"><i class="${s.icon}" aria-hidden="true"></i><span class="name">${s.name}</span></div>
-      <div class="skill-bar-track"><div class="skill-bar-fill" data-pct="${s.pct}"></div></div>
-      <div class="skill-card-bottom"><span>${s.level}</span><span>${s.pct}%</span></div>
-    </article>`).join('')
-    : `<p class="no-results">No skills match “${skillState.q}” — try another term.</p>`;
-  // trigger bar animation on newly-rendered cards
-  requestAnimationFrame(() => {
-    $$('.skill-card', grid).forEach(c => c.classList.add('in'));
-    setTimeout(() => $$('.skill-bar-fill', grid).forEach(b => b.style.width = b.dataset.pct + '%'), 80);
-  });
+  if (!grid) return;
+  grid.innerHTML = MSR.SKILLS.map((s, i) => `
+    <article class="skill-card reveal" style="--i:${i}" data-name="${s.name}">
+      <div class="skill-icon">
+        ${s.img
+          ? `<img src="${s.img}" alt="${s.name}" width="40" height="40" loading="lazy" onerror="this.style.display='none'">`
+          : `<i class="${s.icon}" style="color:${s.color||'var(--primary)'}" aria-hidden="true"></i>`}
+      </div>
+      <span class="skill-name">${s.name}</span>
+    </article>`).join('');
 }
 function renderSkillSummary() {
-  const total = MSR.SKILLS.length;
-  const expert = MSR.SKILLS.filter(s => s.level === 'Expert').length;
-  const adv = MSR.SKILLS.filter(s => s.level === 'Advanced').length;
   $('#skills-summary').innerHTML = [
-    [total, 'Total Skills'], [MSR.SKILL_CATS.length, 'Categories'],
-    [expert, 'Expert Level'], [adv, 'Advanced Level']
+    [MSR.SKILLS.length, 'Skills'], ['10+', 'Frameworks'], ['3+', 'Internships'], ['500+', 'LeetCode']
   ].map(([n, l]) => `<li><strong>${n}</strong><span>${l}</span></li>`).join('');
 }
-$('#skill-filters').addEventListener('click', e => {
-  const b = e.target.closest('[data-cat]'); if (!b) return;
-  skillState.cat = b.dataset.cat; renderSkillFilters(); renderSkills(); sound.tick();
-});
-$('#skill-search').addEventListener('input', debounce(e => { skillState.q = e.target.value.trim().toLowerCase(); renderSkills(); }));
-renderSkillFilters(); renderSkills(); renderSkillSummary();
+// Safe event binding (elements may be hidden/absent when filters removed)
+$('#skill-filters')?.addEventListener('click', () => {});
+$('#skill-search')?.addEventListener('input', () => {});
+renderSkills(); renderSkillSummary();
+
 
 /* ════════ COURSES ════════ */
 $('#course-track').innerHTML = MSR.COURSES.map((c, i) => `
@@ -349,8 +337,12 @@ function renderCerts() {
     (!certState.q || (c.title + c.issuer).toLowerCase().includes(certState.q)));
   $('#cert-grid').innerHTML = list.length ? list.map((c, i) => `
     <button class="cert-card" style="--i:${i}" data-idx="${MSR.CERTS.indexOf(c)}" aria-label="Preview certificate: ${c.title}">
-      <div class="cert-art"><i class="${c.icon}" aria-hidden="true"></i><span class="cert-seal"><i class="fa-solid fa-award"></i></span></div>
-      <div class="cert-body"><h3>${c.title}</h3><p>${c.issuer} · ${c.year}</p><span class="cert-tag">${c.cat}</span></div>
+      <div class="cert-art">
+          ${c.img
+            ? `<img src=\"${c.img}\" alt=\"${c.issuer}\" width=\"52\" height=\"52\" loading=\"lazy\" onerror=\"this.style.display='none'\">` 
+            : `<i class=\"${c.icon}\" style=\"color:${c.color||'var(--primary)'}\" aria-hidden=\"true\"></i>`}
+        </div>
+      <div class="cert-body"><h3>${c.title}</h3><p class="cert-issuer">${c.issuer} · ${c.year}</p></div>
     </button>`).join('')
     : `<p class="no-results">No certificates match “${certState.q}”.</p>`;
 }
@@ -441,8 +433,6 @@ let cmdItems = [], cmdSel = 0;
 function buildCommands() {
   cmdItems = [
     ...MSR.CMD_SECTIONS.map(([label, target, icon]) => ({ label, icon, kind: 'section', run: () => { $(target)?.scrollIntoView({ behavior: 'smooth' }); } })),
-    { label: 'Toggle Light / Dark', icon: 'fa-solid fa-circle-half-stroke', kind: 'action', run: () => themeEngine.toggleMode() },
-    { label: 'Change Color Theme', icon: 'fa-solid fa-palette', kind: 'action', run: () => toggleThemePanel(true) },
     { label: 'Open AI Assistant', icon: 'fa-solid fa-robot', kind: 'action', run: () => openChat(true) },
     ...MSR.CMD_LINKS.map(([label, url, icon]) => ({ label, icon, kind: 'link', run: () => window.open(url, '_blank', 'noopener') }))
   ];
@@ -483,7 +473,7 @@ cmdkInput.addEventListener('keydown', e => {
 /* keyboard shortcuts */
 document.addEventListener('keydown', e => {
   if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); openCmdk(cmdk.hidden); }
-  if (e.key === 'Escape') { openCmdk(false); lightbox.hidden = true; $('#project-modal').hidden = true; $('#blog-modal').hidden = true; toggleThemePanel(false); openChat(false); }
+  if (e.key === 'Escape') { openCmdk(false); lightbox.hidden = true; $('#project-modal').hidden = true; $('#blog-modal').hidden = true; if ($('#oracle-contact-popup')) $('#oracle-contact-popup').hidden = true; openChat(false); }
   if (e.key === '/' && !e.target.matches('input,textarea')) { e.preventDefault(); $('#skill-search').focus(); }
 });
 
@@ -516,7 +506,7 @@ function botAnswer(q) {
   const rule = MSR.BOT.rules.find(r => r.k.some(k => l.includes(k)));
   botSay(rule ? rule.a : MSR.BOT.fallback);
 }
-$('#chat-fab').addEventListener('click', () => openChat(chatPanel.hidden));
+// chat-fab replaced by Oracle widget — see oracleWidget.init()
 $('#chat-close').addEventListener('click', () => openChat(false));
 $('#chat-suggest').addEventListener('click', e => {
   if (!e.target.matches('button')) return;
@@ -529,6 +519,127 @@ chatForm.addEventListener('submit', e => {
   chatInput.value = '';
   botAnswer(q);
 });
+
+/* ════════ ORACLE WIDGET INIT ════════ */
+oracleWidget.init();
+
+/* ════════ 3D CARD TILT — project, skill, cert, course cards ════════ */
+(() => {
+  const CARD_SELECTORS = '.project-card,.skill-card,.cert-card,.course-card,.edu-card,.blog-card,.ach-card';
+  function initTilt(card) {
+    if (card._tiltInit) return;
+    card._tiltInit = true;
+    const MAX_ROT = 8; // max degrees
+    const MAX_LIFT = 6; // px
+    card.style.transition = 'transform .25s cubic-bezier(.25,.8,.25,1),box-shadow .25s';
+    card.addEventListener('pointermove', e => {
+      if (html.classList.contains('reduce-motion')) return;
+      const r = card.getBoundingClientRect();
+      const x = ((e.clientX - r.left) / r.width - 0.5) * 2;
+      const y = ((e.clientY - r.top) / r.height - 0.5) * 2;
+      card.style.transform = `perspective(700px) rotateY(${x * MAX_ROT}deg) rotateX(${-y * MAX_ROT}deg) translateY(-${MAX_LIFT}px) scale(1.012)`;
+      card.style.boxShadow = `${-x*6}px ${-y*6}px 28px rgba(22,21,19,.13)`;
+    });
+    card.addEventListener('pointerleave', () => {
+      card.style.transform = '';
+      card.style.boxShadow = '';
+    });
+  }
+  // Observe DOM for dynamically added cards
+  const tiltObs = new MutationObserver(() => {
+    $$(CARD_SELECTORS).forEach(initTilt);
+  });
+  tiltObs.observe(document.body, { childList: true, subtree: true });
+  // Init existing cards
+  $$(CARD_SELECTORS).forEach(initTilt);
+})();
+
+/* ════════ ORACLE AI CARD — Web Speech Introduction ════════ */
+(() => {
+  const INTRO = `Hi! I'm an AI assistant introducing Mohit Singh Rajput — an AI and Machine Learning Engineer based in Jaipur, India. Mohit is a final-year Computer Science student who builds intelligent systems that see, listen, reason, and respond. His core expertise spans multi-agent LLM orchestration using LangGraph and LangChain, RAG pipelines, real-time computer vision, and speech emotion recognition. He has interned at Labmentix and CodeAlpha, solved over 500 LeetCode problems, and holds certifications from Oracle, Google Cloud, Microsoft, and Anthropic. If you're looking for a passionate AI engineer who ships production-grade systems — Mohit is your person.`;
+  const playBtn = $('#ai-play-btn');
+  const playIcon = $('#ai-play-icon');
+  const wave = $('#ai-wave');
+  const caption = $('#ai-caption');
+  if (!playBtn || !window.speechSynthesis) return;
+  let speaking = false;
+  function stopSpeech() {
+    window.speechSynthesis.cancel(); speaking = false;
+    if (playIcon) playIcon.className = 'fa-solid fa-play';
+    if (wave) wave.hidden = true;
+    if (caption) caption.textContent = '▶ 30-second AI introduction';
+  }
+  function startSpeech() {
+    const utter = new SpeechSynthesisUtterance(INTRO);
+    utter.rate = 1.0; utter.pitch = 1.0;
+    const voices = window.speechSynthesis.getVoices();
+    const eng = voices.find(v => v.lang === 'en-US' && /google|premium/i.test(v.name))
+             || voices.find(v => v.lang === 'en-US')
+             || voices.find(v => v.lang.startsWith('en'))
+             || voices[0];
+    if (eng) utter.voice = eng;
+    utter.onstart = () => { speaking = true; if (playIcon) playIcon.className = 'fa-solid fa-pause'; if (wave) wave.hidden = false; if (caption) caption.textContent = 'AI is speaking...'; };
+    utter.onend = utter.onerror = () => stopSpeech();
+    window.speechSynthesis.speak(utter);
+  }
+  playBtn.addEventListener('click', () => {
+    if (speaking) { stopSpeech(); return; }
+    const voices = window.speechSynthesis.getVoices();
+    if (!voices.length) { window.speechSynthesis.onvoiceschanged = startSpeech; }
+    else { startSpeech(); }
+  });
+})();
+
+/* ════════ ORACLE AI VIDEO CARD — Web Speech Introduction ════════ */
+(() => {
+  const INTRO = `Hi! I'm an AI assistant introducing Mohit Singh Rajput — an AI and Machine Learning Engineer based in Jaipur, India. Mohit is a final-year Computer Science student who builds intelligent systems that see, listen, reason, and respond. His core expertise spans multi-agent LLM orchestration using LangGraph and LangChain, RAG pipelines powered by FAISS and Sentence Transformers, real-time computer vision with OpenCV and deep CNNs, and speech emotion recognition with Librosa and PyTorch. He's interned at Labmentix and CodeAlpha, solved over 500 LeetCode problems, and holds certifications from Oracle, Google Cloud, Microsoft, and Anthropic. If you're looking for a passionate AI engineer who ships production-grade systems — Mohit is your person. Reach him at mohitsinghrajput1307@gmail.com.`;
+
+  const playBtn = $('#ai-play-btn');
+  const playIcon = $('#ai-play-icon');
+  const wave = $('#ai-wave');
+  const caption = $('#ai-caption');
+  if (!playBtn || !window.speechSynthesis) return;
+
+  let speaking = false;
+  let utter = null;
+
+  function stopSpeech() {
+    window.speechSynthesis.cancel();
+    speaking = false;
+    if (playIcon) playIcon.className = 'fa-solid fa-play';
+    if (wave) wave.hidden = true;
+    if (caption) caption.textContent = '▶ 30-second AI introduction';
+  }
+
+  function startSpeech() {
+    utter = new SpeechSynthesisUtterance(INTRO);
+    utter.rate = 1.0; utter.pitch = 1.0; utter.volume = 1.0;
+    const voices = window.speechSynthesis.getVoices();
+    const eng = voices.find(v => v.lang === 'en-US' && /google|natural|premium/i.test(v.name))
+             || voices.find(v => v.lang === 'en-US')
+             || voices.find(v => v.lang.startsWith('en'))
+             || voices[0];
+    if (eng) utter.voice = eng;
+    utter.onstart = () => {
+      speaking = true;
+      if (playIcon) playIcon.className = 'fa-solid fa-pause';
+      if (wave) wave.hidden = false;
+      if (caption) caption.textContent = 'AI is speaking...';
+    };
+    utter.onend = utter.onerror = () => stopSpeech();
+    window.speechSynthesis.speak(utter);
+  }
+
+  playBtn.addEventListener('click', () => {
+    if (speaking) { stopSpeech(); }
+    else {
+      // Voices may not be loaded on first call
+      if (!window.speechSynthesis.getVoices().length) {
+        window.speechSynthesis.onvoiceschanged = () => { startSpeech(); };
+      } else { startSpeech(); }
+    }
+  });
+})();
 
 /* ════════ VISITOR COUNTER + FOOTER ════════ */
 (() => {
@@ -554,10 +665,7 @@ chatForm.addEventListener('submit', e => {
   $('.nav-brand').addEventListener('click', () => {
     clicks++; clearTimeout(timer);
     timer = setTimeout(() => clicks = 0, 1200);
-    if (clicks === 5) { toast('🎉 You found the easter egg!', 'fa-wand-magic-sparkles');
-      themeEngine.toggleMode();
-      clicks = 0;
-    }
+    if (clicks === 5) { toast('🎉 You found the easter egg!', 'fa-wand-magic-sparkles'); clicks = 0; }
   });
 })();
 })();
