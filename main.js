@@ -337,8 +337,12 @@ function renderCerts() {
     (!certState.q || (c.title + c.issuer).toLowerCase().includes(certState.q)));
   $('#cert-grid').innerHTML = list.length ? list.map((c, i) => `
     <button class="cert-card" style="--i:${i}" data-idx="${MSR.CERTS.indexOf(c)}" aria-label="Preview certificate: ${c.title}">
-      <div class="cert-art"><i class="${c.icon}" aria-hidden="true"></i><span class="cert-seal"><i class="fa-solid fa-award"></i></span></div>
-      <div class="cert-body"><h3>${c.title}</h3><p>${c.issuer} · ${c.year}</p><span class="cert-tag">${c.cat}</span></div>
+      <div class="cert-art">
+          ${c.img
+            ? `<img src=\"${c.img}\" alt=\"${c.issuer}\" width=\"52\" height=\"52\" loading=\"lazy\" onerror=\"this.style.display='none'\">` 
+            : `<i class=\"${c.icon}\" style=\"color:${c.color||'var(--primary)'}\" aria-hidden=\"true\"></i>`}
+        </div>
+      <div class="cert-body"><h3>${c.title}</h3><p class="cert-issuer">${c.issuer} · ${c.year}</p></div>
     </button>`).join('')
     : `<p class="no-results">No certificates match “${certState.q}”.</p>`;
 }
@@ -518,6 +522,37 @@ chatForm.addEventListener('submit', e => {
 
 /* ════════ ORACLE WIDGET INIT ════════ */
 oracleWidget.init();
+
+/* ════════ 3D CARD TILT — project, skill, cert, course cards ════════ */
+(() => {
+  const CARD_SELECTORS = '.project-card,.skill-card,.cert-card,.course-card,.edu-card,.blog-card,.ach-card';
+  function initTilt(card) {
+    if (card._tiltInit) return;
+    card._tiltInit = true;
+    const MAX_ROT = 8; // max degrees
+    const MAX_LIFT = 6; // px
+    card.style.transition = 'transform .25s cubic-bezier(.25,.8,.25,1),box-shadow .25s';
+    card.addEventListener('pointermove', e => {
+      if (html.classList.contains('reduce-motion')) return;
+      const r = card.getBoundingClientRect();
+      const x = ((e.clientX - r.left) / r.width - 0.5) * 2;
+      const y = ((e.clientY - r.top) / r.height - 0.5) * 2;
+      card.style.transform = `perspective(700px) rotateY(${x * MAX_ROT}deg) rotateX(${-y * MAX_ROT}deg) translateY(-${MAX_LIFT}px) scale(1.012)`;
+      card.style.boxShadow = `${-x*6}px ${-y*6}px 28px rgba(22,21,19,.13)`;
+    });
+    card.addEventListener('pointerleave', () => {
+      card.style.transform = '';
+      card.style.boxShadow = '';
+    });
+  }
+  // Observe DOM for dynamically added cards
+  const tiltObs = new MutationObserver(() => {
+    $$(CARD_SELECTORS).forEach(initTilt);
+  });
+  tiltObs.observe(document.body, { childList: true, subtree: true });
+  // Init existing cards
+  $$(CARD_SELECTORS).forEach(initTilt);
+})();
 
 /* ════════ ORACLE AI CARD — Web Speech Introduction ════════ */
 (() => {
