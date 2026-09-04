@@ -92,33 +92,41 @@
 <div id="cursor-dot" aria-hidden="true"></div>
 <div id="scroll-progress" aria-hidden="true"><span></span></div>
 
-<!-- ═══════════ NAVIGATION ═══════════ -->
+<!-- ═══════════ NAVIGATION (Oracle dual-bar) ═══════════ -->
 <header id="site-nav" role="banner">
-  <nav class="nav-dock" aria-label="Primary navigation">
-    <a href="#hero-section" class="nav-brand" aria-label="Home — Mohit Singh Rajput">
-      <span class="brand-orb"></span><span class="brand-text">MSR</span>
-    </a>
-    <ul class="nav-links" id="nav-links">
-      <li><a href="#about-section" data-nav>About</a></li>
-      <li><a href="#education-section" data-nav>Education</a></li>
-      <li><a href="#experience-section" data-nav>Experience</a></li>
-      <li><a href="#projects-section" data-nav>Projects</a></li>
-      <li><a href="#skills-section" data-nav>Skills</a></li>
-      <li><a href="#courses-section" data-nav>Learning</a></li>
-      <li><a href="#certificates-section" data-nav>Credentials</a></li>
-      <li><a href="#leetcode-section" data-nav>LeetCode</a></li>
-      <li><a href="#achievements-section" data-nav>Signals</a></li>
-      <li><a href="#contact-section" data-nav>Contact</a></li>
-    </ul>
-    <div class="nav-actions">
-      <button id="cmdk-trigger" class="nav-icon-btn" title="Command palette (Ctrl+K)" aria-label="Open command palette">
-        <i class="fa-solid fa-magnifying-glass"></i>
-      </button>
-      <button id="nav-burger" class="nav-icon-btn burger" aria-label="Open menu" aria-expanded="false">
-        <span></span><span></span>
-      </button>
+  <!-- White top bar: brand + search (matches Oracle's top white bar) -->
+  <div class="nav-top">
+    <div class="nav-dock" aria-label="Site navigation">
+      <a href="#hero-section" class="nav-brand" aria-label="Home — Mohit Singh Rajput">
+        <span class="brand-orb"></span><span class="brand-text">MSR</span>
+      </a>
+      <div class="nav-actions">
+        <button id="cmdk-trigger" class="nav-icon-btn" title="Search (Ctrl+K)" aria-label="Open command palette">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+        <button id="nav-burger" class="nav-icon-btn burger" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span>
+        </button>
+      </div>
     </div>
-  </nav>
+  </div>
+  <!-- Dark secondary nav bar: section links (matches Oracle's dark product nav) -->
+  <div class="nav-secondary">
+    <div class="nav-dock">
+      <ul class="nav-links" id="nav-links" aria-label="Primary navigation">
+        <li><a href="#about-section" data-nav>About</a></li>
+        <li><a href="#education-section" data-nav>Education</a></li>
+        <li><a href="#experience-section" data-nav>Experience</a></li>
+        <li><a href="#projects-section" data-nav>Projects</a></li>
+        <li><a href="#skills-section" data-nav>Skills</a></li>
+        <li><a href="#courses-section" data-nav>Learning</a></li>
+        <li><a href="#certificates-section" data-nav>Credentials</a></li>
+        <li><a href="#leetcode-section" data-nav>LeetCode</a></li>
+        <li><a href="#achievements-section" data-nav>Signals</a></li>
+        <li><a href="#contact-section" data-nav>Contact</a></li>
+      </ul>
+    </div>
+  </div>
 </header>
 
 <main id="main-content">
@@ -157,18 +165,31 @@
     </div>
 
     <div class="hero-visual reveal" aria-hidden="true">
-      <div class="tilt-scene" id="hero-tilt">
-        <div class="hologram-card">
-          <div class="holo-grid"></div>
-          <div class="holo-avatar"><span>MSR</span><i class="avatar-ring r1"></i><i class="avatar-ring r2"></i></div>
-          <p class="holo-title mono">neural_engine.load()</p>
-          <div class="holo-meter"><span class="meter-label mono">model · confidence</span><span class="meter-track"><span class="meter-fill"></span></span></div>
-          <div class="float-chip c1 mono"><i class="fa-brands fa-python" aria-hidden="true"></i><span class="chip-emoji" aria-hidden="true">🐍</span> PyTorch</div>
-          <div class="float-chip c2 mono"><i class="fa-solid fa-brain" aria-hidden="true"></i><span class="chip-emoji" aria-hidden="true">🧠</span> LLMs</div>
-          <div class="float-chip c3 mono"><i class="fa-solid fa-eye" aria-hidden="true"></i><span class="chip-emoji" aria-hidden="true">👁️</span> Vision</div>
-          <div class="float-chip c4 mono"><i class="fa-solid fa-diagram-project" aria-hidden="true"></i><span class="chip-emoji" aria-hidden="true">🕸️</span> RAG</div>
+      <!-- Oracle AI-style dark teal card with AI voice introduction -->
+      <div class="oracle-ai-card" id="ai-card">
+        <div class="oac-bg"></div>
+        <div class="oac-shapes" aria-hidden="true">
+          <span class="oac-sh oac-sh1"></span>
+          <span class="oac-sh oac-sh2"></span>
+          <span class="oac-sh oac-sh3"></span>
         </div>
+        <div class="oac-content">
+          <p class="oac-label">MSR.AI</p>
+          <h2 class="oac-heading">Who is<br>Mohit Singh<br>Rajput?</h2>
+        </div>
+        <button class="oac-play-btn" id="ai-play-btn" aria-label="Play 30-second AI introduction">
+          <i class="fa-solid fa-play" id="ai-play-icon"></i>
+        </button>
+        <div class="oac-wave" id="ai-wave" hidden aria-hidden="true">
+          <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <p class="oac-caption" id="ai-caption">▶ 30-second AI introduction</p>
       </div>
+      <!-- Tech chips -->
+      <div class="float-chip c1 mono"><i class="fa-brands fa-python" aria-hidden="true"></i> PyTorch</div>
+      <div class="float-chip c2 mono"><i class="fa-solid fa-brain" aria-hidden="true"></i> LLMs</div>
+      <div class="float-chip c3 mono"><i class="fa-solid fa-eye" aria-hidden="true"></i> Vision</div>
+      <div class="float-chip c4 mono"><i class="fa-solid fa-diagram-project" aria-hidden="true"></i> RAG</div>
     </div>
   </div>
 
