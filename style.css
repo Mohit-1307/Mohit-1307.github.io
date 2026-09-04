@@ -1789,18 +1789,22 @@ section[id], #hero-section {
   background: #161513; border-radius: 2px;
   transition: transform .25s, opacity .25s;
 }
-/* MSR brand: Oracle-logo style */
+/* MSR brand: Oracle-logo exact style */
 .nav-brand .brand-orb { display: none !important; }
+.nav-brand i { display: none !important; }
 .nav-brand, .nav-brand .brand-text {
-  font-family: var(--font-body) !important;
-  font-size: 1.55rem !important;
-  font-weight: 800 !important;
-  color: #c74b1f !important;
-  letter-spacing: .06em !important;
+  font-family: Georgia, 'Times New Roman', serif !important;
+  font-size: 1.6rem !important;
+  font-weight: 400 !important;
+  color: #C74634 !important;
+  letter-spacing: .04em !important;
   text-transform: uppercase !important;
   font-style: normal !important;
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  background-clip: unset !important;
+  -webkit-text-fill-color: #C74634 !important;
 }
-.nav-brand i { display: none !important; }
 
 /* ── Oracle widget: bottom-right corner ── */
 #oracle-widget { bottom: 24px !important; right: 0 !important; }
