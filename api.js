@@ -30,12 +30,28 @@ const fmtSize = kb => kb > 1024 ? (kb / 1024).toFixed(1) + ' MB' : kb + ' KB';
 const projState = { cat: 'All', q: '', data: [] };
 
 async function loadProjects() {
-  // one call for all repos (cheap on rate limit), then map to curated list
+  // Render immediately from curated data so cards are never stuck on spinner
+  projState.data = MSR.PROJECTS.map(p => ({
+    ...p,
+    desc: p.fallbackDesc,
+    stars: null,
+    forks: null,
+    lang: 'Python',
+    topics: [],
+    size: null,
+    updated: null,
+    homepage: p.liveUrl || null,
+    url: `https://github.com/${MSR.GH_USER}/${p.repo}`
+  }));
+  renderProjectFilters();
+  renderProjects();
+
+  // Then try to enrich with live GitHub data in background
   let repoMap = {};
   try {
     const repos = await cachedJSON('repos', `https://api.github.com/users/${MSR.GH_USER}/repos?per_page=100&sort=updated`);
     repos.forEach(r => repoMap[r.name] = r);
-  } catch (e) { console.warn('GitHub API unavailable, using curated fallback.', e); }
+  } catch (e) { console.warn('GitHub API unavailable, using curated fallback.', e); return; }
 
   projState.data = MSR.PROJECTS.map(p => {
     const r = repoMap[p.repo] || {};
@@ -63,7 +79,6 @@ async function loadProjects() {
   const repoCount = Object.keys(repoMap).length;
   if (repoCount) $('#gh-profile-meta').textContent = `Open-source portfolio · ${repoCount} public repos`;
 
-  renderProjectFilters();
   renderProjects();
 }
 
@@ -77,19 +92,7 @@ function renderProjects() {
   const list = projState.data.filter(p =>
     (projState.cat === 'All' || p.cat === projState.cat) &&
     (!projState.q || (p.repo + ' ' + p.desc + ' ' + p.topics.join(' ')).toLowerCase().includes(projState.q)));
-  const REPO_SI = {
-    'Multi-Agent-AI-Customer-Support-Assistant': 'https://cdn.simpleicons.org/langchain/1C3C3C',
-    'Facial-Emotion-Recognition-System':         'https://cdn.simpleicons.org/opencv/5C3EE8',
-    'Loan-Eligibility-and-EMI-Prediction-AI':    'https://cdn.simpleicons.org/pandas/150458',
-    'Tourism-Experience-Analytics-System':       'https://cdn.simpleicons.org/jupyter/F37626',
-    'Shopper-Spectrum':                          'https://cdn.simpleicons.org/scikitlearn/F7931E',
-    'Flipkart-CSAT-Prediction':                  'https://cdn.simpleicons.org/python/3776AB',
-    'Emotion-Recognition-from-Speech':           'https://cdn.simpleicons.org/pytorch/EE4C2C',
-    'Heart-Disease-Prediction':                  'https://cdn.simpleicons.org/tensorflow/FF6F00',
-    'Handwritten-Digit-Recognition':             'https://cdn.simpleicons.org/tensorflow/FF6F00',
-    'Interactive-Web-Apps-with-Streamlit':       'https://cdn.simpleicons.org/streamlit/FF4B4B',
-    'AI-Agents-and-RAG-Systems':                 'https://cdn.simpleicons.org/langchain/1C3C3C',
-  };
+  const REPO_SI = {};  // FA icons from data.js are used instead
   const grid = $('#projects-grid');
   grid.innerHTML = list.length ? list.map((p, i) => `
     <article class="project-card" style="--i:${i}">
