@@ -194,47 +194,73 @@ MSR.EXPERIENCE = [
 
 /* ---------- Certificates ---------- */
 MSR.CERTS = [
+  /* 1. AI/ML Internship */
+  { title: 'AI/ML Internship (3 Months)', issuer: 'Labmentix', year: '2026', cat: 'Internship',
+    desc: 'Built and evaluated ML models on real client datasets; developed LLM-assisted data workflows end-to-end.',
+    svgIcon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="52" height="52"><rect width="200" height="200" rx="32" fill="#0d1b2a"/><path d="M40 140 L100 60 L160 140 Z" fill="none" stroke="#00c8ff" stroke-width="10" stroke-linejoin="round"/><circle cx="100" cy="60" r="10" fill="#00c8ff"/><circle cx="40" cy="140" r="10" fill="#00c8ff"/><circle cx="160" cy="140" r="10" fill="#00c8ff"/><text x="100" y="170" text-anchor="middle" fill="#00c8ff" font-size="18" font-family="sans-serif" font-weight="bold">LBX</text></svg>`,
+    file: 'Labmentix_Certificate_for_Internship.pdf' },
+
+  /* 2. Machine Learning Internship */
+  { title: 'Machine Learning Internship', issuer: 'CodeAlpha', year: '2026', cat: 'Internship',
+    desc: 'Completed ML projects in classification, regression, and deep learning under industry mentorship.',
+    svgIcon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="52" height="52"><rect width="200" height="200" rx="32" fill="#1a1a2e"/><circle cx="100" cy="80" r="36" fill="none" stroke="#c74b1f" stroke-width="9"/><circle cx="100" cy="80" r="18" fill="#c74b1f"/><text x="100" y="155" text-anchor="middle" fill="#c74b1f" font-size="20" font-family="sans-serif" font-weight="bold">CA</text></svg>`,
+    file: 'cert-codealpha-internship.pdf' },
+
+  /* 3. Oracle Certified Foundations Associate — Agentic AI */
   { title: 'Oracle Certified Foundations Associate — Agentic AI', issuer: 'Oracle University', year: '2026', cat: 'ML/AI',
     desc: 'Covered agentic AI system design, multi-agent architectures, and Oracle Cloud AI foundations.',
     img: 'https://cdn.simpleicons.org/oracle/F80000', file: 'cert-oracle-agentic-ai.pdf' },
+
+  /* 4. Deloitte Australia Data Analytics Job Simulation */
+  { title: 'Data Analytics Job Simulation', issuer: 'Deloitte Australia · Forage', year: '2026', cat: 'Data Science',
+    desc: 'Analysed datasets and created dashboards for a Deloitte client, covering forensic tech and data interpretation.',
+    img: 'https://cdn.simpleicons.org/deloitte/86BC25', file: 'cert-deloitte-data-analytics.pdf' },
+
+  /* 5. Tata Group Data Analytics Job Simulation */
+  { title: 'GenAI Powered Data Analytics Job Simulation', issuer: 'Tata Group · Forage', year: '2026', cat: 'Data Science',
+    desc: 'Applied GenAI to EDA, risk profiling, delinquency prediction, and AI-driven collections strategy for a Tata simulation.',
+    img: 'https://upload.wikimedia.org/wikipedia/commons/8/8e/Tata_logo.svg', file: 'TCS_Certificate_for_GenAI_Powered_Data_Analytics.pdf' },
+
+  /* 6. Walmart USA Advanced Software Engineering */
   { title: 'Advanced Software Engineering Job Simulation', issuer: 'Walmart Global Tech · Forage', year: '2026', cat: 'Programming',
     desc: 'Worked on real Walmart engineering tasks including data structures, system design, and software architecture.',
     img: 'https://cdn.simpleicons.org/walmart/0071CE', file: 'cert-walmart-swe.pdf' },
-  { title: 'Data Visualisation: Empowering Business with Effective Insights', issuer: 'Tata · Forage', year: '2026', cat: 'Data Science',
-    desc: 'Created executive-level data visualisations and business insights for a Tata client scenario.',
-    img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg',
-    imgOverride: true, imgStyle: 'filter:hue-rotate(180deg)',
-    icon: 'fa-solid fa-chart-column', color: '#0A3568', file: 'cert-tata-dataviz.pdf' },
-  { title: 'AI/ML Internship (3 Months)', issuer: 'Labmentix', year: '2026', cat: 'Internship',
-    desc: 'Built and evaluated ML models on real client datasets; developed LLM-assisted data workflows end-to-end.',
-    img: 'https://labmentix.in/wp-content/uploads/2024/08/cropped-Labmentix-Logo-192x192.png', file: 'Labmentix_Certificate_for_Internship.pdf' },
-  { title: 'Machine Learning Internship', issuer: 'CodeAlpha', year: '2026', cat: 'Internship',
-    desc: 'Completed ML projects in classification, regression, and deep learning under industry mentorship.',
-    icon: 'fa-solid fa-brain', color: '#c74b1f', file: 'cert-codealpha-internship.pdf' },
-  { title: 'GenAI Powered Data Analytics Job Simulation', issuer: 'Tata · Forage', year: '2026', cat: 'Data Science',
-    desc: 'Applied GenAI to EDA, risk profiling, delinquency prediction, and AI-driven collections strategy for a Tata simulation.',
-    icon: 'fa-solid fa-database', color: '#0A3568', file: 'TCS_Certificate_for_GenAI_Powered_Data_Analytics.pdf' },
-  { title: 'Data Analytics Job Simulation', issuer: 'Deloitte · Forage', year: '2026', cat: 'Data Science',
-    desc: 'Analysed datasets and created dashboards for a Deloitte client, covering forensic tech and data interpretation.',
-    img: 'https://cdn.simpleicons.org/deloitte/86BC25', file: 'cert-deloitte-data-analytics.pdf' },
+
+  /* 7. AWS APAC Solutions Architecture */
   { title: 'Solutions Architecture Job Simulation', issuer: 'AWS · Forage', year: '2026', cat: 'Programming',
     desc: 'Designed AWS cloud architectures to meet client needs; evaluated and presented solution recommendations.',
     img: 'https://cdn.simpleicons.org/amazonaws/FF9900', file: 'Forage_Certificate_for_Solutions_Architecture.pdf' },
+
+  /* 8. Tata Data Visualization */
+  { title: 'Data Visualisation: Empowering Business with Effective Insights', issuer: 'Tata · Forage', year: '2026', cat: 'Data Science',
+    desc: 'Created executive-level data visualisations and business insights for a Tata client scenario.',
+    img: 'https://upload.wikimedia.org/wikipedia/commons/8/8e/Tata_logo.svg', file: 'cert-tata-dataviz.pdf' },
+
+  /* 9. Datacom Partnering with AI */
   { title: 'Partnering with AI in the Workplace Job Simulation', issuer: 'Datacom · Forage', year: '2026', cat: 'ML/AI',
     desc: 'Practised effective prompting, AI-assisted research and design, and AI-powered debugging workflows.',
-    icon: 'fa-solid fa-robot', color: '#003087', file: 'DATACOM_Certificate_for_Partnering_with_AI_in_the_workplace.pdf' },
-  { title: 'AI for Entrepreneurs Course', issuer: 'Simplilearn', year: '2026', cat: 'ML/AI',
-    desc: 'Explored AI strategy, business use cases, and implementation approaches for entrepreneurial ventures.',
-    img: 'https://cdn.simpleicons.org/simplilearn/02A0C8', file: 'cert-simplilearn-ai-entrepreneurs.pdf' },
+    svgIcon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="52" height="52"><rect width="200" height="200" rx="32" fill="#003087"/><rect x="30" y="70" width="50" height="60" rx="8" fill="#fff"/><rect x="95" y="50" width="50" height="60" rx="8" fill="#fff" opacity="0.85"/><rect x="120" y="100" width="50" height="60" rx="8" fill="#fff" opacity="0.7"/><text x="100" y="185" text-anchor="middle" fill="#fff" font-size="16" font-family="sans-serif" font-weight="bold">DATACOM</text></svg>`,
+    file: 'DATACOM_Certificate_for_Partnering_with_AI_in_the_workplace.pdf' },
+
+  /* 10. AI Fluency for Students */
+  { title: 'AI Fluency for Students', issuer: 'Anthropic', year: '2026', cat: 'ML/AI',
+    desc: 'Gained foundational fluency in AI concepts, responsible AI use, and working effectively with large language models.',
+    img: 'https://cdn.simpleicons.org/anthropic/181818', file: 'cert-anthropic-ai-fluency.pdf' },
+
+  /* 11. Introduction to Generative AI Studio */
   { title: 'Introduction to Generative AI Studio', issuer: 'Google Cloud', year: '2026', cat: 'ML/AI',
     desc: 'Hands-on with Google Cloud Vertex AI and Generative AI Studio — prompt design, model tuning, and deployment.',
     img: 'https://cdn.simpleicons.org/googlecloud/4285F4', file: 'cert-googlecloud-genai-studio.pdf' },
+
+  /* 12. Introduction to Prompt Engineering with GitHub Copilot */
   { title: 'Introduction to Prompt Engineering with GitHub Copilot', issuer: 'Microsoft', year: '2026', cat: 'ML/AI',
     desc: 'Learned prompt engineering techniques using GitHub Copilot to accelerate development workflows.',
     img: 'https://cdn.simpleicons.org/microsoft/0078D4', file: 'cert-microsoft-prompt-engineering.pdf' },
-  { title: 'AI Fluency for Students', issuer: 'Anthropic', year: '2026', cat: 'ML/AI',
-    desc: 'Gained foundational fluency in AI concepts, responsible AI use, and working effectively with large language models.',
-    img: 'https://cdn.simpleicons.org/anthropic/181818', file: 'cert-anthropic-ai-fluency.pdf' }
+
+  /* 13. AI for Entrepreneurs Course */
+  { title: 'AI for Entrepreneurs Course', issuer: 'Simplilearn', year: '2026', cat: 'ML/AI',
+    desc: 'Explored AI strategy, business use cases, and implementation approaches for entrepreneurial ventures.',
+    img: 'https://cdn.simpleicons.org/simplilearn/02A0C8', file: 'cert-simplilearn-ai-entrepreneurs.pdf' },
 ];
 
 /* ---------- Blog ---------- */
