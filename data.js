@@ -18,75 +18,36 @@ MSR.THEMES = [
   { id: 'mono', name: 'Light', swatch: 'linear-gradient(120deg,#3A3A35,#63635A)' }
 ];
 
-/* ---------- Skills ----------
-   level: Expert 92 | Advanced 80 | Intermediate 65 | Beginner 45 */
-const L = { E: ['Expert', 92], A: ['Advanced', 82], I: ['Intermediate', 66], B: ['Beginner', 48] };
-const S = (name, cat, icon, lvl) => ({ name, cat, icon, level: L[lvl][0], pct: L[lvl][1] });
-
-MSR.SKILL_CATS = [
-  'Programming Languages', 'Frontend Technologies', 'Machine Learning & AI',
-  'AI Frameworks & Libraries', 'Python Libraries', 'Backend & APIs',
-  'Cloud & DevOps', 'Databases & Vector DBs', 'Developer Tools'
-];
-
+/* ---------- Skills (official logos via Simple Icons CDN + FA fallback) ---------- */
+// img: Simple Icons CDN  |  icon: Font Awesome fallback
 MSR.SKILLS = [
-  // Programming Languages
-  S('Python', 'Programming Languages', 'fa-brands fa-python', 'E'),
-  S('C', 'Programming Languages', 'fa-solid fa-c', 'A'),
-  S('C++', 'Programming Languages', 'fa-solid fa-code', 'A'),
-  S('Java', 'Programming Languages', 'fa-brands fa-java', 'I'),
-  S('JavaScript', 'Programming Languages', 'fa-brands fa-js', 'I'),
-  S('SQL', 'Programming Languages', 'fa-solid fa-database', 'A'),
-  // Frontend
-  S('HTML', 'Frontend Technologies', 'fa-brands fa-html5', 'A'),
-  S('CSS', 'Frontend Technologies', 'fa-brands fa-css3-alt', 'A'),
-  S('Next.js', 'Frontend Technologies', 'fa-solid fa-forward', 'I'),
-  // ML & AI
-  S('Machine Learning', 'Machine Learning & AI', 'fa-solid fa-brain', 'E'),
-  S('Deep Learning', 'Machine Learning & AI', 'fa-solid fa-network-wired', 'A'),
-  S('CNN', 'Machine Learning & AI', 'fa-solid fa-layer-group', 'A'),
-  S('NLP', 'Machine Learning & AI', 'fa-solid fa-language', 'A'),
-  S('Computer Vision', 'Machine Learning & AI', 'fa-solid fa-eye', 'A'),
-  S('Image Processing', 'Machine Learning & AI', 'fa-solid fa-image', 'A'),
-  S('Audio Processing', 'Machine Learning & AI', 'fa-solid fa-wave-square', 'I'),
-  S('LLM', 'Machine Learning & AI', 'fa-solid fa-comment-dots', 'A'),
-  S('Generative AI', 'Machine Learning & AI', 'fa-solid fa-wand-magic-sparkles', 'A'),
-  S('RAG', 'Machine Learning & AI', 'fa-solid fa-diagram-project', 'A'),
-  S('Feature Engineering', 'Machine Learning & AI', 'fa-solid fa-screwdriver-wrench', 'E'),
-  S('Model Evaluation', 'Machine Learning & AI', 'fa-solid fa-clipboard-check', 'E'),
-  S('EDA', 'Machine Learning & AI', 'fa-solid fa-magnifying-glass-chart', 'E'),
-  S('Data Visualization', 'Machine Learning & AI', 'fa-solid fa-chart-pie', 'A'),
-  S('Model Deployment', 'Machine Learning & AI', 'fa-solid fa-rocket', 'A'),
-  // AI Frameworks
-  S('LangChain', 'AI Frameworks & Libraries', 'fa-solid fa-link', 'A'),
-  S('LangGraph', 'AI Frameworks & Libraries', 'fa-solid fa-circle-nodes', 'A'),
-  S('Sentence Transformers', 'AI Frameworks & Libraries', 'fa-solid fa-arrows-turn-to-dots', 'I'),
-  S('FAISS', 'AI Frameworks & Libraries', 'fa-solid fa-vector-square', 'A'),
-  S('OpenAI API', 'AI Frameworks & Libraries', 'fa-solid fa-bolt', 'A'),
-  S('Claude API', 'AI Frameworks & Libraries', 'fa-solid fa-asterisk', 'A'),
-  S('Groq API', 'AI Frameworks & Libraries', 'fa-solid fa-gauge-high', 'I'),
-  S('Ollama', 'AI Frameworks & Libraries', 'fa-solid fa-server', 'I'),
-  // Python libs
-  S('NumPy', 'Python Libraries', 'fa-solid fa-table-cells', 'E'),
-  S('Pandas', 'Python Libraries', 'fa-solid fa-table', 'E'),
-  S('Matplotlib', 'Python Libraries', 'fa-solid fa-chart-line', 'A'),
-  S('Seaborn', 'Python Libraries', 'fa-solid fa-chart-area', 'A'),
-  S('Scikit-learn', 'Python Libraries', 'fa-solid fa-gears', 'E'),
-  S('TensorFlow', 'Python Libraries', 'fa-solid fa-cube', 'A'),
-  S('PyTorch', 'Python Libraries', 'fa-solid fa-fire', 'A'),
-  S('Keras', 'Python Libraries', 'fa-solid fa-k', 'A'),
-  S('OpenCV', 'Python Libraries', 'fa-solid fa-camera', 'A'),
-  S('Librosa', 'Python Libraries', 'fa-solid fa-music', 'I'),
-  // Backend
-  S('FastAPI', 'Backend & APIs', 'fa-solid fa-bolt-lightning', 'A'),
-  S('JWT', 'Backend & APIs', 'fa-solid fa-key', 'I'),
-  // Cloud
-  S('AWS EC2', 'Cloud & DevOps', 'fa-brands fa-aws', 'I'),
-  // Databases
-  S('Vector Databases', 'Databases & Vector DBs', 'fa-solid fa-cubes-stacked', 'A'),
-  // Tools
-  S('Git', 'Developer Tools', 'fa-brands fa-git-alt', 'A'),
-  S('GitHub', 'Developer Tools', 'fa-brands fa-github', 'A')
+  { name: 'Python',               img: 'https://cdn.simpleicons.org/python/3776AB',      color: '#3776AB' },
+  { name: 'C++',                  img: 'https://cdn.simpleicons.org/cplusplus/00599C',    color: '#00599C' },
+  { name: 'Java',                 img: 'https://cdn.simpleicons.org/java/007396',          color: '#007396' },
+  { name: 'JavaScript',           img: 'https://cdn.simpleicons.org/javascript/F7DF1E',   color: '#F7DF1E' },
+  { name: 'HTML',                 img: 'https://cdn.simpleicons.org/html5/E34F26',         color: '#E34F26' },
+  { name: 'CSS',                  img: 'https://cdn.simpleicons.org/css3/1572B6',          color: '#1572B6' },
+  { name: 'SQL',                  img: 'https://cdn.simpleicons.org/mysql/4479A1',         color: '#4479A1' },
+  { name: 'NumPy',                img: 'https://cdn.simpleicons.org/numpy/013243',         color: '#013243' },
+  { name: 'Pandas',               img: 'https://cdn.simpleicons.org/pandas/150458',        color: '#150458' },
+  { name: 'Matplotlib',           icon: 'fa-solid fa-chart-line',                          color: '#11557c' },
+  { name: 'Seaborn',              icon: 'fa-solid fa-chart-area',                          color: '#4c72b0' },
+  { name: 'FastAPI',              img: 'https://cdn.simpleicons.org/fastapi/009688',        color: '#009688' },
+  { name: 'LangGraph',            icon: 'fa-solid fa-diagram-project',                     color: '#006b8f' },
+  { name: 'LangChain',            img: 'https://cdn.simpleicons.org/langchain/1C3C3C',    color: '#1C3C3C' },
+  { name: 'Computer Vision',      img: 'https://cdn.simpleicons.org/opencv/5C3EE8',        color: '#5C3EE8' },
+  { name: 'TensorFlow',           img: 'https://cdn.simpleicons.org/tensorflow/FF6F00',    color: '#FF6F00' },
+  { name: 'Keras',                img: 'https://cdn.simpleicons.org/keras/D00000',          color: '#D00000' },
+  { name: 'Scikit-learn',         img: 'https://cdn.simpleicons.org/scikitlearn/F7931E',   color: '#F7931E' },
+  { name: 'RAG',                  icon: 'fa-solid fa-database',                             color: '#006b8f' },
+  { name: 'PyTorch',              img: 'https://cdn.simpleicons.org/pytorch/EE4C2C',        color: '#EE4C2C' },
+  { name: 'NLP',                  icon: 'fa-solid fa-language',                             color: '#006b8f' },
+  { name: 'LLM',                  icon: 'fa-solid fa-brain',                                color: '#006b8f' },
+  { name: 'Deep Learning',        icon: 'fa-solid fa-network-wired',                        color: '#006b8f' },
+  { name: 'Machine Learning',     img: 'https://cdn.simpleicons.org/scikitlearn/F7931E',   color: '#F7931E' },
+  { name: 'Generative AI',        icon: 'fa-solid fa-wand-magic-sparkles',                  color: '#c74b1f' },
+  { name: 'Artificial Intelligence', icon: 'fa-solid fa-microchip',                         color: '#006b8f' },
+  { name: 'CNN',                  icon: 'fa-solid fa-sitemap',                               color: '#006b8f' }
 ];
 
 /* ---------- Projects (GitHub repos + curated details) ---------- */
@@ -233,16 +194,26 @@ MSR.EXPERIENCE = [
 
 /* ---------- Certificates ---------- */
 MSR.CERTS = [
-  { title: 'Oracle Certified Foundations Associate — Agentic AI', issuer: 'Oracle University', year: '2026', cat: 'ML/AI', icon: 'fa-solid fa-robot', file: 'cert-oracle-agentic-ai.pdf' },
-  { title: 'Advanced Software Engineering Job Simulation', issuer: 'Walmart Global Tech · Forage', year: '2026', cat: 'Programming', icon: 'fa-solid fa-code', file: 'cert-walmart-swe.pdf' },
-  { title: 'Data Visualisation: Empowering Business with Effective Insights', issuer: 'Tata · Forage', year: '2026', cat: 'Data Science', icon: 'fa-solid fa-chart-column', file: 'cert-tata-dataviz.pdf' },
-  { title: 'AI/ML Internship (2 Months)', issuer: 'Labmentix', year: '2026', cat: 'Internship', icon: 'fa-solid fa-briefcase', file: 'cert-labmentix-internship.pdf' },
-  { title: 'Machine Learning Internship', issuer: 'CodeAlpha', year: '2026', cat: 'Internship', icon: 'fa-solid fa-brain', file: 'cert-codealpha-internship.pdf' },
-  { title: 'Data Analytics Job Simulation', issuer: 'Deloitte · Forage', year: '2026', cat: 'Data Science', icon: 'fa-solid fa-magnifying-glass-chart', file: 'cert-deloitte-data-analytics.pdf' },
-  { title: 'AI for Entrepreneurs Course', issuer: 'Simplilearn', year: '2026', cat: 'ML/AI', icon: 'fa-solid fa-lightbulb', file: 'cert-simplilearn-ai-entrepreneurs.pdf' },
-  { title: 'Introduction to Generative AI Studio', issuer: 'Google Cloud', year: '2026', cat: 'ML/AI', icon: 'fa-solid fa-wand-magic-sparkles', file: 'cert-googlecloud-genai-studio.pdf' },
-  { title: 'Introduction to Prompt Engineering with GitHub Copilot', issuer: 'Microsoft', year: '2026', cat: 'ML/AI', icon: 'fa-brands fa-microsoft', file: 'cert-microsoft-prompt-engineering.pdf' },
-  { title: 'AI Fluency for Students', issuer: 'Anthropic', year: '2026', cat: 'ML/AI', icon: 'fa-solid fa-graduation-cap', file: 'cert-anthropic-ai-fluency.pdf' }
+  { title: 'Oracle Certified Foundations Associate — Agentic AI', issuer: 'Oracle University', year: '2026', cat: 'ML/AI',
+    img: 'https://cdn.simpleicons.org/oracle/F80000', file: 'cert-oracle-agentic-ai.pdf' },
+  { title: 'Advanced Software Engineering Job Simulation', issuer: 'Walmart Global Tech · Forage', year: '2026', cat: 'Programming',
+    img: 'https://cdn.simpleicons.org/walmart/0071CE', file: 'cert-walmart-swe.pdf' },
+  { title: 'Data Visualisation: Empowering Business with Effective Insights', issuer: 'Tata · Forage', year: '2026', cat: 'Data Science',
+    icon: 'fa-solid fa-chart-column', color: '#0A3568', file: 'cert-tata-dataviz.pdf' },
+  { title: 'AI/ML Internship (2 Months)', issuer: 'Labmentix', year: '2026', cat: 'Internship',
+    icon: 'fa-solid fa-briefcase', color: '#006b8f', file: 'cert-labmentix-internship.pdf' },
+  { title: 'Machine Learning Internship', issuer: 'CodeAlpha', year: '2026', cat: 'Internship',
+    icon: 'fa-solid fa-brain', color: '#c74b1f', file: 'cert-codealpha-internship.pdf' },
+  { title: 'Data Analytics Job Simulation', issuer: 'Deloitte · Forage', year: '2026', cat: 'Data Science',
+    img: 'https://cdn.simpleicons.org/deloitte/86BC25', file: 'cert-deloitte-data-analytics.pdf' },
+  { title: 'AI for Entrepreneurs Course', issuer: 'Simplilearn', year: '2026', cat: 'ML/AI',
+    img: 'https://cdn.simpleicons.org/simplilearn/02A0C8', file: 'cert-simplilearn-ai-entrepreneurs.pdf' },
+  { title: 'Introduction to Generative AI Studio', issuer: 'Google Cloud', year: '2026', cat: 'ML/AI',
+    img: 'https://cdn.simpleicons.org/googlecloud/4285F4', file: 'cert-googlecloud-genai-studio.pdf' },
+  { title: 'Introduction to Prompt Engineering with GitHub Copilot', issuer: 'Microsoft', year: '2026', cat: 'ML/AI',
+    img: 'https://cdn.simpleicons.org/microsoft/0078D4', file: 'cert-microsoft-prompt-engineering.pdf' },
+  { title: 'AI Fluency for Students', issuer: 'Anthropic', year: '2026', cat: 'ML/AI',
+    img: 'https://cdn.simpleicons.org/anthropic/181818', file: 'cert-anthropic-ai-fluency.pdf' }
 ];
 
 /* ---------- Blog ---------- */
