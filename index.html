@@ -94,20 +94,26 @@
 
 <!-- ═══════════ NAVIGATION (Oracle dual-bar) ═══════════ -->
 <header id="site-nav" role="banner">
-  <!-- White top bar: brand + search (matches Oracle's top white bar) -->
+  <!-- Oracle-exact top bar: hamburger + MSR brand + wide search + utility icons -->
   <div class="nav-top">
-    <div class="nav-dock" aria-label="Site navigation">
-      <a href="#hero-section" class="nav-brand" aria-label="Home — Mohit Singh Rajput">
-        <span class="brand-orb"></span><span class="brand-text">MSR</span>
-      </a>
-      <div class="nav-actions">
-        <button id="cmdk-trigger" class="nav-icon-btn" title="Search (Ctrl+K)" aria-label="Open command palette">
-          <i class="fa-solid fa-magnifying-glass"></i>
+    <div class="nav-dock nav-top-dock">
+      <!-- LEFT: hamburger (≡) + MSR logo in Oracle red -->
+      <div class="nav-top-left">
+        <button id="nav-burger" class="nav-burger-oracle" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
         </button>
-        <button id="nav-burger" class="nav-icon-btn burger" aria-label="Open menu" aria-expanded="false">
-          <span></span><span></span>
+        <a href="#hero-section" class="nav-brand" aria-label="Home — Mohit Singh Rajput">
+          <span class="brand-text">MSR</span>
+        </a>
+      </div>
+      <!-- CENTER: Oracle-style wide rounded search bar -->
+      <div class="nav-search-wrap">
+        <button class="nav-search-pill" id="cmdk-trigger" aria-label="Search (Ctrl+K)" title="Search">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <span class="nav-search-placeholder">Search</span>
         </button>
       </div>
+
     </div>
   </div>
   <!-- Dark secondary nav bar: section links (matches Oracle's dark product nav) -->
@@ -186,10 +192,6 @@
         <p class="oac-caption" id="ai-caption">▶ 30-second AI introduction</p>
       </div>
       <!-- Tech chips -->
-      <div class="float-chip c1 mono"><i class="fa-brands fa-python" aria-hidden="true"></i> PyTorch</div>
-      <div class="float-chip c2 mono"><i class="fa-solid fa-brain" aria-hidden="true"></i> LLMs</div>
-      <div class="float-chip c3 mono"><i class="fa-solid fa-eye" aria-hidden="true"></i> Vision</div>
-      <div class="float-chip c4 mono"><i class="fa-solid fa-diagram-project" aria-hidden="true"></i> RAG</div>
     </div>
   </div>
 
