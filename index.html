@@ -121,12 +121,12 @@
     <div class="nav-dock">
       <ul class="nav-links" id="nav-links" aria-label="Primary navigation">
         <li><a href="#about-section" data-nav>About</a></li>
-        <li><a href="#education-section" data-nav>Education</a></li>
-        <li><a href="#experience-section" data-nav>Experience</a></li>
         <li><a href="#projects-section" data-nav>Projects</a></li>
         <li><a href="#skills-section" data-nav>Skills</a></li>
+        <li><a href="#experience-section" data-nav>Experience</a></li>
+        <li><a href="#education-section" data-nav>Education</a></li>
         <li><a href="#courses-section" data-nav>Learning</a></li>
-        <li><a href="#certificates-section" data-nav>Credentials</a></li>
+        <li><a href="#certificates-section" data-nav>Certificates</a></li>
         <li><a href="#contact-section" data-nav>Contact</a></li>
       </ul>
     </div>
@@ -243,9 +243,58 @@
 </section>
 
 <!-- ═══════════ EDUCATION ═══════════ -->
+<section id="projects-section" class="section" aria-label="Projects">
+  <header class="section-head reveal">
+    <p class="section-eyebrow mono">02 · projects</p>
+    <h2 class="section-title">Things I've built & shipped<span class="grad-text">.</span></h2>
+  </header>
+
+  <div class="skills-controls reveal">
+    <div class="search-shell">
+      <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+      <input type="search" id="project-search" placeholder="Search projects…" aria-label="Search projects">
+    </div>
+    <div class="filter-row" id="project-filters" role="tablist" aria-label="Project categories"></div>
+  </div>
+
+  <div class="projects-grid" id="projects-grid" aria-live="polite">
+    <div class="grid-loading mono"><span class="spinner"></span> loading projects…</div>
+  </div>
+</section>
+
+<!-- ═══════════ SKILLS ═══════════ -->
+<section id="skills-section" class="section" aria-label="Skills">
+  <header class="section-head reveal">
+    <p class="section-eyebrow mono">03 · skills</p>
+    <h2 class="section-title">The stack behind the systems<span class="grad-text">.</span></h2>
+  </header>
+
+  <div class="skills-controls reveal">
+    <div class="search-shell">
+      <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+      <input type="search" id="skill-search" placeholder="Search 25+ skills…" aria-label="Search skills">
+    </div>
+    <div class="filter-row" id="skill-filters" role="tablist" aria-label="Skill categories"></div>
+  </div>
+
+  <div class="skills-grid" id="skills-grid"></div>
+
+  <ul class="skills-summary reveal" id="skills-summary" aria-label="Skill statistics"></ul>
+</section>
+
+<!-- ═══════════ COURSES ═══════════ -->
+<section id="experience-section" class="section" aria-label="Experience">
+  <header class="section-head reveal">
+    <p class="section-eyebrow mono">04 · experience</p>
+    <h2 class="section-title">Where theory met production<span class="grad-text">.</span></h2>
+  </header>
+  <ol class="xp-timeline" id="xp-timeline"></ol>
+</section>
+
+<!-- ═══════════ PROJECTS ═══════════ -->
 <section id="education-section" class="section" aria-label="Education">
   <header class="section-head reveal">
-    <p class="section-eyebrow mono">02 · education</p>
+    <p class="section-eyebrow mono">05 · education</p>
     <h2 class="section-title">Academic background<span class="grad-text">.</span></h2>
   </header>
   <div class="edu-card reveal">
@@ -266,55 +315,6 @@
 </section>
 
 <!-- ═══════════ EXPERIENCE ═══════════ -->
-<section id="experience-section" class="section" aria-label="Experience">
-  <header class="section-head reveal">
-    <p class="section-eyebrow mono">03 · experience</p>
-    <h2 class="section-title">Where theory met production<span class="grad-text">.</span></h2>
-  </header>
-  <ol class="xp-timeline" id="xp-timeline"></ol>
-</section>
-
-<!-- ═══════════ PROJECTS ═══════════ -->
-<section id="projects-section" class="section" aria-label="Projects">
-  <header class="section-head reveal">
-    <p class="section-eyebrow mono">04 · projects</p>
-    <h2 class="section-title">Things I've built & shipped<span class="grad-text">.</span></h2>
-  </header>
-
-  <div class="skills-controls reveal">
-    <div class="search-shell">
-      <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
-      <input type="search" id="project-search" placeholder="Search projects…" aria-label="Search projects">
-    </div>
-    <div class="filter-row" id="project-filters" role="tablist" aria-label="Project categories"></div>
-  </div>
-
-  <div class="projects-grid" id="projects-grid" aria-live="polite">
-    <div class="grid-loading mono"><span class="spinner"></span> loading projects…</div>
-  </div>
-</section>
-
-<!-- ═══════════ SKILLS ═══════════ -->
-<section id="skills-section" class="section" aria-label="Skills">
-  <header class="section-head reveal">
-    <p class="section-eyebrow mono">05 · skills</p>
-    <h2 class="section-title">The stack behind the systems<span class="grad-text">.</span></h2>
-  </header>
-
-  <div class="skills-controls reveal">
-    <div class="search-shell">
-      <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
-      <input type="search" id="skill-search" placeholder="Search 25+ skills…" aria-label="Search skills">
-    </div>
-    <div class="filter-row" id="skill-filters" role="tablist" aria-label="Skill categories"></div>
-  </div>
-
-  <div class="skills-grid" id="skills-grid"></div>
-
-  <ul class="skills-summary reveal" id="skills-summary" aria-label="Skill statistics"></ul>
-</section>
-
-<!-- ═══════════ COURSES ═══════════ -->
 <section id="courses-section" class="section" aria-label="Learning journey">
   <header class="section-head reveal">
     <p class="section-eyebrow mono">06 · learning</p>
@@ -327,7 +327,7 @@
 <!-- ═══════════ CERTIFICATES ═══════════ -->
 <section id="certificates-section" class="section" aria-label="Certificates">
   <header class="section-head reveal">
-    <p class="section-eyebrow mono">07 · credentials</p>
+    <p class="section-eyebrow mono">07 · certificates</p>
     <h2 class="section-title">Certified curiosity<span class="grad-text">.</span></h2>
   </header>
   <div class="skills-controls reveal">
