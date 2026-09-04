@@ -77,20 +77,35 @@ function renderProjects() {
   const list = projState.data.filter(p =>
     (projState.cat === 'All' || p.cat === projState.cat) &&
     (!projState.q || (p.repo + ' ' + p.desc + ' ' + p.topics.join(' ')).toLowerCase().includes(projState.q)));
+  const REPO_SI = {
+    'Multi-Agent-AI-Customer-Support': 'https://cdn.simpleicons.org/langchain/1C3C3C',
+    'Facial-Emotion-Recognition-System': 'https://cdn.simpleicons.org/opencv/5C3EE8',
+    'Loan-Eligibility-and-EMI-Prediction-AI': 'https://cdn.simpleicons.org/python/3776AB',
+    'Tourism-Experience-Analytics-System': 'https://cdn.simpleicons.org/jupyter/F37626',
+    'Shopper-Spectrum': 'https://cdn.simpleicons.org/scikitlearn/F7931E',
+    'Flipkart-CSAT-Prediction': 'https://cdn.simpleicons.org/python/3776AB',
+    'Emotion-Recognition-from-Speech': 'https://cdn.simpleicons.org/pytorch/EE4C2C',
+    'Heart-Disease-Prediction': 'https://cdn.simpleicons.org/tensorflow/FF6F00',
+    'Handwritten-Digit-Recognition': 'https://cdn.simpleicons.org/tensorflow/FF6F00',
+    'Interactive-Web-Apps-with-Streamlit': 'https://cdn.simpleicons.org/streamlit/FF4B4B',
+    'AI-Agents-and-RAG-Systems': 'https://cdn.simpleicons.org/langchain/1C3C3C',
+  };
   const grid = $('#projects-grid');
   grid.innerHTML = list.length ? list.map((p, i) => `
     <article class="project-card" style="--i:${i}">
-      <div class="project-banner"><span class="project-cat mono">${p.cat}</span><i class="${p.icon}" aria-hidden="true"></i></div>
+      <div class="project-banner">
+        <span class="project-cat mono">${p.cat}</span>
+        ${REPO_SI[p.repo]
+          ? `<img src="${REPO_SI[p.repo]}" alt="${p.repo}" width="52" height="52" loading="lazy" class="proj-si-logo" onerror="this.style.display='none'">`
+          : `<i class="${p.icon}" aria-hidden="true"></i>`}
+      </div>
       <div class="project-body">
         <h3 class="project-name">${p.repo.replace(/-/g, ' ')}</h3>
-        <p class="project-desc">${p.desc}</p>
         <div class="project-meta">
           ${p.stars !== null ? `<span><i class="fa-solid fa-star"></i>${p.stars}</span>` : ''}
           ${p.forks !== null ? `<span><i class="fa-solid fa-code-fork"></i>${p.forks}</span>` : ''}
           <span><i class="fa-solid fa-circle-dot"></i>${p.lang}</span>
-          ${p.updated ? `<span><i class="fa-regular fa-clock"></i>${fmtDate(p.updated)}</span>` : ''}
         </div>
-        <div class="project-langs">${(p.topics.slice(0, 4).length ? p.topics.slice(0, 4) : [p.lang]).map(t => `<span class="lang-tag">${t}</span>`).join('')}</div>
         <div class="project-actions">
           <button class="mini-btn solid" data-details="${p.repo}"><i class="fa-solid fa-circle-info"></i> Details</button>
           <a class="mini-btn" href="${p.url}" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i> Code</a>
@@ -98,7 +113,7 @@ function renderProjects() {
         </div>
       </div>
     </article>`).join('')
-    : `<p class="no-results">No projects match “${projState.q}”.</p>`;
+    : `<p class="no-results">No projects match "${projState.q}".</p>`;
 }
 
 $('#project-filters').addEventListener('click', e => {
