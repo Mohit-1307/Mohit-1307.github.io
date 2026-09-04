@@ -332,6 +332,11 @@ function renderSkills() {
       <span class="skill-name">${s.name}</span>
     </article>`).join('');
 }
+// Clear summary stat cards — removed by design
+const skillSummaryEl = $('#skills-summary');
+if (skillSummaryEl) skillSummaryEl.innerHTML = '';
+renderSkills();
+
 // Safe event binding (elements may be hidden/absent when filters removed)
 // Skill search — filter cards by name as user types
 $('#skill-filters')?.addEventListener('click', () => {});
@@ -342,10 +347,6 @@ $('#skill-search')?.addEventListener('input', e => {
     card.style.display = (!q || name.includes(q)) ? '' : 'none';
   });
 });
-// Clear summary stat cards — removed by design
-const skillSummaryEl = $('#skills-summary');
-if (skillSummaryEl) skillSummaryEl.innerHTML = '';
-renderSkills();
 
 
 /* ════════ COURSES ════════ */
