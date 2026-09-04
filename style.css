@@ -2022,70 +2022,37 @@ section[id], #hero-section {
   box-shadow: none !important;
 }
 
-/* 2. PROJECT CARDS — blue border box on hover, no transform */
-.project-card {
-  transition: border-color .35s ease, box-shadow .35s ease !important;
-  overflow: visible !important;
-}
-.project-card:hover {
-  border-color: var(--primary) !important;
-  box-shadow: 0 0 0 2px var(--primary), 0 16px 36px -18px var(--glow) !important;
-  background: var(--surface) !important;
+/* 2–7. ALL CARDS — thin blue border on hover, no movement, no thick shadow */
+
+/* Shared transition for all hovered cards */
+.project-card, .xp-card, .cert-card, .lc-card,
+.skill-card, .contact-form, .map-placeholder {
+  transition: border-color .3s ease !important;
   transform: none !important;
+}
+
+/* Thin blue border only — same style as the skill card screenshot */
+.project-card:hover,
+.xp-card:hover,
+.cert-card:hover,
+.lc-card:hover,
+.skill-card:hover,
+.contact-form:hover,
+.map-placeholder:hover {
+  border-color: var(--primary) !important;
+  box-shadow: none !important;
+  transform: none !important;
+  background: var(--surface) !important;
+}
+
+/* Kill all ::before top-bar animations on cards */
+.project-card::before,
+.xp-card::before,
+.cert-card::before,
+.skill-card::before {
+  display: none !important;
 }
 .project-card:hover::before {
   opacity: 0 !important;
   transform: scaleX(0) !important;
 }
-
-/* 3. EXPERIENCE CARDS (xp-card) — blue border box, no top-line */
-.xp-card {
-  transition: border-color .35s ease, box-shadow .35s ease !important;
-}
-.xp-card::before { display: none !important; }
-.xp-card:hover {
-  border-color: var(--primary) !important;
-  box-shadow: 0 0 0 2px var(--primary), 0 16px 36px -18px var(--glow) !important;
-  transform: none !important;
-}
-
-/* 4. CERT CARDS — blue border box, no top-line */
-.cert-card {
-  transition: border-color .35s ease, box-shadow .35s ease !important;
-  overflow: hidden !important;
-}
-.cert-card::before { display: none !important; }
-.cert-card:hover {
-  border-color: var(--primary) !important;
-  box-shadow: 0 0 0 2px var(--primary), 0 16px 36px -18px var(--glow) !important;
-  transform: none !important;
-}
-
-/* 5. LEETCODE CARD — blue border box */
-.lc-card {
-  transition: border-color .35s ease, box-shadow .35s ease !important;
-}
-.lc-card:hover {
-  border-color: var(--primary) !important;
-  box-shadow: 0 0 0 2px var(--primary), 0 16px 36px -18px var(--glow) !important;
-  transform: none !important;
-}
-
-/* 6. CONTACT FORM + LOCATION CARD — blue border box */
-.contact-form,
-.map-placeholder {
-  transition: border-color .35s ease, box-shadow .35s ease !important;
-}
-.contact-form:hover,
-.map-placeholder:hover {
-  border-color: var(--primary) !important;
-  box-shadow: 0 0 0 2px var(--primary), 0 16px 36px -18px var(--glow) !important;
-}
-
-/* 7. SKILL CARDS — no hover effect at all */
-.skill-card:hover {
-  border-color: var(--border) !important;
-  box-shadow: none !important;
-  transform: none !important;
-}
-.skill-card::before { display: none !important; }
