@@ -188,7 +188,7 @@ html.reduce-motion #cursor-dot{display:none}
 .hero-cta{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:32px}
 .hero-socials{display:flex;list-style:none;gap:10px;flex-wrap:wrap}
 .hero-socials a{position:relative;display:grid;place-items:center;width:44px;height:44px;border-radius:13px;border:1px solid var(--border);background:color-mix(in srgb,var(--surface) 70%,transparent);color:var(--muted);font-size:1.05rem;transition:.3s var(--ease)}
-.hero-socials a:hover{color:var(--text);border-color:var(--primary);transform:translateY(-4px) rotate(-3deg);box-shadow:0 12px 26px -12px var(--glow)}
+.hero-socials a:hover{color:var(--text);border-color:var(--primary);box-shadow:0 12px 26px -12px var(--glow)}
 .hero-socials a[data-tip]::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%) translateY(4px);background:var(--surface-2);border:1px solid var(--border);color:var(--text);font-size:.68rem;padding:4px 9px;border-radius:8px;white-space:nowrap;opacity:0;pointer-events:none;transition:.25s}
 .hero-socials a:hover::after{opacity:1;transform:translateX(-50%)}
 html.fa-failed .hero-socials a i{font-size:0}
@@ -224,7 +224,7 @@ html.fa-failed .float-chip .chip-emoji{display:inline}
 
 .hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;list-style:none;margin-top:58px;max-width:900px}
 .hero-stats li{padding:20px 22px;border-radius:var(--radius);background:var(--surface);border:1px solid var(--border);backdrop-filter:blur(14px);transition:transform .35s var(--ease),border-color .35s}
-.hero-stats li:hover{transform:translateY(-5px);border-color:var(--primary)}
+.hero-stats li:hover{border-color:var(--primary)}
 .hero-stats strong{display:block;font-family:var(--font-display);font-size:1.9rem;font-weight:700;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
 .hero-stats span{font-size:.8rem;color:var(--muted)}
 .scroll-indicator{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--muted);font-size:.68rem;letter-spacing:.2em}
@@ -335,7 +335,7 @@ html.reduce-motion .reveal{opacity:1;transform:none}
 .lang-tag{font-size:.68rem;padding:4px 9px;border-radius:7px;background:color-mix(in srgb,var(--primary) 10%,transparent);border:1px solid color-mix(in srgb,var(--primary) 20%,transparent);color:var(--text)}
 .project-actions{display:flex;gap:10px;margin-top:4px}
 .mini-btn{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px;border-radius:11px;font-size:.8rem;font-weight:600;border:1px solid var(--border);color:var(--text);transition:.3s}
-.mini-btn:hover{border-color:var(--primary);background:color-mix(in srgb,var(--primary) 10%,transparent);transform:translateY(-2px)}
+.mini-btn:hover{border-color:var(--primary);background:color-mix(in srgb,var(--primary) 10%,transparent)}
 .mini-btn.solid{background:var(--grad);color:#fff;border-color:transparent}
 .mini-btn.solid:hover{box-shadow:0 12px 26px -12px var(--glow)}
 
@@ -492,7 +492,7 @@ html[data-mode="dark"] .contrib-count span{color:var(--gh-4);text-shadow:0 0 12p
 .profile-links{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;align-items:stretch}
 .profile-links li{display:flex}
 .profile-links a{display:flex;align-items:center;gap:16px;padding:20px 22px;border-radius:var(--radius);background:var(--surface);border:1px solid var(--border);color:var(--text);transition:.35s var(--ease);width:100%}
-.profile-links a:hover{transform:translateY(-4px);border-color:var(--primary);box-shadow:0 16px 36px -18px var(--glow)}
+.profile-links a:hover{border-color:var(--primary);box-shadow:0 16px 36px -18px var(--glow)}
 .profile-links a>i:first-child{font-size:1.5rem;color:var(--primary)}
 .profile-links strong{display:block;font-size:.95rem}
 .profile-links span{color:var(--muted);font-size:.78rem}
@@ -802,7 +802,7 @@ html.theme-anim body::after{content:'';position:fixed;inset:0;z-index:300;backgr
   backdrop-filter: none;
   padding: 18px 20px;
 }
-.hero-stats li:hover { transform: translateY(-3px); border-color: var(--primary); box-shadow: 0 8px 22px rgba(0,107,143,.1); }
+.hero-stats li:hover { border-color: var(--primary); box-shadow: 0 8px 22px rgba(0,107,143,.1); }
 .hero-stats strong {
   font-family: var(--font-body);
   font-size: 1.75rem;
@@ -968,7 +968,7 @@ html.theme-anim body::after{content:'';position:fixed;inset:0;z-index:300;backgr
 
 /* ── Skills ── */
 .skill-card { background: #ffffff; border-color: var(--border); border-radius: 6px; backdrop-filter: none; box-shadow: none; }
-.skill-card:hover { border-color: var(--primary); box-shadow: 0 6px 18px rgba(0,107,143,.09); transform: translateY(-2px); }
+.skill-card:hover { border-color: var(--primary); box-shadow: 0 6px 18px rgba(0,107,143,.09); }
 .skill-card::before { display: none; }
 .skill-card-top i { color: var(--primary); }
 .skill-bar-fill { background: var(--primary); }
@@ -987,7 +987,7 @@ html.theme-anim body::after{content:'';position:fixed;inset:0;z-index:300;backgr
 .xp-timeline::before { background: rgba(0,107,143,.3); opacity: 1; }
 .xp-item::before { background: var(--primary); box-shadow: 0 0 12px rgba(0,107,143,.4); animation: none; }
 .xp-card { background: #ffffff; border-color: var(--border); border-radius: 6px; backdrop-filter: none; box-shadow: none; }
-.xp-card:hover { border-color: var(--primary); box-shadow: 0 10px 28px rgba(0,107,143,.1); transform: translateY(-2px); }
+.xp-card:hover { border-color: var(--primary); box-shadow: 0 10px 28px rgba(0,107,143,.1); }
 .xp-head h3 { font-family: var(--font-body); }
 .xp-badge { background: rgba(0,107,143,.08); color: var(--primary); border-color: rgba(0,107,143,.22); }
 .xp-org { color: var(--primary); }
@@ -1005,7 +1005,7 @@ html.theme-anim body::after{content:'';position:fixed;inset:0;z-index:300;backgr
 
 /* ── Certs: Oracle portrait hover cards (image 7 — scale + lift) ── */
 .cert-card { background: #ffffff; border-color: var(--border); border-radius: 6px; overflow: hidden; backdrop-filter: none; }
-.cert-card:hover { border-color: transparent; transform: translateY(-5px) scale(1.012); box-shadow: 0 18px 44px rgba(22,21,19,.15); }
+.cert-card:hover { border-color: transparent; box-shadow: 0 18px 44px rgba(22,21,19,.15); }
 .cert-card::before { display: none; }
 .cert-art { background: linear-gradient(135deg,rgba(0,107,143,.15),rgba(0,141,181,.08)); height: 158px; }
 .cert-art::before { opacity: .35; }
@@ -1019,7 +1019,7 @@ html.theme-anim body::after{content:'';position:fixed;inset:0;z-index:300;backgr
 .ach-card:hover { border-color: var(--primary); }
 .ach-card::before { display: none; }
 .profile-links a { background: #ffffff; border-color: var(--border); border-radius: 6px; backdrop-filter: none; }
-.profile-links a:hover { border-color: var(--primary); transform: translateY(-3px); box-shadow: 0 8px 22px rgba(0,107,143,.09); }
+.profile-links a:hover { border-color: var(--primary); box-shadow: 0 8px 22px rgba(0,107,143,.09); }
 .profile-links a > i:first-child { color: var(--primary); }
 .profile-links a::before { display: none; }
 
@@ -1031,7 +1031,7 @@ html.theme-anim body::after{content:'';position:fixed;inset:0;z-index:300;backgr
 
 /* ── Blog ── */
 .blog-card { background: #ffffff; border-color: var(--border); border-radius: 6px; backdrop-filter: none; box-shadow: none; }
-.blog-card:hover { border-color: var(--primary); box-shadow: 0 10px 28px rgba(22,21,19,.09); transform: translateY(-3px); }
+.blog-card:hover { border-color: var(--primary); box-shadow: 0 10px 28px rgba(22,21,19,.09); }
 .blog-card::before { display: none; }
 .blog-top .read-time i { color: var(--primary); }
 .blog-card h3 { font-family: var(--font-body); }
@@ -1968,15 +1968,9 @@ section[id], #hero-section {
 .cert-art img { width: 52px !important; height: 52px !important; object-fit: contain !important; }
 .cert-art i { font-size: 2rem !important; }
 
-/* ── Cards: remove conflicting CSS hover transform so JS magnetic works ── */
+/* ── Cards: no hover movement — static position always ── */
 .project-card:hover, .skill-card:hover, .cert-card:hover,
 .course-card:hover, .edu-card:hover, .blog-card:hover { transform: none !important; }
-
-/* ── All card transitions handled by JS magnetic ── */
-.project-card, .skill-card, .cert-card, .course-card,
-.edu-card, .blog-card, .ach-card {
-  will-change: transform;
-}
 
 /* ── Nav top: when no burger on desktop, brand goes first ── */
 @media(min-width: 769px) {
@@ -1985,11 +1979,7 @@ section[id], #hero-section {
   }
 }
 
-/* ═══ MAGNETIC EFFECT — REMOVE ALL COMPETING CSS TRANSFORMS ═══
-   JS handles 100% of all card movement. CSS must not fight it.
-   ══════════════════════════════════════════════════════════════ */
-
-/* Strip every hover transform from every card type */
+/* ═══ STATIC CARDS — no hover movement on any card ═══ */
 .project-card:hover,
 .skill-card:hover,
 .cert-card:hover,
@@ -2001,22 +1991,6 @@ section[id], #hero-section {
 .lc-card:hover,
 .hero-stats li:hover,
 .profile-links a:hover,
-.hero-socials a:hover,
-.hero-stats li:hover {
+.hero-socials a:hover {
   transform: none !important;
-  box-shadow: none !important;
-}
-
-/* Remove transition from all cards in CSS (JS sets it per-event) */
-.project-card, .skill-card, .cert-card, .course-card,
-.edu-card, .blog-card, .ach-card, .xp-card, .lc-card,
-.hero-stats li, .profile-links a {
-  transition: border-color .2s !important;  /* only colour transitions */
-  will-change: transform;
-}
-
-/* Magnetic buttons keep their own transition */
-.magnetic {
-  transition: none !important;
-  will-change: transform;
 }
