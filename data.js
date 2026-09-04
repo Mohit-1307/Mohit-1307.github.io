@@ -55,7 +55,7 @@ MSR.GH_USER = 'Mohit-1307';
 MSR.PROJECTS = [
   {
     repo: 'Multi-Agent-AI-Customer-Support-Assistant',
-    cat: 'GenAI & Agents', icon: 'fa-solid fa-robot',
+    cat: 'GenAI & Agents', icon: 'fa-solid fa-headset',
     arch: 'LangGraph supervisor routes intent → specialist agents (FAQ / order / escalation) → RAG over FAISS knowledge base → grounded LLM response with tool calls.',
     timeline: '2025 · 6 weeks',
     features: ['Multi-agent orchestration with LangGraph state machines', 'RAG grounding with Sentence Transformers + FAISS', 'Tool-calling agents for order lookup & ticket escalation', 'FastAPI backend with JWT-secured endpoints'],
@@ -64,7 +64,7 @@ MSR.PROJECTS = [
   },
   {
     repo: 'Facial-Emotion-Recognition-System',
-    cat: 'Computer Vision', icon: 'fa-solid fa-face-smile',
+    cat: 'Computer Vision', icon: 'fa-solid fa-face-grin-beam',
     arch: 'Haar-cascade face detection → preprocessing pipeline → CNN classifier (Keras) trained on FER-style data → real-time OpenCV inference loop.',
     timeline: '2025 · 4 weeks',
     features: ['Real-time webcam emotion detection', 'Custom CNN with data augmentation', 'Class-imbalance handling & evaluation dashboards', 'Seven-emotion classification head'],
@@ -73,7 +73,7 @@ MSR.PROJECTS = [
   },
   {
     repo: 'Loan-Eligibility-and-EMI-Prediction-AI',
-    cat: 'Machine Learning', icon: 'fa-solid fa-sack-dollar',
+    cat: 'Machine Learning', icon: 'fa-solid fa-building-columns',
     arch: 'Applicant financial data → preprocessing & feature engineering → ML classification for loan eligibility + regression for EMI estimation → interactive Streamlit app.',
     timeline: '2026',
     features: ['Loan eligibility prediction from applicant financial data', 'EMI amount estimation with regression modeling', 'Interactive Streamlit interface for real-time predictions'],
@@ -82,7 +82,7 @@ MSR.PROJECTS = [
   },
   {
     repo: 'Tourism-Experience-Analytics-System',
-    cat: 'Machine Learning', icon: 'fa-solid fa-earth-asia',
+    cat: 'Machine Learning', icon: 'fa-solid fa-map-location-dot',
     arch: 'Tourism dataset → EDA & feature engineering → ML models for experience prediction → interactive Streamlit analytics dashboard.',
     timeline: '2025',
     features: ['Tourism experience prediction from visitor data', 'Comprehensive EDA with tourism feature insights', 'Interactive Streamlit analytics dashboard', 'Multi-model comparison and evaluation'],
@@ -91,7 +91,7 @@ MSR.PROJECTS = [
   },
   {
     repo: 'Shopper-Spectrum',
-    cat: 'Machine Learning', icon: 'fa-solid fa-cart-shopping',
+    cat: 'Machine Learning', icon: 'fa-solid fa-store',
     arch: 'E-commerce transactions → RFM feature construction → K-Means segmentation + collaborative filtering recommender → Streamlit app.',
     timeline: '2025 · 3 weeks',
     features: ['RFM-based customer segmentation', 'Item-similarity product recommendations', 'Interactive Streamlit analytics app'],
@@ -100,7 +100,7 @@ MSR.PROJECTS = [
   },
   {
     repo: 'Flipkart-CSAT-Prediction',
-    cat: 'NLP & ML', icon: 'fa-solid fa-star-half-stroke',
+    cat: 'NLP & ML', icon: 'fa-solid fa-comments-dollar',
     arch: 'Support interaction data → text & categorical feature engineering → gradient-boosted / deep models → CSAT score prediction with drivers analysis.',
     timeline: '2025 · 3 weeks',
     features: ['Customer satisfaction driver analysis', 'Mixed text + tabular feature pipeline', 'Business-readable evaluation reporting'],
@@ -109,7 +109,7 @@ MSR.PROJECTS = [
   },
   {
     repo: 'Emotion-Recognition-from-Speech',
-    cat: 'Audio & Speech', icon: 'fa-solid fa-microphone-lines',
+    cat: 'Audio & Speech', icon: 'fa-solid fa-waveform-lines',
     arch: 'Librosa feature extraction (MFCC, chroma, mel) → feature stacking → deep classifier → evaluation across speaker-independent splits.',
     timeline: '2025 · 3 weeks',
     features: ['MFCC / chroma / mel-spectrogram feature engineering', 'Speaker-independent evaluation protocol', 'Confusion-matrix driven error analysis'],
@@ -117,7 +117,7 @@ MSR.PROJECTS = [
   },
   {
     repo: 'Heart-Disease-Prediction',
-    cat: 'Machine Learning', icon: 'fa-solid fa-heart-pulse',
+    cat: 'Machine Learning', icon: 'fa-solid fa-heart-circle-exclamation',
     arch: 'Clinical dataset EDA → feature engineering & scaling → model bake-off (LogReg / RF / ensemble) → calibrated best model + explainability.',
     timeline: '2025 · 2 weeks',
     features: ['Thorough EDA with medical feature insights', 'Cross-validated model comparison', 'ROC-AUC optimized final classifier'],
@@ -125,7 +125,7 @@ MSR.PROJECTS = [
   },
   {
     repo: 'Handwritten-Digit-Recognition',
-    cat: 'Computer Vision', icon: 'fa-solid fa-pen-nib',
+    cat: 'Computer Vision', icon: 'fa-solid fa-signature',
     arch: 'MNIST ingestion → normalization → CNN (conv-pool stacks) → training with augmentation → interactive digit inference.',
     timeline: '2024 · 2 weeks',
     features: ['Classic CNN achieving 99%+ test accuracy', 'Training curves & misclassification gallery', 'Clean, reproducible notebook pipeline'],
@@ -133,7 +133,7 @@ MSR.PROJECTS = [
   },
   {
     repo: 'Interactive-Web-Apps-with-Streamlit',
-    cat: 'ML Engineering', icon: 'fa-solid fa-window-restore',
+    cat: 'ML Engineering', icon: 'fa-solid fa-display-code',
     arch: 'Reusable Streamlit component patterns → data apps with caching, forms, charts → deployable ML demo templates.',
     timeline: '2024 · ongoing',
     features: ['Collection of interactive data/ML apps', 'State management & caching patterns', 'Deployment-ready app templates'],
@@ -141,7 +141,7 @@ MSR.PROJECTS = [
   },
   {
     repo: 'AI-Agents-and-RAG-Systems',
-    cat: 'GenAI & Agents', icon: 'fa-solid fa-diagram-project',
+    cat: 'GenAI & Agents', icon: 'fa-solid fa-spider-web',
     arch: 'LangChain + LangGraph experiments → embedding pipelines → FAISS vector stores → agentic RAG with OpenAI / Claude / Groq / Ollama backends.',
     timeline: '2025 · ongoing',
     features: ['Agent design patterns & tool use', 'Multi-provider LLM abstraction (OpenAI, Claude, Groq, Ollama)', 'Chunking & retrieval quality experiments'],
