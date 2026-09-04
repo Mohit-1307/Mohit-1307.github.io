@@ -23,10 +23,10 @@ MSR.THEMES = [
 MSR.SKILLS = [
   { name: 'Python',               img: 'https://cdn.simpleicons.org/python/3776AB',      color: '#3776AB' },
   { name: 'C++',                  img: 'https://cdn.simpleicons.org/cplusplus/00599C',    color: '#00599C' },
-  { name: 'Java',                 img: 'https://cdn.simpleicons.org/java/007396',          color: '#007396' },
+  { name: 'Java',                 img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg', color: '#007396' },
   { name: 'JavaScript',           img: 'https://cdn.simpleicons.org/javascript/F7DF1E',   color: '#F7DF1E' },
   { name: 'HTML',                 img: 'https://cdn.simpleicons.org/html5/E34F26',         color: '#E34F26' },
-  { name: 'CSS',                  img: 'https://cdn.simpleicons.org/css3/1572B6',          color: '#1572B6' },
+  { name: 'CSS',                  img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg', color: '#1572B6' },
   { name: 'SQL',                  img: 'https://cdn.simpleicons.org/mysql/4479A1',         color: '#4479A1' },
   { name: 'NumPy',                img: 'https://cdn.simpleicons.org/numpy/013243',         color: '#013243' },
   { name: 'Pandas',               img: 'https://cdn.simpleicons.org/pandas/150458',        color: '#150458' },
