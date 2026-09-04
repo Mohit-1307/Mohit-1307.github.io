@@ -75,9 +75,6 @@ html.hc body { --muted:var(--text); }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;font-size:14.5px}
 html.reduce-motion{scroll-behavior:auto}
-/* Reduce motion must actually stop looping animations, not just speed them up —
-   a near-zero duration on an `infinite` animation still cycles, which reads as
-   a strobe/blink. Force a single, instant cycle instead. */
 html.reduce-motion *,html.reduce-motion *::before,html.reduce-motion *::after{
   animation-duration:.001ms!important;
   animation-delay:0s!important;
@@ -99,8 +96,6 @@ input,textarea{font-family:inherit;color:inherit}
 .mono{font-family:var(--font-mono)}
 kbd{font-family:var(--font-mono);font-size:.68rem;padding:2px 6px;border:1px solid var(--border);border-radius:6px;color:var(--muted)}
 :focus-visible{outline:2px solid var(--primary);outline-offset:3px;border-radius:4px}
-/* Real OS cursor stays visible at all times — #cursor-dot below is purely a
-   soft trailing glow drawn behind it, never a replacement for it. */
 html.reduce-motion body, html.reduce-motion a, html.reduce-motion button{cursor:auto}
 
 /* Scrollbar */
@@ -1724,7 +1719,7 @@ section[id], #hero-section {
 .nav-secondary .nav-dock { justify-content: center; }
 .nav-links { justify-content: center; }
 
-/* ── Oracle nav-top: 3-column grid (burger+brand | search | nothing) ── */
+/* ── Oracle nav-top: 3-column grid (brand | search) ── */
 .nav-top-dock {
   display: grid !important;
   grid-template-columns: auto 1fr auto !important;
@@ -1753,19 +1748,9 @@ section[id], #hero-section {
 .nav-search-pill:hover { border-color: rgba(22,21,19,.48); }
 .nav-search-pill i { color: #6b6560; font-size: .88rem; flex-shrink: 0; }
 .nav-search-pill .nav-search-placeholder { color: #9b9590; }
-/* Burger Oracle style: 3 bars */
-.nav-burger-oracle {
-  background: transparent; border: none; cursor: pointer;
-  padding: 6px 8px; display: flex; flex-direction: column;
-  gap: 4px; border-radius: 4px;
-}
-.nav-burger-oracle:hover { background: rgba(22,21,19,.06); }
-.nav-burger-oracle span {
-  display: block; width: 22px; height: 2px;
-  background: #161513; border-radius: 2px;
-  transition: transform .25s, opacity .25s;
-}
-/* MSR brand: Oracle-logo style */
+/* Burger Oracle style: hidden (no hamburger) */
+.nav-burger-oracle { display: none !important; }
+/* MSR brand: Oracle-logo style (dark red) */
 .nav-brand .brand-orb { display: none !important; }
 .nav-brand, .nav-brand .brand-text {
   font-family: var(--font-body) !important;
@@ -1885,3 +1870,16 @@ section[id], #hero-section {
 /* ── Remove old hologram card ── */
 .hologram-card, .holo-grid, .holo-avatar, .avatar-ring,
 .holo-meter, .meter-wrap { display: none !important; }
+
+/* ═══ GLOBAL CARD HOVER (like social icons) ═══ */
+.project-card, .skill-card, .cert-card, .xp-card, .course-card,
+.edu-card, .blog-card, .ach-card, .profile-links a {
+  transition: transform 0.3s cubic-bezier(.25,.8,.25,1), box-shadow 0.3s, border-color 0.3s !important;
+}
+.project-card:hover, .skill-card:hover, .cert-card:hover,
+.xp-card:hover, .course-card:hover, .edu-card:hover,
+.blog-card:hover, .ach-card:hover, .profile-links a:hover {
+  transform: translateY(-4px) rotate(-1deg) !important;
+  box-shadow: 0 18px 40px -12px rgba(0,0,0,.12) !important;
+}
+/* Keep tilt JS from being overridden: it applies inline styles, so we allow it */
