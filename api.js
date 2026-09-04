@@ -77,21 +77,26 @@ function renderProjects() {
   const list = projState.data.filter(p =>
     (projState.cat === 'All' || p.cat === projState.cat) &&
     (!projState.q || (p.repo + ' ' + p.desc + ' ' + p.topics.join(' ')).toLowerCase().includes(projState.q)));
-  const CAT_SI = {
-    'GenAI & Agents':   'https://cdn.simpleicons.org/langchain/1C3C3C',
-    'Computer Vision':  'https://cdn.simpleicons.org/opencv/5C3EE8',
-    'Machine Learning': 'https://cdn.simpleicons.org/scikitlearn/F7931E',
-    'NLP & ML':         'https://cdn.simpleicons.org/python/3776AB',
-    'Audio & Speech':   'https://cdn.simpleicons.org/pytorch/EE4C2C',
-    'ML Engineering':   'https://cdn.simpleicons.org/streamlit/FF4B4B',
+  const REPO_SI = {
+    'Multi-Agent-AI-Customer-Support': 'https://cdn.simpleicons.org/langchain/1C3C3C',
+    'Facial-Emotion-Recognition-System': 'https://cdn.simpleicons.org/opencv/5C3EE8',
+    'Loan-Eligibility-and-EMI-Prediction-AI': 'https://cdn.simpleicons.org/python/3776AB',
+    'Tourism-Experience-Analytics-System': 'https://cdn.simpleicons.org/jupyter/F37626',
+    'Shopper-Spectrum': 'https://cdn.simpleicons.org/scikitlearn/F7931E',
+    'Flipkart-CSAT-Prediction': 'https://cdn.simpleicons.org/python/3776AB',
+    'Emotion-Recognition-from-Speech': 'https://cdn.simpleicons.org/pytorch/EE4C2C',
+    'Heart-Disease-Prediction': 'https://cdn.simpleicons.org/tensorflow/FF6F00',
+    'Handwritten-Digit-Recognition': 'https://cdn.simpleicons.org/tensorflow/FF6F00',
+    'Interactive-Web-Apps-with-Streamlit': 'https://cdn.simpleicons.org/streamlit/FF4B4B',
+    'AI-Agents-and-RAG-Systems': 'https://cdn.simpleicons.org/langchain/1C3C3C',
   };
   const grid = $('#projects-grid');
   grid.innerHTML = list.length ? list.map((p, i) => `
     <article class="project-card" style="--i:${i}">
       <div class="project-banner">
         <span class="project-cat mono">${p.cat}</span>
-        ${CAT_SI[p.cat]
-          ? `<img src="${CAT_SI[p.cat]}" alt="${p.cat}" width="52" height="52" loading="lazy" class="proj-si-logo" onerror="this.style.display='none'">`
+        ${REPO_SI[p.repo]
+          ? `<img src="${REPO_SI[p.repo]}" alt="${p.repo}" width="52" height="52" loading="lazy" class="proj-si-logo" onerror="this.style.display='none'">`
           : `<i class="${p.icon}" aria-hidden="true"></i>`}
       </div>
       <div class="project-body">
