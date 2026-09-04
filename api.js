@@ -92,7 +92,19 @@ function renderProjects() {
   const list = projState.data.filter(p =>
     (projState.cat === 'All' || p.cat === projState.cat) &&
     (!projState.q || (p.repo + ' ' + p.desc + ' ' + p.topics.join(' ')).toLowerCase().includes(projState.q)));
-  const REPO_SI = {};  // FA icons from data.js are used instead
+  const REPO_SI = {
+    'Multi-Agent-AI-Customer-Support-Assistant': 'https://cdn.simpleicons.org/openai/412991',
+    'Facial-Emotion-Recognition-System':         'https://cdn.simpleicons.org/opencv/5C3EE8',
+    'Loan-Eligibility-and-EMI-Prediction-AI':    'https://cdn.simpleicons.org/streamlit/FF4B4B',
+    'Tourism-Experience-Analytics-System':       'https://cdn.simpleicons.org/streamlit/FF4B4B',
+    'Shopper-Spectrum':                          'https://cdn.simpleicons.org/streamlit/FF4B4B',
+    'Flipkart-CSAT-Prediction':                  'https://cdn.simpleicons.org/streamlit/FF4B4B',
+    'Emotion-Recognition-from-Speech':           'https://cdn.simpleicons.org/pytorch/EE4C2C',
+    'Heart-Disease-Prediction':                  'https://cdn.simpleicons.org/streamlit/FF4B4B',
+    'Handwritten-Digit-Recognition':             'https://cdn.simpleicons.org/keras/D00000',
+    'Interactive-Web-Apps-with-Streamlit':       'https://cdn.simpleicons.org/streamlit/FF4B4B',
+    'AI-Agents-and-RAG-Systems':                 'https://cdn.simpleicons.org/langchain/1C3C3C',
+  };
   const grid = $('#projects-grid');
   grid.innerHTML = list.length ? list.map((p, i) => `
     <article class="project-card" style="--i:${i}">
