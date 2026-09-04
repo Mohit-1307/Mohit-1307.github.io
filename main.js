@@ -180,7 +180,7 @@ sections.forEach(s => spy.observe(s));
 // mobile burger removed – we no longer have one, but we keep this for safety
 const burger = $('#nav-burger');
 if (burger) {
-  // ... (unchanged)
+  // ... (removed)
 }
 
 /* ════════ CURSOR ════════ */
@@ -354,10 +354,7 @@ $('#cert-grid').addEventListener('click', e => {
 lightbox.addEventListener('click', e => { if (e.target.closest('[data-lb-close]')) lightbox.hidden = true; });
 
 /* ════════ PROJECTS ════════ */
-// Project search and filters are already handled in api.js, but we need to ensure the search input works.
-// The api.js has a listener for #project-search, but we'll double‑check.
-// In api.js, there is a line: $('#project-search').addEventListener('input', ...)
-// So we don't need to add another one here.
+// Project search and filters are already handled in api.js, so we don't add extra.
 
 /* ════════ CONTACT FORM ════════ */
 (() => {
