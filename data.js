@@ -109,7 +109,7 @@ MSR.PROJECTS = [
   },
   {
     repo: 'Emotion-Recognition-from-Speech',
-    cat: 'Audio & Speech', icon: 'fa-solid fa-waveform-lines',
+    cat: 'Audio & Speech', icon: 'fa-solid fa-microphone-lines',
     arch: 'Librosa feature extraction (MFCC, chroma, mel) → feature stacking → deep classifier → evaluation across speaker-independent splits.',
     timeline: '2025 · 3 weeks',
     features: ['MFCC / chroma / mel-spectrogram feature engineering', 'Speaker-independent evaluation protocol', 'Confusion-matrix driven error analysis'],
@@ -133,7 +133,7 @@ MSR.PROJECTS = [
   },
   {
     repo: 'Interactive-Web-Apps-with-Streamlit',
-    cat: 'ML Engineering', icon: 'fa-solid fa-display-code',
+    cat: 'ML Engineering', icon: 'fa-solid fa-laptop-code',
     arch: 'Reusable Streamlit component patterns → data apps with caching, forms, charts → deployable ML demo templates.',
     timeline: '2024 · ongoing',
     features: ['Collection of interactive data/ML apps', 'State management & caching patterns', 'Deployment-ready app templates'],
@@ -141,7 +141,7 @@ MSR.PROJECTS = [
   },
   {
     repo: 'AI-Agents-and-RAG-Systems',
-    cat: 'GenAI & Agents', icon: 'fa-solid fa-spider-web',
+    cat: 'GenAI & Agents', icon: 'fa-solid fa-sitemap',
     arch: 'LangChain + LangGraph experiments → embedding pipelines → FAISS vector stores → agentic RAG with OpenAI / Claude / Groq / Ollama backends.',
     timeline: '2025 · ongoing',
     features: ['Agent design patterns & tool use', 'Multi-provider LLM abstraction (OpenAI, Claude, Groq, Ollama)', 'Chunking & retrieval quality experiments'],
