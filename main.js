@@ -397,10 +397,8 @@ function renderCerts() {
     return `<div class="cert-card" style="--i:${i}" data-idx="${MSR.CERTS.indexOf(c)}">`
       + `<div class="cert-art">${iconHtml}</div>`
       + `<div class="cert-body">`
-      + `<span class="cert-cat-badge">${c.cat}</span>`
-      + `<h3>${c.title}</h3>`
+      + `<h3 class="cert-title">${c.title}</h3>`
       + `<p class="cert-issuer">${c.issuer} · ${c.year}</p>`
-      + `<p class="cert-desc">${c.desc||''}</p>`
       + `<div class="cert-actions">${fileBtn}</div>`
       + `</div></div>`;
   }).join('')
