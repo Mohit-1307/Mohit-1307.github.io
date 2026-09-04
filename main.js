@@ -24,7 +24,7 @@ const sound = {
     if (!this.on) return;
     try {
       audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
-      if (audioCtx.state === 'suspended') audioCtx.resume();
+      if (audioCtx.state === 'suspended') audioCtx.resume(); // browsers start ctx suspended until a user gesture
       const o = audioCtx.createOscillator(), g = audioCtx.createGain();
       o.type = type; o.frequency.value = freq;
       g.gain.setValueAtTime(gain, audioCtx.currentTime);
@@ -35,8 +35,12 @@ const sound = {
   },
   tick() { this.play(880, .04, 'sine', .03); },
   pop() { this.play(520, .09, 'triangle', .05); },
+  // soft, quick blip for general touch/click feedback across the whole UI
   touch() { this.play(700, .045, 'sine', .025); }
 };
+// Generic touch/click sound — fires on any interactive element so the "UI sounds"
+// toggle actually has something to say on nav links, cards, chips, socials, etc.,
+// not just the handful of spots that already call sound.tick()/pop() explicitly.
 document.addEventListener('pointerdown', e => {
   if (e.target.closest('a,button,.chip,.mode-toggle')) sound.touch();
 });
@@ -51,8 +55,10 @@ function toast(msg, icon = 'fa-circle-check') {
   setTimeout(() => { el.classList.add('out'); setTimeout(() => el.remove(), 450); }, 2600);
 }
 
-/* ════════ ORACLE AI THEME ════════ */
-function toggleThemePanel() {} // stub
+/* ════════ ORACLE AI THEME ════════
+   Single hardcoded Oracle AI theme — no switching.
+   Favicon uses Oracle teal. */
+function toggleThemePanel() {} // stub so command palette reference doesn't break
 (() => {
   const p = encodeURIComponent('#006b8f');
   const fav = $('#favicon');
@@ -61,7 +67,10 @@ function toggleThemePanel() {} // stub
   if (meta) meta.content = '#F5F2EC';
 })();
 
-/* ════════ ORACLE CONTACT WIDGET ════════ */
+/* ════════ ORACLE CONTACT WIDGET ════════
+   Two stacked icon buttons on the right side (chat + call).
+   Chat opens the AI assistant panel.
+   Call/info button shows the contact popup (image 2 style). */
 const oracleWidget = {
   popup: null,
   init() {
@@ -73,6 +82,7 @@ const oracleWidget = {
     const togglePopup = (show) => { if (this.popup) this.popup.hidden = !show; };
 
     chatBtn?.addEventListener('click', () => {
+      // chat button directly opens AI assistant
       openChat(chatPanel.hidden);
       togglePopup(false);
     });
@@ -95,7 +105,7 @@ const oracleWidget = {
   }
 };
 
-/* ════════ ACCESSIBILITY ════════ */
+/* ════════ ACCESSIBILITY (auto, follows system preference) ════════ */
 html.classList.toggle('reduce-motion', prefersReduced);
 
 /* ════════ BACK TO TOP ════════ */
@@ -107,10 +117,10 @@ backToTop.addEventListener('click', () => scrollTo({ top: 0, behavior: prefersRe
   let hidden = false;
   const hide = () => { if (hidden) return; hidden = true; $('#loader').classList.add('done'); };
   window.addEventListener('load', () => setTimeout(hide, 900));
-  setTimeout(hide, 3500);
+  setTimeout(hide, 3500); // failsafe, guarded so it can't fight the load-triggered hide
 })();
 
-/* ════════ GREETING ════════ */
+/* ════════ GREETING (time-aware) ════════ */
 (() => {
   const h = new Date().getHours();
   $('#greeting-text').textContent = h < 5 ? 'Burning the midnight oil' : h < 12 ? 'Good morning' : h < 17 ? 'Good afternoon' : 'Good evening';
@@ -139,7 +149,7 @@ const nav = $('#site-nav');
 let lastY = 0, scrollTicking = false;
 function onScrollFrame() {
   const y = scrollY;
-  const max = document.body.scrollHeight - innerHeight;
+  const max = document.body.scrollHeight - innerHeight; // one layout read per animation frame, not per scroll event
   progressBar.style.width = (max > 0 ? (y / max) * 100 : 0) + '%';
   nav.classList.toggle('hidden-nav', y > 400 && y > lastY);
   nav.classList.toggle('scrolled', y > 20);
@@ -155,6 +165,9 @@ addEventListener('scroll', () => {
 const revealObs = new IntersectionObserver(entries => {
   for (const e of entries) if (e.isIntersecting) { e.target.classList.add('in'); revealObs.unobserve(e.target); }
 }, { threshold: .12, rootMargin: '0px 0px -40px' });
+// observe every current .reveal element, and expose a helper so content injected
+// later (courses, experience, certs, blog, etc.) gets registered too — otherwise
+// anything rendered after this line stays permanently invisible (opacity:0).
 function observeReveals(root = document) {
   root.querySelectorAll('.reveal').forEach(el => {
     if (el.dataset.revealBound) return;
@@ -177,19 +190,24 @@ const spy = new IntersectionObserver(entries => {
 }, { rootMargin: '-35% 0px -55%' });
 sections.forEach(s => spy.observe(s));
 
-// mobile burger removed – we no longer have one, but we keep this for safety
-const burger = $('#nav-burger');
-if (burger) {
-  // ... (removed)
-}
+// mobile burger
+const burger = $('#nav-burger'), navLinks = $('#nav-links');
+burger.addEventListener('click', () => {
+  const open = navLinks.classList.toggle('open');
+  burger.setAttribute('aria-expanded', open);
+});
+navLinks.addEventListener('click', e => { if (e.target.matches('a')) { navLinks.classList.remove('open'); burger.setAttribute('aria-expanded', 'false'); } });
 
 /* ════════ CURSOR ════════ */
+/* The real OS cursor is always shown — #cursor-dot is only a soft glow
+   trailing behind it. A higher lerp factor keeps that trail tight to the
+   pointer so movement never feels laggy. */
 (() => {
   if (!matchMedia('(pointer:fine)').matches) return;
   const dot = $('#cursor-dot');
   let shown = false;
   let tx = 0, ty = 0, cx = 0, cy = 0;
-  const LERP = .55;
+  const LERP = .55; // higher = trail sticks closer to the actual cursor, feels faster
   addEventListener('pointermove', e => {
     if (!shown) {
       dot.style.opacity = 1; shown = true;
@@ -213,14 +231,40 @@ if (burger) {
 })();
 
 /* ════════ MAGNETIC BUTTONS ════════ */
-$$('.magnetic').forEach(btn => {
-  btn.addEventListener('pointermove', e => {
+/* Magnetic: social buttons + all cards */
+function initCardMagnetic(el, xF, yF) {
+  if (el._mag) return; el._mag = true;
+  el.style.transition = 'transform .3s cubic-bezier(.25,.8,.25,1),box-shadow .3s';
+  el.addEventListener('pointermove', e => {
     if (html.classList.contains('reduce-motion')) return;
-    const r = btn.getBoundingClientRect();
-    btn.style.transform = `translate(${(e.clientX - r.left - r.width / 2) * .18}px,${(e.clientY - r.top - r.height / 2) * .28}px)`;
+    const r = el.getBoundingClientRect();
+    const dx = (e.clientX - r.left - r.width  / 2) * xF;
+    const dy = (e.clientY - r.top  - r.height / 2) * yF;
+    el.style.transform = 'translate(' + dx + 'px,' + dy + 'px)';
   });
-  btn.addEventListener('pointerleave', () => btn.style.transform = '');
-});
+  el.addEventListener('pointerleave', () => { el.style.transform = ''; el.style.boxShadow = ''; });
+}
+// Social icons: strong magnetic pull (original)
+$$('.magnetic').forEach(btn => initCardMagnetic(btn, .18, .28));
+// All cards: subtle magnetic + lift
+const CARD_MAG_SEL = '.project-card,.skill-card,.cert-card,.course-card,.edu-card,.blog-card,.ach-card,.profile-links a,.hero-stats li';
+function applyCardsMAG() {
+  $$(CARD_MAG_SEL).forEach(card => {
+    if (card._mag) return; card._mag = true;
+    card.style.transition = 'transform .3s cubic-bezier(.25,.8,.25,1),box-shadow .3s';
+    card.addEventListener('pointermove', e => {
+      if (html.classList.contains('reduce-motion')) return;
+      const r = card.getBoundingClientRect();
+      const dx = (e.clientX - r.left - r.width  / 2) * .05;
+      const dy = (e.clientY - r.top  - r.height / 2) * .07;
+      card.style.transform = 'translate(' + dx + 'px,' + (dy - 5) + 'px)';
+      card.style.boxShadow = '0 16px 36px rgba(22,21,19,.13)';
+    });
+    card.addEventListener('pointerleave', () => { card.style.transform = ''; card.style.boxShadow = ''; });
+  });
+}
+applyCardsMAG();
+new MutationObserver(applyCardsMAG).observe(document.body, { childList: true, subtree: true });
 
 /* ════════ HERO TILT ════════ */
 (() => {
@@ -253,7 +297,7 @@ const counterObs = new IntersectionObserver(entries => {
 $$('.counter').forEach(el => counterObs.observe(el));
 
 /* ════════ SKILLS (logo grid — official icons, no bars/levels) ════════ */
-function renderSkillFilters() {} // filters removed
+function renderSkillFilters() {} // filters removed — all 27 skills shown
 function renderSkills() {
   const grid = $('#skills-grid');
   if (!grid) return;
@@ -272,14 +316,11 @@ function renderSkillSummary() {
     [MSR.SKILLS.length, 'Skills'], ['10+', 'Frameworks'], ['3+', 'Internships'], ['500+', 'LeetCode']
   ].map(([n, l]) => `<li><strong>${n}</strong><span>${l}</span></li>`).join('');
 }
-$('#skill-search')?.addEventListener('input', debounce(e => {
-  const q = e.target.value.trim().toLowerCase();
-  $$('.skill-card').forEach(card => {
-    const name = card.dataset.name.toLowerCase();
-    card.style.display = name.includes(q) ? '' : 'none';
-  });
-}));
+// Safe event binding (elements may be hidden/absent when filters removed)
+$('#skill-filters')?.addEventListener('click', () => {});
+$('#skill-search')?.addEventListener('input', () => {});
 renderSkills(); renderSkillSummary();
+
 
 /* ════════ COURSES ════════ */
 $('#course-track').innerHTML = MSR.COURSES.map((c, i) => `
@@ -320,15 +361,15 @@ function renderCerts() {
   const list = MSR.CERTS.filter(c =>
     (certState.cat === 'All' || c.cat === certState.cat) &&
     (!certState.q || (c.title + c.issuer).toLowerCase().includes(certState.q)));
-  $('#cert-grid').innerHTML = list.length ? list.map((c, i) => `
-    <button class="cert-card" style="--i:${i}" data-idx="${MSR.CERTS.indexOf(c)}" aria-label="Preview certificate: ${c.title}">
-      <div class="cert-art">
-          ${c.img
-            ? `<img src=\"${c.img}\" alt=\"${c.issuer}\" width=\"52\" height=\"52\" loading=\"lazy\" onerror=\"this.style.display='none'\">` 
-            : `<i class=\"${c.icon}\" style=\"color:${c.color||'var(--primary)'}\" aria-hidden=\"true\"></i>`}
-        </div>
-      <div class="cert-body"><h3>${c.title}</h3><p class="cert-issuer">${c.issuer} · ${c.year}</p></div>
-    </button>`).join('')
+  $('#cert-grid').innerHTML = list.length ? list.map((c, i) => {
+    const iconHtml = c.img
+      ? '<img src="' + c.img + '" alt="' + c.issuer + '" width="52" height="52" loading="lazy" style="object-fit:contain" onerror="this.style.opacity=0">'
+      : '<i class="' + (c.icon||'fa-solid fa-award') + '" style="color:' + (c.color||'var(--primary)') + '" aria-hidden="true"></i>';
+    return '<button class="cert-card" style="--i:' + i + '" data-idx="' + MSR.CERTS.indexOf(c) + '" aria-label="Preview certificate: ' + c.title + '">'
+      + '<div class="cert-art">' + iconHtml + '</div>'
+      + '<div class="cert-body"><h3>' + c.title + '</h3><p class="cert-issuer">' + c.issuer + ' · ' + c.year + '</p></div>'
+      + '</button>';
+  }).join('')
     : `<p class="no-results">No certificates match “${certState.q}”.</p>`;
 }
 $('#cert-filters').addEventListener('click', e => {
@@ -353,14 +394,19 @@ $('#cert-grid').addEventListener('click', e => {
 });
 lightbox.addEventListener('click', e => { if (e.target.closest('[data-lb-close]')) lightbox.hidden = true; });
 
-/* ════════ PROJECTS ════════ */
-// Project search and filters are already handled in api.js, so we don't add extra.
-
 /* ════════ CONTACT FORM ════════ */
 (() => {
   const form = $('#contact-form'), submit = $('#cf-submit');
   const fields = ['name', 'email', 'subject', 'message'].map(n => $('#cf-' + n));
 
+  // ── EmailJS config ──────────────────────────────────────────
+  // 1. Create a free account at https://www.emailjs.com
+  // 2. Add an Email Service (e.g. Gmail) → copy its Service ID
+  // 3. Create an Email Template with {{name}} {{email}} {{subject}} {{message}}
+  //    as variables → copy its Template ID
+  // 4. Account → General → copy your Public Key
+  // 5. Paste all three below. Until they're filled in, the form
+  //    falls back to opening the visitor's own mail client.
   const EMAILJS_PUBLIC_KEY = '7_2VMXL8M3TTaD2oU';
   const EMAILJS_SERVICE_ID = 'service_xz0n81b';
   const EMAILJS_TEMPLATE_ID = 'template_780vyxw';
@@ -394,6 +440,7 @@ lightbox.addEventListener('click', e => { if (e.target.closest('[data-lb-close]'
       emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, { name, email, subject, message })
         .then(() => done(true))
         .catch(() => {
+          // network/config failure — fall back so the visitor's message isn't lost
           location.href = `mailto:mohitsinghrajput1307@gmail.com?subject=${encodeURIComponent('[Portfolio] ' + subject)}&body=${encodeURIComponent(message + '\n\n— ' + name + ' (' + email + ')')}`;
           done(false);
         });
@@ -449,6 +496,7 @@ cmdkInput.addEventListener('keydown', e => {
   }
 });
 
+/* keyboard shortcuts */
 document.addEventListener('keydown', e => {
   if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); openCmdk(cmdk.hidden); }
   if (e.key === 'Escape') { openCmdk(false); lightbox.hidden = true; $('#project-modal').hidden = true; $('#blog-modal').hidden = true; if ($('#oracle-contact-popup')) $('#oracle-contact-popup').hidden = true; openChat(false); }
@@ -484,6 +532,7 @@ function botAnswer(q) {
   const rule = MSR.BOT.rules.find(r => r.k.some(k => l.includes(k)));
   botSay(rule ? rule.a : MSR.BOT.fallback);
 }
+// chat-fab replaced by Oracle widget — see oracleWidget.init()
 $('#chat-close').addEventListener('click', () => openChat(false));
 $('#chat-suggest').addEventListener('click', e => {
   if (!e.target.matches('button')) return;
@@ -506,8 +555,8 @@ oracleWidget.init();
   function initTilt(card) {
     if (card._tiltInit) return;
     card._tiltInit = true;
-    const MAX_ROT = 8;
-    const MAX_LIFT = 6;
+    const MAX_ROT = 8; // max degrees
+    const MAX_LIFT = 6; // px
     card.style.transition = 'transform .25s cubic-bezier(.25,.8,.25,1),box-shadow .25s';
     card.addEventListener('pointermove', e => {
       if (html.classList.contains('reduce-motion')) return;
@@ -522,10 +571,12 @@ oracleWidget.init();
       card.style.boxShadow = '';
     });
   }
+  // Observe DOM for dynamically added cards
   const tiltObs = new MutationObserver(() => {
     $$(CARD_SELECTORS).forEach(initTilt);
   });
   tiltObs.observe(document.body, { childList: true, subtree: true });
+  // Init existing cards
   $$(CARD_SELECTORS).forEach(initTilt);
 })();
 
@@ -565,9 +616,62 @@ oracleWidget.init();
   });
 })();
 
+/* ════════ ORACLE AI VIDEO CARD — Web Speech Introduction ════════ */
+(() => {
+  const INTRO = `Hi! I'm an AI assistant introducing Mohit Singh Rajput — an AI and Machine Learning Engineer based in Jaipur, India. Mohit is a final-year Computer Science student who builds intelligent systems that see, listen, reason, and respond. His core expertise spans multi-agent LLM orchestration using LangGraph and LangChain, RAG pipelines powered by FAISS and Sentence Transformers, real-time computer vision with OpenCV and deep CNNs, and speech emotion recognition with Librosa and PyTorch. He's interned at Labmentix and CodeAlpha, solved over 500 LeetCode problems, and holds certifications from Oracle, Google Cloud, Microsoft, and Anthropic. If you're looking for a passionate AI engineer who ships production-grade systems — Mohit is your person. Reach him at mohitsinghrajput1307@gmail.com.`;
+
+  const playBtn = $('#ai-play-btn');
+  const playIcon = $('#ai-play-icon');
+  const wave = $('#ai-wave');
+  const caption = $('#ai-caption');
+  if (!playBtn || !window.speechSynthesis) return;
+
+  let speaking = false;
+  let utter = null;
+
+  function stopSpeech() {
+    window.speechSynthesis.cancel();
+    speaking = false;
+    if (playIcon) playIcon.className = 'fa-solid fa-play';
+    if (wave) wave.hidden = true;
+    if (caption) caption.textContent = '▶ 30-second AI introduction';
+  }
+
+  function startSpeech() {
+    utter = new SpeechSynthesisUtterance(INTRO);
+    utter.rate = 1.0; utter.pitch = 1.0; utter.volume = 1.0;
+    const voices = window.speechSynthesis.getVoices();
+    const eng = voices.find(v => v.lang === 'en-US' && /google|natural|premium/i.test(v.name))
+             || voices.find(v => v.lang === 'en-US')
+             || voices.find(v => v.lang.startsWith('en'))
+             || voices[0];
+    if (eng) utter.voice = eng;
+    utter.onstart = () => {
+      speaking = true;
+      if (playIcon) playIcon.className = 'fa-solid fa-pause';
+      if (wave) wave.hidden = false;
+      if (caption) caption.textContent = 'AI is speaking...';
+    };
+    utter.onend = utter.onerror = () => stopSpeech();
+    window.speechSynthesis.speak(utter);
+  }
+
+  playBtn.addEventListener('click', () => {
+    if (speaking) { stopSpeech(); }
+    else {
+      // Voices may not be loaded on first call
+      if (!window.speechSynthesis.getVoices().length) {
+        window.speechSynthesis.onvoiceschanged = () => { startSpeech(); };
+      } else { startSpeech(); }
+    }
+  });
+})();
+
 /* ════════ VISITOR COUNTER + FOOTER ════════ */
 (() => {
   const counterEl = $('#visitor-counter');
+  // Real global counter via CountAPI (free, no signup). Falls back to a
+  // local per-browser count if the network request fails.
   fetch('https://api.countapi.xyz/hit/mohit-1307-github-io/portfolio-visits')
     .then(r => r.json())
     .then(data => {
@@ -581,7 +685,7 @@ oracleWidget.init();
   $('#footer-year').textContent = `© ${new Date().getFullYear()} Mohit Singh Rajput`;
 })();
 
-/* konami-style easter egg: logo click x5 */
+/* konami-style easter egg: type "ai" 3 times fast? keep it simple — logo click x5 */
 (() => {
   let clicks = 0, timer;
   $('.nav-brand').addEventListener('click', () => {
