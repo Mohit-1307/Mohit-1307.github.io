@@ -388,9 +388,11 @@ function renderCerts() {
     (certState.cat === 'All' || c.cat === certState.cat) &&
     (!certState.q || (c.title + c.issuer).toLowerCase().includes(certState.q)));
   $('#cert-grid').innerHTML = list.length ? list.map((c, i) => {
-    const iconHtml = c.img
-      ? `<img src="${c.img}" alt="${c.issuer}" width="56" height="56" loading="lazy" style="object-fit:contain;max-width:80px;max-height:56px" onerror="this.style.opacity=0">`
-      : `<i class="${c.icon||'fa-solid fa-award'}" style="color:${c.color||'var(--primary)'};font-size:2.4rem" aria-hidden="true"></i>`;
+    const iconHtml = c.svgIcon
+      ? `<div class="cert-icon-wrap">${c.svgIcon}</div>`
+      : c.img
+        ? `<img src="${c.img}" alt="${c.issuer}" width="52" height="52" loading="lazy" class="cert-issuer-img" onerror="this.parentElement.innerHTML='<i class=\\'fa-solid fa-award\\' style=\\'color:var(--primary);font-size:2rem\\'></i>'">`
+        : `<i class="${c.icon||'fa-solid fa-award'}" style="color:${c.color||'var(--primary)'};font-size:2rem" aria-hidden="true"></i>`;
     const fileBtn = c.file
       ? `<a class="mini-btn solid cert-view-btn" href="${c.file}" target="_blank" rel="noopener" onclick="event.stopPropagation()"><i class="fa-solid fa-arrow-up-right-from-square"></i> View Certificate</a>`
       : '';
