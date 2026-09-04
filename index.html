@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="ocean" data-mode="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mohit Singh Rajput — AI/ML Engineer</title>
+<meta name="description" content="Mohit Singh Rajput — AI/ML Engineer crafting intelligent systems with Deep Learning, LLMs, RAG pipelines, Computer Vision and Generative AI.">
+<meta name="author" content="Mohit Singh Rajput">
+<meta name="theme-color" content="#F7F5EF">
+<link rel="canonical" href="./">
+<link rel="manifest" href="manifest.json">
+<link rel="alternate" type="application/rss+xml" title="MSR.ai Blog" href="rss.xml">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Mohit Singh Rajput — AI/ML Engineer">
+<meta property="og:description" content="Building intelligent systems — Deep Learning, LLMs, AI Agents, Computer Vision & Generative AI.">
+<meta property="og:site_name" content="Mohit Singh Rajput Portfolio">
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Mohit Singh Rajput — AI/ML Engineer">
+<meta name="twitter:description" content="Building intelligent systems — Deep Learning, LLMs, AI Agents, Computer Vision & Generative AI.">
+<meta name="twitter:creator" content="@13mohitsingh">
+
+<!-- Structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Mohit Singh Rajput",
+  "jobTitle": "AI/ML Engineer",
+  "email": "mailto:mohitsinghrajput1307@gmail.com",
+  "telephone": "+91 9887994311",
+  "sameAs": [
+    "https://github.com/Mohit-1307",
+    "https://www.linkedin.com/in/mohitsingh1307/",
+    "https://leetcode.com/u/MOHIT_SINGH_RAJPUT/",
+    "https://www.kaggle.com/mohitsinghrajput1307",
+    "https://huggingface.co/msr1307",
+    "https://x.com/13mohitsingh"
+  ],
+  "knowsAbout": ["Machine Learning","Deep Learning","Generative AI","LLMs","Computer Vision","NLP","RAG","AI Agents"]
+}
+</script>
+
+<link rel="icon" id="favicon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2333533C'/%3E%3Ctext x='32' y='43' font-size='28' font-family='Georgia' font-weight='600' fill='%23F7F5EF' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;450;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<script>
+  // Fallback: if the primary Font Awesome CDN fails to load (blocked network, ad-block, etc.),
+  // swap to a second CDN so icons never render as empty boxes.
+  (function () {
+    var testEl = document.createElement('i');
+    testEl.className = 'fa-solid fa-check';
+    testEl.style.cssText = 'position:absolute;visibility:hidden';
+    document.documentElement.appendChild(testEl);
+    window.addEventListener('load', function () {
+      var loaded = getComputedStyle(testEl, ':before').fontFamily.indexOf('Font Awesome') !== -1;
+      document.documentElement.classList.add(loaded ? 'fa-ok' : 'fa-failed');
+      if (!loaded) {
+        var fallback = document.createElement('link');
+        fallback.rel = 'stylesheet';
+        fallback.href = 'https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.2/css/all.min.css';
+        fallback.onload = function () { document.documentElement.classList.remove('fa-failed'); document.documentElement.classList.add('fa-ok'); };
+        document.head.appendChild(fallback);
+      }
+      testEl.remove();
+    });
+  })();
+</script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ═══════════ LOADER ═══════════ -->
+<div id="loader" aria-hidden="true">
+  <div class="loader-core">
+    <svg class="loader-ring" viewBox="0 0 120 120" width="120" height="120">
+      <circle cx="60" cy="60" r="52" class="ring-track"/>
+      <circle cx="60" cy="60" r="52" class="ring-fill"/>
+    </svg>
+    <span class="loader-monogram">MSR</span>
+  </div>
+  <p class="loader-label"><span class="mono">initializing neural interface</span><span class="loader-dots"></span></p>
+</div>
+
+<!-- ═══════════ AMBIENT LAYERS ═══════════ -->
+<div id="noise-layer" aria-hidden="true"></div>
+<div id="cursor-dot" aria-hidden="true"></div>
+<div id="scroll-progress" aria-hidden="true"><span></span></div>
+
+<!-- ═══════════ NAVIGATION ═══════════ -->
+<header id="site-nav" role="banner">
+  <nav class="nav-dock" aria-label="Primary navigation">
+    <a href="#hero-section" class="nav-brand" aria-label="Home — Mohit Singh Rajput">
+      <span class="brand-orb"></span><span class="brand-text">MSR</span>
+    </a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#about-section" data-nav>About</a></li>
+      <li><a href="#education-section" data-nav>Education</a></li>
+      <li><a href="#experience-section" data-nav>Experience</a></li>
+      <li><a href="#projects-section" data-nav>Projects</a></li>
+      <li><a href="#skills-section" data-nav>Skills</a></li>
+      <li><a href="#courses-section" data-nav>Learning</a></li>
+      <li><a href="#certificates-section" data-nav>Credentials</a></li>
+      <li><a href="#leetcode-section" data-nav>LeetCode</a></li>
+      <li><a href="#achievements-section" data-nav>Signals</a></li>
+      <li><a href="#contact-section" data-nav>Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button id="cmdk-trigger" class="nav-icon-btn" title="Command palette (Ctrl+K)" aria-label="Open command palette">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </button>
+      <button id="mode-toggle" class="nav-icon-btn" title="Toggle light / dark" aria-label="Toggle light or dark mode">
+        <i class="fa-solid fa-moon"></i>
+      </button>
+      <button id="theme-trigger" class="nav-icon-btn" title="Color theme" aria-label="Open color theme picker">
+        <i class="fa-solid fa-palette"></i>
+      </button>
+      <button id="nav-burger" class="nav-icon-btn burger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<main id="main-content">
+
+<!-- ═══════════ HERO ═══════════ -->
+<section id="hero-section" aria-label="Introduction">
+  <div class="hero-inner">
+    <div class="hero-copy">
+      <p class="hero-greeting reveal"><span class="greet-pulse"></span><span id="greeting-text">Hello, world</span> — I design intelligence.</p>
+      <h1 class="hero-name">
+        <span class="name-line reveal">Mohit Singh</span>
+        <span class="name-line grad-text reveal">Rajput</span>
+      </h1>
+      <div class="hero-role reveal">
+        <span class="role-static mono">&gt;_</span>
+        <span id="typing-target" class="mono"></span><span class="type-caret" aria-hidden="true"></span>
+      </div>
+      <p class="hero-bio reveal">AI/ML Engineer building systems that see, listen, reason and respond —
+        from multi-agent LLM assistants and RAG pipelines to emotion-aware vision and speech models.
+        I care about the details most people never notice.</p>
+      <div class="hero-cta reveal">
+        <a class="btn btn-primary magnetic" href="#projects-section"><i class="fa-solid fa-cube"></i> Explore Work</a>
+        <a class="btn btn-primary magnetic" href="resume.pdf" target="_blank" rel="noopener"><i class="fa-solid fa-file-arrow-down"></i> Résumé</a>
+        <a class="btn btn-primary magnetic" href="#contact-section"><i class="fa-solid fa-paper-plane"></i> Let's Talk</a>
+      </div>
+      <ul class="hero-socials reveal" aria-label="Social profiles">
+        <li><a href="https://github.com/Mohit-1307" target="_blank" rel="noopener" aria-label="GitHub" data-tip="GitHub"><i class="fa-brands fa-github"></i></a></li>
+        <li><a href="https://www.linkedin.com/in/mohitsingh1307/" target="_blank" rel="noopener" aria-label="LinkedIn" data-tip="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a></li>
+        <li><a href="https://leetcode.com/u/MOHIT_SINGH_RAJPUT/" target="_blank" rel="noopener" aria-label="LeetCode" data-tip="LeetCode"><i class="fa-solid fa-code"></i></a></li>
+        <li><a href="https://www.kaggle.com/mohitsinghrajput1307" target="_blank" rel="noopener" aria-label="Kaggle" data-tip="Kaggle"><i class="fa-brands fa-kaggle"></i></a></li>
+        <li><a href="https://huggingface.co/msr1307" target="_blank" rel="noopener" aria-label="Hugging Face" data-tip="Hugging Face"><i class="fa-solid fa-face-smile"></i></a></li>
+        <li><a href="https://x.com/13mohitsingh" target="_blank" rel="noopener" aria-label="X (Twitter)" data-tip="X"><i class="fa-brands fa-x-twitter"></i></a></li>
+        <li><a href="https://www.instagram.com/13.mohit.singh/" target="_blank" rel="noopener" aria-label="Instagram" data-tip="Instagram"><i class="fa-brands fa-instagram"></i></a></li>
+        <li><a href="https://www.facebook.com/13.Mohit.Singh/" target="_blank" rel="noopener" aria-label="Facebook" data-tip="Facebook"><i class="fa-brands fa-facebook-f"></i></a></li>
+      </ul>
+    </div>
+
+    <div class="hero-visual reveal" aria-hidden="true">
+      <div class="tilt-scene" id="hero-tilt">
+        <div class="hologram-card">
+          <div class="holo-grid"></div>
+          <div class="holo-avatar"><span>MSR</span><i class="avatar-ring r1"></i><i class="avatar-ring r2"></i></div>
+          <p class="holo-title mono">neural_engine.load()</p>
+          <div class="holo-meter"><span class="meter-label mono">model · confidence</span><span class="meter-track"><span class="meter-fill"></span></span></div>
+          <div class="float-chip c1 mono"><i class="fa-brands fa-python" aria-hidden="true"></i><span class="chip-emoji" aria-hidden="true">🐍</span> PyTorch</div>
+          <div class="float-chip c2 mono"><i class="fa-solid fa-brain" aria-hidden="true"></i><span class="chip-emoji" aria-hidden="true">🧠</span> LLMs</div>
+          <div class="float-chip c3 mono"><i class="fa-solid fa-eye" aria-hidden="true"></i><span class="chip-emoji" aria-hidden="true">👁️</span> Vision</div>
+          <div class="float-chip c4 mono"><i class="fa-solid fa-diagram-project" aria-hidden="true"></i><span class="chip-emoji" aria-hidden="true">🕸️</span> RAG</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ul class="hero-stats reveal" aria-label="Key statistics">
+    <li><strong class="counter" data-count="9">0</strong><span>AI Projects Shipped</span></li>
+    <li><strong><span class="counter" data-count="500">0</span>+</strong><span>LeetCode Problems</span></li>
+    <li><strong class="counter" data-count="12">0</strong><span>ML Domains Explored</span></li>
+    <li><strong><span class="counter" data-count="40">0</span>+</strong><span>Technologies Mastered</span></li>
+  </ul>
+
+</section>
+
+<!-- ═══════════ ABOUT ═══════════ -->
+<section id="about-section" class="section" aria-label="About me">
+  <header class="section-head reveal">
+    <p class="section-eyebrow mono">01 · about</p>
+    <h2 class="section-title">Curiosity, compiled<span class="grad-text">.</span></h2>
+    <p class="section-sub">A final-year CS student who treats every project like a production system — not a notebook that only runs once.</p>
+  </header>
+  <div class="about-grid">
+    <article class="about-left reveal">
+      <p class="about-lead">The first time I watched a convolutional network learn to read handwritten digits — pixels becoming meaning, layer by layer — I stopped thinking of code as instructions and started thinking of it as <em>perception</em>.</p>
+      <div class="about-body">
+        <p>Today I work across the modern AI stack: training deep networks for facial and speech emotion recognition, engineering features for clinical prediction models, and orchestrating multi-agent LLM systems that retrieve, reason and act. I've built RAG pipelines with LangChain and FAISS, and deployed models to AWS EC2 behind FastAPI.</p>
+        <p>What keeps me here isn't the hype — it's the craft. Good ML is careful data work, honest evaluation and systems thinking. I solve problems on LeetCode to keep my fundamentals sharp, publish my learning openly on GitHub, and treat every project as a chance to build something a real person would actually use.</p>
+      </div>
+      <div class="mission-box">
+        <div class="section-eyebrow mono" style="margin-bottom:8px">Mission</div>
+        <p>"Ship the model, then make it <em>reliable</em>."</p>
+      </div>
+    </article>
+    <aside class="about-right reveal" aria-label="Focus areas and journey">
+      <ul class="strengths-list">
+        <li><span class="num mono">01</span><div><h4>AI Agents &amp; LLMs</h4><p>Multi-agent orchestration, LangGraph workflows, tool-use and RAG grounding.</p></div></li>
+        <li><span class="num mono">02</span><div><h4>Computer Vision</h4><p>CNNs for emotion recognition, digit OCR, and real-time image pipelines with OpenCV.</p></div></li>
+        <li><span class="num mono">03</span><div><h4>Speech &amp; NLP</h4><p>Audio feature extraction with Librosa, sentiment &amp; CSAT prediction from language.</p></div></li>
+        <li><span class="num mono">04</span><div><h4>Applied Data Science</h4><p>EDA, feature engineering, model evaluation and deployment that survives production.</p></div></li>
+      </ul>
+      <div class="timeline">
+        <div class="section-eyebrow mono">Journey</div>
+        <div class="timeline-track">
+          <div class="timeline-item"><div class="t-year mono">2023</div><h4>Started B.Tech CSE</h4><p>Began with core CS fundamentals and Python.</p></div>
+          <div class="timeline-item"><div class="t-year mono">2024</div><h4>First deep learning models</h4><p>Handwritten digit recognition, CNN fundamentals.</p></div>
+          <div class="timeline-item"><div class="t-year mono">2025</div><h4>Moved into GenAI &amp; multi-modal ML</h4><p>LangGraph agents, RAG, speech &amp; facial emotion recognition.</p></div>
+          <div class="timeline-item"><div class="t-year mono">2026</div><h4>AI/ML Internships</h4><p>CodeAlpha, then Labmentix — production-facing ML work.</p></div>
+        </div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- ═══════════ EDUCATION ═══════════ -->
+<section id="education-section" class="section" aria-label="Education">
+  <header class="section-head reveal">
+    <p class="section-eyebrow mono">02 · education</p>
+    <h2 class="section-title">Academic background<span class="grad-text">.</span></h2>
+  </header>
+  <div class="edu-card reveal">
+    <div class="edu-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+    <div class="edu-main">
+      <h3>Bachelor of Technology — Computer Science &amp; Engineering</h3>
+      <p class="edu-sub">Shankara Institute of Technology, Kukas, Jaipur · Final Year Student</p>
+      <div class="edu-tags">
+        <span>Data Structures &amp; Algorithms</span>
+        <span>Machine Learning</span>
+        <span>Operating Systems</span>
+        <span>DBMS</span>
+        <span>Computer Networks</span>
+      </div>
+    </div>
+    <div class="edu-badge"><div class="status"><span class="pulse-dot"></span>In progress</div>B.Tech · Final Year</div>
+  </div>
+</section>
+
+<!-- ═══════════ EXPERIENCE ═══════════ -->
+<section id="experience-section" class="section" aria-label="Experience">
+  <header class="section-head reveal">
+    <p class="section-eyebrow mono">03 · experience</p>
+    <h2 class="section-title">Where theory met production<span class="grad-text">.</span></h2>
+  </header>
+  <ol class="xp-timeline" id="xp-timeline"></ol>
+</section>
+
+<!-- ═══════════ PROJECTS ═══════════ -->
+<section id="projects-section" class="section" aria-label="Projects">
+  <header class="section-head reveal">
+    <p class="section-eyebrow mono">04 · projects</p>
+    <h2 class="section-title">Things I've built & shipped<span class="grad-text">.</span></h2>
+    <p class="section-sub">Live data streamed from the GitHub API — stars, languages, topics and activity.</p>
+  </header>
+
+  <div class="skills-controls reveal">
+    <div class="search-shell">
+      <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+      <input type="search" id="project-search" placeholder="Search projects…" aria-label="Search projects">
+    </div>
+    <div class="filter-row" id="project-filters" role="tablist" aria-label="Project categories"></div>
+  </div>
+
+  <div class="projects-grid" id="projects-grid" aria-live="polite">
+    <div class="grid-loading mono"><span class="spinner"></span> fetching repositories from GitHub…</div>
+  </div>
+</section>
+
+<!-- ═══════════ SKILLS ═══════════ -->
+<section id="skills-section" class="section" aria-label="Skills">
+  <header class="section-head reveal">
+    <p class="section-eyebrow mono">05 · skills</p>
+    <h2 class="section-title">The stack behind the systems<span class="grad-text">.</span></h2>
+  </header>
+
+  <div class="skills-controls reveal">
+    <div class="search-shell">
+      <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+      <input type="search" id="skill-search" placeholder="Search 45+ skills…" aria-label="Search skills">
+    </div>
+    <div class="filter-row" id="skill-filters" role="tablist" aria-label="Skill categories"></div>
+  </div>
+
+  <div class="skills-grid" id="skills-grid"></div>
+
+  <ul class="skills-summary reveal" id="skills-summary" aria-label="Skill statistics"></ul>
+</section>
+
+<!-- ═══════════ COURSES ═══════════ -->
+<section id="courses-section" class="section" aria-label="Learning journey">
+  <header class="section-head reveal">
+    <p class="section-eyebrow mono">06 · learning</p>
+    <h2 class="section-title">A public learning trail<span class="grad-text">.</span></h2>
+    <p class="section-sub">Everything I learn is committed, documented and open-sourced.</p>
+  </header>
+  <ol class="course-track" id="course-track"></ol>
+</section>
+
+<!-- ═══════════ CERTIFICATES ═══════════ -->
+<section id="certificates-section" class="section" aria-label="Certificates">
+  <header class="section-head reveal">
+    <p class="section-eyebrow mono">07 · credentials</p>
+    <h2 class="section-title">Certified curiosity<span class="grad-text">.</span></h2>
+  </header>
+  <div class="skills-controls reveal">
+    <div class="search-shell"><i class="fa-solid fa-magnifying-glass"></i><input type="search" id="cert-search" placeholder="Search certificates…" aria-label="Search certificates"></div>
+    <div class="filter-row" id="cert-filters" role="tablist" aria-label="Certificate categories"></div>
+  </div>
+  <div class="cert-grid" id="cert-grid"></div>
+</section>
+
+<!-- ═══════════ LEETCODE ═══════════ -->
+<section id="leetcode-section" class="section" aria-label="LeetCode statistics">
+  <header class="section-head reveal">
+    <p class="section-eyebrow mono">08 · algorithms</p>
+    <h2 class="section-title">Sharpened on LeetCode<span class="grad-text">.</span></h2>
+    <p class="section-sub">Live stats from <a href="https://leetcode.com/u/MOHIT_SINGH_RAJPUT/" target="_blank" rel="noopener">leetcode.com/u/MOHIT_SINGH_RAJPUT</a> · solutions archived in <a href="https://github.com/Mohit-1307/LeetCode-Submissions" target="_blank" rel="noopener">LeetCode-Submissions</a>.</p>
+  </header>
+  <div class="lc-grid">
+    <article class="lc-card lc-gauge-card reveal" id="lc-gauge-card">
+      <div class="lc-gauge-shell">
+        <svg viewBox="0 0 200 200" class="lc-gauge-svg" aria-hidden="true">
+          <circle class="lc-gauge-track" cx="100" cy="100" r="86"></circle>
+          <circle class="lc-gauge-seg lc-gauge-easy" cx="100" cy="100" r="86"></circle>
+          <circle class="lc-gauge-seg lc-gauge-med" cx="100" cy="100" r="86"></circle>
+          <circle class="lc-gauge-seg lc-gauge-hard" cx="100" cy="100" r="86"></circle>
+        </svg>
+        <div class="lc-gauge-center" id="lc-gauge-center">
+          <div class="lc-gauge-face lc-face-solved">
+            <p class="lc-gauge-big"><span id="lc-solved">—</span><small id="lc-gauge-total-q">/—</small></p>
+            <p class="lc-gauge-tag"><i class="fa-solid fa-check"></i> Solved</p>
+            <p class="lc-gauge-sub" id="lc-attempting">— Attempting</p>
+          </div>
+          <div class="lc-gauge-face lc-face-accept">
+            <p class="lc-gauge-big"><span id="lc-accept-pct">—</span><small>%</small></p>
+            <p class="lc-gauge-tag">Acceptance</p>
+            <p class="lc-gauge-sub" id="lc-submission-count">— submissions</p>
+          </div>
+        </div>
+      </div>
+      <div class="lc-diff-boxes">
+        <div class="lc-diff-box lc-diff-easy"><span class="lc-diff-label">Easy</span><span class="lc-diff-val" id="lc-easy-val">—/—</span></div>
+        <div class="lc-diff-box lc-diff-med"><span class="lc-diff-label">Med.</span><span class="lc-diff-val" id="lc-med-val">—/—</span></div>
+        <div class="lc-diff-box lc-diff-hard"><span class="lc-diff-label">Hard</span><span class="lc-diff-val" id="lc-hard-val">—/—</span></div>
+      </div>
+      <p class="lc-sub mono" id="lc-refresh-note" style="opacity:.6;font-size:.72rem;grid-column:1/-1">auto-refreshing every 30s</p>
+    </article>
+    <article class="lc-card lc-wide lc-contrib reveal" id="lc-contrib-card">
+      <div class="contrib-head">
+        <div>
+          <p class="contrib-count"><span id="lc-contrib-total">—</span> submissions in the past one year</p>
+        </div>
+        <div class="contrib-stats-row">
+          <span class="contrib-stat">Total active days: <strong id="lc-active-days">—</strong></span>
+          <span class="contrib-stat">Max streak: <strong id="lc-max-streak">—</strong></span>
+          <span class="contrib-legend" aria-hidden="true">
+            <span>Less</span>
+            <span class="contrib-cell lc-cell" data-l="0"></span>
+            <span class="contrib-cell lc-cell" data-l="1"></span>
+            <span class="contrib-cell lc-cell" data-l="2"></span>
+            <span class="contrib-cell lc-cell" data-l="3"></span>
+            <span class="contrib-cell lc-cell" data-l="4"></span>
+            <span>More</span>
+          </span>
+        </div>
+      </div>
+      <div class="contrib-scroll">
+        <div class="contrib-months mono" id="lc-contrib-months" aria-hidden="true"></div>
+        <div class="contrib-body">
+          <div class="contrib-days mono" aria-hidden="true"><span></span><span>Mon</span><span></span><span>Wed</span><span></span><span>Fri</span><span></span></div>
+          <div class="contrib-grid lc-contrib-grid" id="lc-heatmap" aria-label="LeetCode submission calendar"></div>
+        </div>
+      </div>
+      <p class="contrib-tip mono" id="lc-heatmap-note">hover a square for details</p>
+    </article>
+  </div>
+</section>
+
+<!-- ═══════════ ACHIEVEMENTS / SIGNALS (incl. social links, before contact) ═══════════ -->
+<section id="achievements-section" class="section" aria-label="Achievements and stats">
+  <header class="section-head reveal">
+    <p class="section-eyebrow mono">09 · signals</p>
+    <h2 class="section-title">Proof of work<span class="grad-text">.</span></h2>
+  </header>
+  <div class="ach-grid" id="ach-grid">
+    <figure class="ach-card ach-langs reveal"><img id="gh-img-langs" data-src-base="https://github-stats-extended.vercel.app/api/top-langs/?username=Mohit-1307&layout=compact&hide_border=true&bg_color=00000000&text_color=8b95b5&title_color=33533C" src="https://github-stats-extended.vercel.app/api/top-langs/?username=Mohit-1307&layout=compact&hide_border=true&bg_color=00000000&text_color=8b95b5&title_color=33533C" alt="Most used languages for Mohit-1307" loading="lazy" onerror="this.closest('.ach-card').classList.add('ach-fallback');this.remove()"><figcaption class="mono">github · languages</figcaption></figure>
+    <article class="ach-card ach-wide ach-contrib reveal" id="gh-contrib-card">
+      <div class="contrib-head">
+        <div>
+          <p class="mono contrib-eyebrow">github · contribution graph</p>
+          <p class="contrib-count"><span id="gh-contrib-total">—</span> contributions in the last year</p>
+        </div>
+        <div class="contrib-legend" aria-hidden="true">
+          <span>Less</span>
+          <span class="contrib-cell" data-l="0"></span>
+          <span class="contrib-cell" data-l="1"></span>
+          <span class="contrib-cell" data-l="2"></span>
+          <span class="contrib-cell" data-l="3"></span>
+          <span class="contrib-cell" data-l="4"></span>
+          <span>More</span>
+        </div>
+      </div>
+      <div class="contrib-scroll">
+        <div class="contrib-months mono" id="gh-contrib-months" aria-hidden="true"></div>
+        <div class="contrib-body">
+          <div class="contrib-days mono" aria-hidden="true"><span></span><span>Mon</span><span></span><span>Wed</span><span></span><span>Fri</span><span></span></div>
+          <div class="contrib-grid" id="gh-contrib-grid" aria-label="GitHub contribution calendar"></div>
+        </div>
+      </div>
+      <p class="contrib-tip mono" id="gh-contrib-tip">hover a square for details</p>
+    </article>
+  </div>
+  <p class="lc-sub mono" id="gh-refresh-note" style="text-align:center;margin-top:14px;opacity:.6">auto-refreshing every 30s</p>
+  <ul class="profile-links reveal" aria-label="External profiles">
+    <li><a href="https://www.kaggle.com/mohitsinghrajput1307" target="_blank" rel="noopener"><i class="fa-brands fa-kaggle"></i><div><strong>Kaggle</strong><span>Datasets, notebooks & competitions</span></div><i class="fa-solid fa-arrow-up-right-from-square link-out"></i></a></li>
+    <li><a href="https://huggingface.co/msr1307" target="_blank" rel="noopener"><i class="fa-solid fa-face-smile"></i><div><strong>Hugging Face</strong><span>Models & spaces · msr1307</span></div><i class="fa-solid fa-arrow-up-right-from-square link-out"></i></a></li>
+    <li><a href="https://github.com/Mohit-1307" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i><div><strong>GitHub</strong><span id="gh-profile-meta">Open-source portfolio · Mohit-1307</span></div><i class="fa-solid fa-arrow-up-right-from-square link-out"></i></a></li>
+    <li><a href="https://www.linkedin.com/in/mohitsingh1307/" target="_blank" rel="noopener"><i class="fa-brands fa-linkedin-in"></i><div><strong>LinkedIn</strong><span>Professional profile & network</span></div><i class="fa-solid fa-arrow-up-right-from-square link-out"></i></a></li>
+    <li><a href="https://leetcode.com/u/MOHIT_SINGH_RAJPUT/" target="_blank" rel="noopener"><i class="fa-solid fa-code"></i><div><strong>LeetCode</strong><span>500+ problems solved</span></div><i class="fa-solid fa-arrow-up-right-from-square link-out"></i></a></li>
+    <li><a href="https://www.instagram.com/13.mohit.singh/" target="_blank" rel="noopener"><i class="fa-brands fa-instagram"></i><div><strong>Instagram</strong><span>@13.mohit.singh</span></div><i class="fa-solid fa-arrow-up-right-from-square link-out"></i></a></li>
+    <li><a href="https://www.facebook.com/13.Mohit.Singh/" target="_blank" rel="noopener"><i class="fa-brands fa-facebook-f"></i><div><strong>Facebook</strong><span>13.Mohit.Singh</span></div><i class="fa-solid fa-arrow-up-right-from-square link-out"></i></a></li>
+    <li><a href="https://x.com/13mohitsingh" target="_blank" rel="noopener"><i class="fa-brands fa-x-twitter"></i><div><strong>X</strong><span>@13mohitsingh</span></div><i class="fa-solid fa-arrow-up-right-from-square link-out"></i></a></li>
+  </ul>
+</section>
+
+<!-- ═══════════ CONTACT ═══════════ -->
+<section id="contact-section" class="section" aria-label="Contact">
+  <header class="section-head reveal">
+    <p class="section-eyebrow mono">10 · contact</p>
+    <h2 class="section-title">Let's build something intelligent<span class="grad-text">.</span></h2>
+  </header>
+  <div class="contact-grid">
+    <div class="contact-info reveal">
+      <p class="availability"><span class="pulse-dot"></span> Available for AI/ML roles & collaborations</p>
+      <ul class="contact-rows">
+        <li><i class="fa-solid fa-envelope"></i><a href="mailto:mohitsinghrajput1307@gmail.com">mohitsinghrajput1307@gmail.com</a></li>
+        <li><i class="fa-solid fa-phone"></i><a href="tel:+919887994311">+91 98879 94311</a></li>
+        <li><i class="fa-solid fa-location-dot"></i><span>India · open to remote & relocation</span></li>
+      </ul>
+      <div class="map-placeholder" aria-hidden="true">
+        <div class="map-grid"></div><span class="map-pin"><i class="fa-solid fa-location-dot"></i></span>
+        <span class="map-caption mono">28.61° N, 77.20° E — somewhere training a model</span>
+      </div>
+    </div>
+    <form id="contact-form" class="contact-form reveal" novalidate>
+      <div class="field-row">
+        <div class="field"><label for="cf-name">Name</label><input id="cf-name" name="name" type="text" required placeholder="Ada Lovelace" autocomplete="name"><span class="field-error"></span></div>
+        <div class="field"><label for="cf-email">Email</label><input id="cf-email" name="email" type="email" required placeholder="ada@analytical.engine" autocomplete="email"><span class="field-error"></span></div>
+      </div>
+      <div class="field"><label for="cf-subject">Subject</label><input id="cf-subject" name="subject" type="text" required placeholder="Opportunity / collaboration / hello"><span class="field-error"></span></div>
+      <div class="field"><label for="cf-message">Message</label><textarea id="cf-message" name="message" rows="5" required placeholder="Tell me about the problem you're solving…"></textarea><span class="field-error"></span></div>
+      <button type="submit" class="btn btn-primary btn-submit magnetic" id="cf-submit">
+        <span class="submit-label"><i class="fa-solid fa-paper-plane"></i> Send Message</span>
+        <span class="submit-sending mono"><span class="spinner"></span> transmitting…</span>
+        <span class="submit-done"><i class="fa-solid fa-check"></i> Delivered</span>
+      </button>
+    </form>
+  </div>
+</section>
+</main>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer id="site-footer">
+  <div class="footer-wave" aria-hidden="true">
+    <svg viewBox="0 0 1440 60" preserveAspectRatio="none"><path id="footer-path" d="M0,30 C240,55 480,5 720,30 C960,55 1200,5 1440,30" fill="none"/></svg>
+  </div>
+  <div class="footer-inner">
+    <p class="footer-brand"><span class="brand-orb"></span> MSR<i>.ai</i></p>
+    <p class="footer-line">Designed & engineered by <strong>Mohit Singh Rajput</strong> · hand-crafted, no templates.</p>
+    <p class="footer-meta mono"><span id="visitor-counter"><i class="fa-solid fa-eye"></i> — visits</span> · <span id="footer-year"></span> · <a href="#hero-section">back to top ↑</a></p>
+  </div>
+</footer>
+
+<!-- ═══════════ COMMAND PALETTE ═══════════ -->
+<div id="cmdk" role="dialog" aria-modal="true" aria-label="Command palette" hidden>
+  <div class="cmdk-backdrop" data-cmdk-close></div>
+  <div class="cmdk-panel">
+    <div class="cmdk-input-row">
+      <i class="fa-solid fa-terminal"></i>
+      <input type="text" id="cmdk-input" placeholder="Type a command or search… (sections, links)" aria-label="Command input">
+      <kbd>esc</kbd>
+    </div>
+    <ul class="cmdk-list" id="cmdk-list" role="listbox"></ul>
+    <p class="cmdk-foot mono">↑↓ navigate · ↵ select · sections & profiles searchable</p>
+  </div>
+</div>
+
+<!-- ═══════════ THEME PICKER ═══════════ -->
+<aside id="theme-panel" aria-label="Color theme picker" hidden>
+  <div class="tp-head"><h3><i class="fa-solid fa-palette"></i> Color Theme</h3><button id="theme-close" class="nav-icon-btn" aria-label="Close theme picker"><i class="fa-solid fa-xmark"></i></button></div>
+  <p class="tp-label mono">theme</p>
+  <div class="tp-theme">
+    <button data-theme-set="ocean" class="tp-theme-btn"><span class="swatch"></span> Ocean</button>
+    <button data-theme-set="signal" class="tp-theme-btn"><span class="swatch"></span> Signal</button>
+    <button data-theme-set="mono" class="tp-theme-btn"><span class="swatch"></span> Light</button>
+    <button data-theme-set="crimson" class="tp-theme-btn"><span class="swatch"></span> Crimson</button>
+  </div>
+  <p class="tp-label mono">mode</p>
+  <div class="tp-mode">
+    <button data-mode-set="light" class="tp-mode-btn"><i class="fa-solid fa-sun"></i> Light</button>
+    <button data-mode-set="dark" class="tp-mode-btn"><i class="fa-solid fa-moon"></i> Dark</button>
+  </div>
+</aside>
+
+<!-- ═══════════ BACK TO TOP ═══════════ -->
+<button id="back-to-top" aria-label="Back to top" title="Back to top">
+  <i class="fa-solid fa-arrow-up"></i>
+</button>
+
+<!-- ═══════════ AI ASSISTANT ═══════════ -->
+<button id="chat-fab" aria-label="Open AI assistant" title="Ask my AI assistant">
+  <i class="fa-solid fa-robot"></i><span class="fab-ping"></span>
+</button>
+<aside id="chat-panel" aria-label="AI assistant" hidden>
+  <header class="chat-head">
+    <div class="chat-id"><span class="brand-orb"></span><div><strong>MSR Assistant</strong><span class="chat-status mono"><i class="pulse-dot"></i> online · local model</span></div></div>
+    <button id="chat-close" class="nav-icon-btn" aria-label="Close assistant"><i class="fa-solid fa-xmark"></i></button>
+  </header>
+  <div class="chat-log" id="chat-log" aria-live="polite"></div>
+  <div class="chat-suggest" id="chat-suggest"></div>
+  <form class="chat-input-row" id="chat-form">
+    <input type="text" id="chat-input" placeholder="Ask about skills, projects, experience…" aria-label="Message the assistant" autocomplete="off">
+    <button type="submit" class="nav-icon-btn" aria-label="Send"><i class="fa-solid fa-arrow-up"></i></button>
+  </form>
+</aside>
+
+<!-- ═══════════ LIGHTBOX ═══════════ -->
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="Certificate preview" hidden>
+  <div class="lb-backdrop" data-lb-close></div>
+  <figure class="lb-figure">
+    <div class="lb-art" id="lb-art"></div>
+    <figcaption><h3 id="lb-title"></h3><p id="lb-meta" class="mono"></p><a id="lb-file" class="mini-btn solid" href="#" target="_blank" rel="noopener" hidden><i class="fa-solid fa-file-arrow-down"></i> View certificate</a></figcaption>
+    <button class="lb-close nav-icon-btn" data-lb-close aria-label="Close preview"><i class="fa-solid fa-xmark"></i></button>
+  </figure>
+</div>
+
+<!-- ═══════════ PROJECT MODAL ═══════════ -->
+<div id="project-modal" role="dialog" aria-modal="true" aria-label="Project details" hidden>
+  <div class="pm-backdrop" data-pm-close></div>
+  <article class="pm-panel" id="pm-panel"></article>
+</div>
+
+<!-- ═══════════ BLOG MODAL ═══════════ -->
+<div id="blog-modal" role="dialog" aria-modal="true" aria-label="Essay preview" hidden>
+  <div class="pm-backdrop" data-bm-close></div>
+  <article class="pm-panel" id="bm-panel"></article>
+</div>
+
+<div id="toast-stack" aria-live="polite"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" defer></script>
+<script src="data.js" defer></script>
+<script src="main.js" defer></script>
+<script src="api.js" defer></script>
+</body>
+</html>
