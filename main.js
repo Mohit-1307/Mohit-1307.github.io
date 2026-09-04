@@ -231,40 +231,61 @@ navLinks.addEventListener('click', e => { if (e.target.matches('a')) { navLinks.
 })();
 
 /* ════════ MAGNETIC BUTTONS ════════ */
-/* Magnetic: social buttons + all cards */
-function initCardMagnetic(el, xF, yF) {
-  if (el._mag) return; el._mag = true;
-  el.style.transition = 'transform .3s cubic-bezier(.25,.8,.25,1),box-shadow .3s';
-  el.addEventListener('pointermove', e => {
+
+/* ─── Social icon magnetic (unchanged — this is the reference feel) ─── */
+$$('.magnetic').forEach(btn => {
+  btn.addEventListener('pointermove', e => {
     if (html.classList.contains('reduce-motion')) return;
-    const r = el.getBoundingClientRect();
-    const dx = (e.clientX - r.left - r.width  / 2) * xF;
-    const dy = (e.clientY - r.top  - r.height / 2) * yF;
-    el.style.transform = 'translate(' + dx + 'px,' + dy + 'px)';
+    const r = btn.getBoundingClientRect();
+    btn.style.transform = `translate(${(e.clientX - r.left - r.width / 2) * .18}px,${(e.clientY - r.top - r.height / 2) * .28}px)`;
   });
-  el.addEventListener('pointerleave', () => { el.style.transform = ''; el.style.boxShadow = ''; });
-}
-// Social icons: strong magnetic pull (original)
-$$('.magnetic').forEach(btn => initCardMagnetic(btn, .18, .28));
-// All cards: subtle magnetic + lift
-const CARD_MAG_SEL = '.project-card,.skill-card,.cert-card,.course-card,.edu-card,.blog-card,.ach-card,.profile-links a,.hero-stats li';
-function applyCardsMAG() {
-  $$(CARD_MAG_SEL).forEach(card => {
-    if (card._mag) return; card._mag = true;
-    card.style.transition = 'transform .3s cubic-bezier(.25,.8,.25,1),box-shadow .3s';
-    card.addEventListener('pointermove', e => {
-      if (html.classList.contains('reduce-motion')) return;
-      const r = card.getBoundingClientRect();
-      const dx = (e.clientX - r.left - r.width  / 2) * .05;
-      const dy = (e.clientY - r.top  - r.height / 2) * .07;
-      card.style.transform = 'translate(' + dx + 'px,' + (dy - 5) + 'px)';
-      card.style.boxShadow = '0 16px 36px rgba(22,21,19,.13)';
-    });
-    card.addEventListener('pointerleave', () => { card.style.transform = ''; card.style.boxShadow = ''; });
+  btn.addEventListener('pointerleave', () => {
+    btn.style.transition = 'transform .4s cubic-bezier(.23,1,.32,1)';
+    btn.style.transform  = '';
+    setTimeout(() => (btn.style.transition = ''), 400);
+  });
+});
+
+/* ─── Card magnetic — IDENTICAL algorithm to social icons ─── */
+// Key: NO transition on pointermove (instant = smooth), spring on pointerleave
+const CARD_MAG = '.project-card,.skill-card,.cert-card,.course-card,.edu-card,.blog-card,.ach-card,.profile-links a,.hero-stats li,.xp-card,.lc-card';
+
+function attachMag(card) {
+  if (card._m) return;
+  card._m = true;
+
+  // Cap movement: max 12px regardless of card size
+  card.addEventListener('pointerenter', () => {
+    card.style.transition = 'none'; // instant tracking — no lag at all
+    card.style.willChange = 'transform';
+  });
+
+  card.addEventListener('pointermove', e => {
+    if (html.classList.contains('reduce-motion')) return;
+    const r   = card.getBoundingClientRect();
+    // Same factor as social icons (.18/.28) — capped to ±12px for large cards
+    const rawX = (e.clientX - r.left  - r.width  / 2) * .18;
+    const rawY = (e.clientY - r.top   - r.height / 2) * .18;
+    const dx   = Math.max(-12, Math.min(12, rawX));
+    const dy   = Math.max(-12, Math.min(12, rawY));
+    card.style.transform = `translate(${dx}px,${dy}px)`;
+  });
+
+  card.addEventListener('pointerleave', () => {
+    // Spring back exactly like social icons
+    card.style.transition = 'transform .45s cubic-bezier(.23,1,.32,1), box-shadow .45s';
+    card.style.transform  = '';
+    card.style.boxShadow  = '';
+    card.style.willChange = 'auto';
+    setTimeout(() => (card.style.transition = ''), 460);
   });
 }
-applyCardsMAG();
-new MutationObserver(applyCardsMAG).observe(document.body, { childList: true, subtree: true });
+
+function initAllCards() { $$(CARD_MAG).forEach(attachMag); }
+initAllCards();
+// Auto-attach to cards added after page load (API renders projects, skills, certs)
+new MutationObserver(initAllCards).observe(document.body, { childList: true, subtree: true });
+
 
 /* ════════ HERO TILT ════════ */
 (() => {
