@@ -192,14 +192,14 @@ MSR.EXPERIENCE = [
   }
 ];
 
-/* ---------- Certificates ---------- */
+/* ---------- Certificates (with official issuer icons) ---------- */
 MSR.CERTS = [
   { title: 'Oracle Certified Foundations Associate — Agentic AI', issuer: 'Oracle University', year: '2026', cat: 'ML/AI',
     img: 'https://cdn.simpleicons.org/oracle/F80000', file: 'cert-oracle-agentic-ai.pdf' },
   { title: 'Advanced Software Engineering Job Simulation', issuer: 'Walmart Global Tech · Forage', year: '2026', cat: 'Programming',
     img: 'https://cdn.simpleicons.org/walmart/0071CE', file: 'cert-walmart-swe.pdf' },
   { title: 'Data Visualisation: Empowering Business with Effective Insights', issuer: 'Tata · Forage', year: '2026', cat: 'Data Science',
-    icon: 'fa-solid fa-chart-column', color: '#0A3568', file: 'cert-tata-dataviz.pdf' },
+    img: 'https://cdn.simpleicons.org/tata/486AAE', file: 'cert-tata-dataviz.pdf' },
   { title: 'AI/ML Internship (2 Months)', issuer: 'Labmentix', year: '2026', cat: 'Internship',
     icon: 'fa-solid fa-briefcase', color: '#006b8f', file: 'cert-labmentix-internship.pdf' },
   { title: 'Machine Learning Internship', issuer: 'CodeAlpha', year: '2026', cat: 'Internship',
