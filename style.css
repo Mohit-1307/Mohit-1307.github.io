@@ -75,6 +75,9 @@ html.hc body { --muted:var(--text); }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;font-size:14.5px}
 html.reduce-motion{scroll-behavior:auto}
+/* Reduce motion must actually stop looping animations, not just speed them up —
+   a near-zero duration on an `infinite` animation still cycles, which reads as
+   a strobe/blink. Force a single, instant cycle instead. */
 html.reduce-motion *,html.reduce-motion *::before,html.reduce-motion *::after{
   animation-duration:.001ms!important;
   animation-delay:0s!important;
@@ -96,6 +99,8 @@ input,textarea{font-family:inherit;color:inherit}
 .mono{font-family:var(--font-mono)}
 kbd{font-family:var(--font-mono);font-size:.68rem;padding:2px 6px;border:1px solid var(--border);border-radius:6px;color:var(--muted)}
 :focus-visible{outline:2px solid var(--primary);outline-offset:3px;border-radius:4px}
+/* Real OS cursor stays visible at all times — #cursor-dot below is purely a
+   soft trailing glow drawn behind it, never a replacement for it. */
 html.reduce-motion body, html.reduce-motion a, html.reduce-motion button{cursor:auto}
 
 /* Scrollbar */
@@ -1719,7 +1724,7 @@ section[id], #hero-section {
 .nav-secondary .nav-dock { justify-content: center; }
 .nav-links { justify-content: center; }
 
-/* ── Oracle nav-top: 3-column grid (brand | search) ── */
+/* ── Oracle nav-top: 3-column grid (burger+brand | search | nothing) ── */
 .nav-top-dock {
   display: grid !important;
   grid-template-columns: auto 1fr auto !important;
@@ -1748,9 +1753,19 @@ section[id], #hero-section {
 .nav-search-pill:hover { border-color: rgba(22,21,19,.48); }
 .nav-search-pill i { color: #6b6560; font-size: .88rem; flex-shrink: 0; }
 .nav-search-pill .nav-search-placeholder { color: #9b9590; }
-/* Burger Oracle style: hidden (no hamburger) */
-.nav-burger-oracle { display: none !important; }
-/* MSR brand: Oracle-logo style (dark red) */
+/* Burger Oracle style: 3 bars */
+.nav-burger-oracle {
+  background: transparent; border: none; cursor: pointer;
+  padding: 6px 8px; display: flex; flex-direction: column;
+  gap: 4px; border-radius: 4px;
+}
+.nav-burger-oracle:hover { background: rgba(22,21,19,.06); }
+.nav-burger-oracle span {
+  display: block; width: 22px; height: 2px;
+  background: #161513; border-radius: 2px;
+  transition: transform .25s, opacity .25s;
+}
+/* MSR brand: Oracle-logo style */
 .nav-brand .brand-orb { display: none !important; }
 .nav-brand, .nav-brand .brand-text {
   font-family: var(--font-body) !important;
@@ -1871,15 +1886,101 @@ section[id], #hero-section {
 .hologram-card, .holo-grid, .holo-avatar, .avatar-ring,
 .holo-meter, .meter-wrap { display: none !important; }
 
-/* ═══ GLOBAL CARD HOVER (like social icons) ═══ */
-.project-card, .skill-card, .cert-card, .xp-card, .course-card,
-.edu-card, .blog-card, .ach-card, .profile-links a {
-  transition: transform 0.3s cubic-bezier(.25,.8,.25,1), box-shadow 0.3s, border-color 0.3s !important;
+/* ═══ FINAL POLISH ═══ */
+
+/* ── Header: hide burger on desktop (nav links visible in dark secondary bar) ── */
+@media(min-width: 769px) {
+  .nav-burger-oracle { display: none !important; }
 }
+/* Clean burger on mobile — absolutely no box/border */
+.nav-burger-oracle,
+.nav-burger-oracle:focus,
+.nav-burger-oracle:hover {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+.nav-burger-oracle span {
+  background: #161513 !important;
+  border-radius: 2px !important;
+}
+/* MSR brand: pure Oracle-logo style */
+.nav-brand {
+  font-size: 1.52rem !important;
+  font-weight: 700 !important;
+  color: #c74b1f !important;
+  letter-spacing: .08em !important;
+  text-transform: uppercase !important;
+  font-style: normal !important;
+  text-decoration: none !important;
+  background: none !important;
+}
+.nav-brand *,
+.nav-brand .brand-orb,
+.nav-brand .brand-text { all: unset; }
+.nav-brand .brand-text {
+  font-family: var(--font-body);
+  font-size: 1.52rem;
+  font-weight: 700;
+  color: #c74b1f;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+/* ── Skills: show search, grid always visible ── */
+#skill-search { display: block !important; }
+#skill-filters { display: none !important; }
+.skills-controls { display: flex; flex-direction: column; gap: 12px; margin-bottom: 28px; }
+.search-shell {
+  display: flex; align-items: center; gap: 10px;
+  width: 280px; height: 40px; padding: 0 14px;
+  border: 1px solid var(--border); border-radius: 100px;
+  background: #ffffff;
+}
+.search-shell i { color: var(--muted); font-size: .85rem; }
+#skill-search {
+  border: none !important; outline: none !important;
+  background: transparent !important; width: 100%;
+  font-family: var(--font-body); font-size: .86rem;
+  color: var(--text);
+}
+.skills-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(88px, 1fr)) !important;
+  gap: 12px !important;
+  min-height: 200px;
+}
+.skill-card {
+  opacity: 1 !important;
+  transform: none !important;
+  visibility: visible !important;
+}
+.skill-card.in { opacity: 1 !important; transform: none !important; }
+
+/* ── Certs: art area clean background ── */
+.cert-art {
+  height: 100px !important;
+  background: #f2f5f8 !important;
+  display: flex !important; align-items: center !important; justify-content: center !important;
+  border-bottom: 1px solid var(--border) !important;
+}
+.cert-art img { width: 52px !important; height: 52px !important; object-fit: contain !important; }
+.cert-art i { font-size: 2rem !important; }
+
+/* ── Cards: remove conflicting CSS hover transform so JS magnetic works ── */
 .project-card:hover, .skill-card:hover, .cert-card:hover,
-.xp-card:hover, .course-card:hover, .edu-card:hover,
-.blog-card:hover, .ach-card:hover, .profile-links a:hover {
-  transform: translateY(-4px) rotate(-1deg) !important;
-  box-shadow: 0 18px 40px -12px rgba(0,0,0,.12) !important;
+.course-card:hover, .edu-card:hover, .blog-card:hover { transform: none !important; }
+
+/* ── All card transitions handled by JS magnetic ── */
+.project-card, .skill-card, .cert-card, .course-card,
+.edu-card, .blog-card, .ach-card {
+  will-change: transform;
 }
-/* Keep tilt JS from being overridden: it applies inline styles, so we allow it */
+
+/* ── Nav top: when no burger on desktop, brand goes first ── */
+@media(min-width: 769px) {
+  .nav-top-dock {
+    grid-template-columns: auto 1fr !important;
+  }
+}
