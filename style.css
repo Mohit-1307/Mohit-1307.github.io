@@ -1717,3 +1717,171 @@ section[id], #hero-section {
   .nav-links a { padding: 0 10px; font-size: .76rem; }
   .skills-grid { grid-template-columns: repeat(auto-fill, minmax(76px, 1fr)) !important; }
 }
+
+/* ═══ FINAL ALIGNMENT + HOVER FIXES ═══ */
+
+/* ── Center secondary nav links ── */
+.nav-secondary .nav-dock { justify-content: center; }
+.nav-links { justify-content: center; }
+
+/* ── Oracle nav-top: 3-column grid (burger+brand | search | nothing) ── */
+.nav-top-dock {
+  display: grid !important;
+  grid-template-columns: auto 1fr auto !important;
+  align-items: center !important;
+  gap: 20px !important;
+}
+.nav-top-left { display: flex; align-items: center; gap: 14px; }
+.nav-search-wrap { width: 100%; }
+/* Oracle search pill */
+.nav-search-pill {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 42px;
+  padding: 0 18px;
+  border: 1px solid rgba(22,21,19,.22);
+  border-radius: 100px;
+  background: #ffffff;
+  cursor: text;
+  color: #9b9590;
+  font-family: var(--font-body);
+  font-size: .88rem;
+  transition: border-color .2s, box-shadow .2s;
+}
+.nav-search-pill:hover { border-color: rgba(22,21,19,.48); }
+.nav-search-pill i { color: #6b6560; font-size: .88rem; flex-shrink: 0; }
+.nav-search-pill .nav-search-placeholder { color: #9b9590; }
+/* Burger Oracle style: 3 bars */
+.nav-burger-oracle {
+  background: transparent; border: none; cursor: pointer;
+  padding: 6px 8px; display: flex; flex-direction: column;
+  gap: 4px; border-radius: 4px;
+}
+.nav-burger-oracle:hover { background: rgba(22,21,19,.06); }
+.nav-burger-oracle span {
+  display: block; width: 22px; height: 2px;
+  background: #161513; border-radius: 2px;
+  transition: transform .25s, opacity .25s;
+}
+/* MSR brand: Oracle-logo style */
+.nav-brand .brand-orb { display: none !important; }
+.nav-brand, .nav-brand .brand-text {
+  font-family: var(--font-body) !important;
+  font-size: 1.55rem !important;
+  font-weight: 800 !important;
+  color: #c74b1f !important;
+  letter-spacing: .06em !important;
+  text-transform: uppercase !important;
+  font-style: normal !important;
+}
+.nav-brand i { display: none !important; }
+
+/* ── Oracle widget: bottom-right corner ── */
+#oracle-widget { bottom: 24px !important; right: 0 !important; }
+#oracle-contact-popup { bottom: 120px !important; right: 54px !important; }
+
+/* ── Project grid: proper alignment, gap-based (no overflow:hidden) ── */
+.projects-grid {
+  display: grid !important;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  gap: 16px !important;
+  border: none !important;
+  border-radius: 0 !important;
+  overflow: visible !important;
+  background: transparent !important;
+}
+.project-card {
+  background: #ffffff !important;
+  border: 1px solid var(--border) !important;
+  border-right: 1px solid var(--border) !important;
+  border-radius: 8px !important;
+  overflow: hidden !important;
+  display: flex !important;
+  flex-direction: column !important;
+  min-height: unset !important;
+  transition: transform .25s cubic-bezier(.25,.8,.25,1), box-shadow .25s !important;
+}
+.project-card:nth-child(4n) { border-right: 1px solid var(--border) !important; }
+.project-card:last-child { border-right: 1px solid var(--border) !important; }
+.project-card:hover { transform: none !important; } /* tilt handled by JS */
+.project-banner {
+  height: 110px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  border-radius: 0 !important;
+  margin: 0 !important;
+  position: relative !important;
+  background: linear-gradient(135deg, #eef5f8, #e8f2f6) !important;
+}
+.project-body { padding: 14px 16px 16px !important; flex: 1 !important; display: flex !important; flex-direction: column !important; }
+.project-name { font-size: .88rem !important; font-weight: 700 !important; line-height: 1.35 !important; margin-bottom: 8px !important; }
+.project-meta { font-size: .72rem !important; color: var(--muted) !important; margin-bottom: 10px !important; }
+.project-actions { margin-top: auto !important; display: flex !important; gap: 8px !important; flex-wrap: wrap !important; }
+.proj-si-logo { width: 50px !important; height: 50px !important; object-fit: contain !important; }
+@media(max-width:1100px) {
+  .projects-grid { grid-template-columns: repeat(2, 1fr) !important; }
+}
+@media(max-width:600px) {
+  .projects-grid { grid-template-columns: 1fr !important; }
+}
+
+/* ── Skills grid: proper alignment, ensure images load ── */
+.skills-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(88px, 1fr)) !important;
+  gap: 12px !important;
+}
+.skill-card {
+  aspect-ratio: 1 / 1.1 !important;
+  min-height: unset !important;
+  padding: 14px 8px !important;
+  transition: transform .25s cubic-bezier(.25,.8,.25,1), border-color .2s, box-shadow .25s !important;
+}
+.skill-card:hover { transform: none !important; } /* tilt via JS */
+.skill-icon { width: 42px !important; height: 42px !important; margin: 0 auto !important; display: flex !important; align-items: center !important; justify-content: center !important; }
+.skill-icon img { width: 36px !important; height: 36px !important; object-fit: contain !important; display: block !important; }
+.skill-icon i { font-size: 1.9rem !important; line-height: 1 !important; }
+.skill-name { font-size: .68rem !important; font-weight: 500 !important; text-align: center !important; line-height: 1.3 !important; display: block !important; }
+
+/* ── Cert cards: SI logo images ── */
+.cert-art {
+  height: 100px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: #f5f7fa !important;
+  border-bottom: 1px solid var(--border) !important;
+}
+.cert-art img { width: 52px !important; height: 52px !important; object-fit: contain !important; }
+.cert-art i { font-size: 2.2rem !important; }
+.cert-seal { display: none !important; }
+.cert-body { padding: 12px 16px 16px !important; }
+.cert-body h3 { font-size: .84rem !important; font-weight: 700 !important; line-height: 1.35 !important; margin-bottom: 6px !important; }
+.cert-body p { font-size: .73rem !important; color: var(--muted) !important; }
+.cert-tag { display: none !important; }
+
+/* ── Course cards compact ── */
+.course-card { transition: transform .25s cubic-bezier(.25,.8,.25,1), box-shadow .25s !important; }
+.course-card:hover { transform: none !important; }
+
+/* ── Social/magnetic icons: keep existing effect, also enable on hero stats ── */
+.hero-stats li {
+  transition: transform .25s cubic-bezier(.25,.8,.25,1), border-color .2s, box-shadow .25s !important;
+}
+.hero-stats li:hover { transform: none !important; } /* tilt via JS */
+
+/* ── Float chips: hidden ── */
+.float-chip { display: none !important; }
+
+/* ── Hero card now uses full parent width ── */
+.hero-visual { position: relative !important; }
+.oracle-ai-card { aspect-ratio: 16/10 !important; }
+
+/* ── Remove old hologram card ── */
+.hologram-card, .holo-grid, .holo-avatar, .avatar-ring,
+.holo-meter, .meter-wrap { display: none !important; }
