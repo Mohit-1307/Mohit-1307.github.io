@@ -43,15 +43,13 @@
 }
 </script>
 
-<link rel="icon" id="favicon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23006b8f'/%3E%3Ctext x='32' y='43' font-size='28' font-family='Georgia' font-weight='600' fill='%23F7F5EF' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E">
+<link rel="icon" id="favicon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23c74b1f'/%3E%3Ctext x='32' y='43' font-size='28' font-family='Inter' font-weight='700' fill='white' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer">
 <script>
-  // Fallback: if the primary Font Awesome CDN fails to load (blocked network, ad-block, etc.),
-  // swap to a second CDN so icons never render as empty boxes.
   (function () {
     var testEl = document.createElement('i');
     testEl.className = 'fa-solid fa-check';
@@ -94,14 +92,11 @@
 
 <!-- ═══════════ NAVIGATION (Oracle dual-bar) ═══════════ -->
 <header id="site-nav" role="banner">
-  <!-- Oracle-exact top bar: hamburger + MSR brand + wide search + utility icons -->
+  <!-- Oracle-exact top bar: MSR brand + wide search -->
   <div class="nav-top">
     <div class="nav-dock nav-top-dock">
-      <!-- LEFT: hamburger (≡) + MSR logo in Oracle red -->
+      <!-- LEFT: MSR logo (Oracle style, no hamburger) -->
       <div class="nav-top-left">
-        <button id="nav-burger" class="nav-burger-oracle" aria-label="Open menu" aria-expanded="false">
-          <span></span><span></span><span></span>
-        </button>
         <a href="#hero-section" class="nav-brand" aria-label="Home — Mohit Singh Rajput">
           <span class="brand-text">MSR</span>
         </a>
@@ -113,10 +108,10 @@
           <span class="nav-search-placeholder">Search</span>
         </button>
       </div>
-
+      <!-- RIGHT: empty (or could put mode toggle here, but hidden) -->
     </div>
   </div>
-  <!-- Dark secondary nav bar: section links (matches Oracle's dark product nav) -->
+  <!-- Dark secondary nav bar: section links -->
   <div class="nav-secondary">
     <div class="nav-dock">
       <ul class="nav-links" id="nav-links" aria-label="Primary navigation">
@@ -171,7 +166,6 @@
     </div>
 
     <div class="hero-visual reveal" aria-hidden="true">
-      <!-- Oracle AI-style dark teal card with AI voice introduction -->
       <div class="oracle-ai-card" id="ai-card">
         <div class="oac-bg"></div>
         <div class="oac-shapes" aria-hidden="true">
@@ -191,7 +185,6 @@
         </div>
         <p class="oac-caption" id="ai-caption">▶ 30-second AI introduction</p>
       </div>
-      <!-- Tech chips -->
     </div>
   </div>
 
@@ -406,7 +399,7 @@
   </div>
 </section>
 
-<!-- ═══════════ ACHIEVEMENTS / SIGNALS (incl. social links, before contact) ═══════════ -->
+<!-- ═══════════ ACHIEVEMENTS / SIGNALS ═══════════ -->
 <section id="achievements-section" class="section" aria-label="Achievements and stats">
   <header class="section-head reveal">
     <p class="section-eyebrow mono">09 · signals</p>
@@ -514,8 +507,6 @@
     <p class="cmdk-foot mono">↑↓ navigate · ↵ select · sections & profiles searchable</p>
   </div>
 </div>
-
-
 
 <!-- ═══════════ BACK TO TOP ═══════════ -->
 <button id="back-to-top" aria-label="Back to top" title="Back to top">
