@@ -379,7 +379,7 @@ html.reduce-motion .reveal{opacity:1;transform:none}
 
 /* ---------- LeetCode gauge card (Solved <-> Acceptance on hover) ---------- */
 :root{ --lc-easy:#22C55E; --lc-med:#F5A623; --lc-hard:#EF4444; --lc-track:color-mix(in srgb,var(--border) 70%,transparent); }
-.lc-gauge-card{display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:center}
+.lc-gauge-card{display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:center;width:50%;margin-left:auto;margin-right:auto}
 .lc-gauge-shell{position:relative;width:190px;height:190px;flex-shrink:0;cursor:pointer}
 .lc-gauge-svg{width:100%;height:100%;transform:rotate(-90deg)}
 .lc-gauge-track,.lc-gauge-seg{fill:none;stroke-width:12}
@@ -405,7 +405,8 @@ html.reduce-motion .reveal{opacity:1;transform:none}
 .lc-diff-med .lc-diff-label{color:var(--lc-med)}
 .lc-diff-hard .lc-diff-label{color:var(--lc-hard)}
 .lc-diff-val{display:block;font-family:var(--font-mono);font-size:.92rem;color:var(--text);font-weight:600}
-@media(max-width:640px){.lc-gauge-card{grid-template-columns:1fr;justify-items:center;text-align:center}.lc-diff-boxes{grid-template-columns:1fr 1fr 1fr;width:100%}}
+@media(max-width:820px){.lc-gauge-card{width:100%}}
+@media(max-width:640px){.lc-gauge-card{grid-template-columns:1fr;justify-items:center;text-align:center;width:100%}.lc-diff-boxes{grid-template-columns:1fr 1fr 1fr;width:100%}}
 
 /* ---------- LeetCode submission calendar (amber, mirrors the GitHub graph) ---------- */
 :root{ --lc-0:color-mix(in srgb,var(--border) 55%,transparent); --lc-1:#FFE1A8; --lc-2:#FFC24B; --lc-3:#F5A623; --lc-4:#C87A0A; --lc-glow:rgba(245,166,35,.55); }
