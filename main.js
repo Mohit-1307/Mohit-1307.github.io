@@ -389,14 +389,22 @@ function renderCerts() {
     (!certState.q || (c.title + c.issuer).toLowerCase().includes(certState.q)));
   $('#cert-grid').innerHTML = list.length ? list.map((c, i) => {
     const iconHtml = c.img
-      ? '<img src="' + c.img + '" alt="' + c.issuer + '" width="52" height="52" loading="lazy" style="object-fit:contain" onerror="this.style.opacity=0">'
-      : '<i class="' + (c.icon||'fa-solid fa-award') + '" style="color:' + (c.color||'var(--primary)') + '" aria-hidden="true"></i>';
-    return '<button class="cert-card" style="--i:' + i + '" data-idx="' + MSR.CERTS.indexOf(c) + '" aria-label="Preview certificate: ' + c.title + '">'
-      + '<div class="cert-art">' + iconHtml + '</div>'
-      + '<div class="cert-body"><h3>' + c.title + '</h3><p class="cert-issuer">' + c.issuer + ' · ' + c.year + '</p></div>'
-      + '</button>';
+      ? `<img src="${c.img}" alt="${c.issuer}" width="56" height="56" loading="lazy" style="object-fit:contain;max-width:80px;max-height:56px" onerror="this.style.opacity=0">`
+      : `<i class="${c.icon||'fa-solid fa-award'}" style="color:${c.color||'var(--primary)'};font-size:2.4rem" aria-hidden="true"></i>`;
+    const fileBtn = c.file
+      ? `<a class="mini-btn solid cert-view-btn" href="${c.file}" target="_blank" rel="noopener" onclick="event.stopPropagation()"><i class="fa-solid fa-arrow-up-right-from-square"></i> View Certificate</a>`
+      : '';
+    return `<div class="cert-card" style="--i:${i}" data-idx="${MSR.CERTS.indexOf(c)}">`
+      + `<div class="cert-art">${iconHtml}</div>`
+      + `<div class="cert-body">`
+      + `<span class="cert-cat-badge">${c.cat}</span>`
+      + `<h3>${c.title}</h3>`
+      + `<p class="cert-issuer">${c.issuer} · ${c.year}</p>`
+      + `<p class="cert-desc">${c.desc||''}</p>`
+      + `<div class="cert-actions">${fileBtn}</div>`
+      + `</div></div>`;
   }).join('')
-    : `<p class="no-results">No certificates match “${certState.q}”.</p>`;
+    : `<p class="no-results">No certificates match "${certState.q}".</p>`;
 }
 $('#cert-filters').addEventListener('click', e => {
   const b = e.target.closest('[data-cat]'); if (!b) return;
