@@ -333,8 +333,15 @@ function renderSkills() {
     </article>`).join('');
 }
 // Safe event binding (elements may be hidden/absent when filters removed)
+// Skill search — filter cards by name as user types
 $('#skill-filters')?.addEventListener('click', () => {});
-$('#skill-search')?.addEventListener('input', () => {});
+$('#skill-search')?.addEventListener('input', e => {
+  const q = e.target.value.trim().toLowerCase();
+  $$('#skills-grid .skill-card').forEach(card => {
+    const name = (card.dataset.name || '').toLowerCase();
+    card.style.display = (!q || name.includes(q)) ? '' : 'none';
+  });
+});
 // Clear summary stat cards — removed by design
 const skillSummaryEl = $('#skills-summary');
 if (skillSummaryEl) skillSummaryEl.innerHTML = '';
