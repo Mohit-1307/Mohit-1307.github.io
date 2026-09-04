@@ -499,17 +499,24 @@ html[data-mode="dark"] .contrib-count span{color:var(--gh-4);text-shadow:0 0 12p
 .profile-links .link-out{margin-left:auto;font-size:.8rem;color:var(--muted)}
 
 /* ---------- Certificates ---------- */
-.cert-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px}
+.cert-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+@media(max-width:1300px){.cert-grid{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:1000px){.cert-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:700px){.cert-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:440px){.cert-grid{grid-template-columns:1fr}}
 .cert-card{border-radius:var(--radius);background:var(--surface);border:1px solid var(--border);overflow:hidden;transition:transform .4s var(--ease),border-color .4s,box-shadow .4s;animation:cardIn .55s var(--ease) both;animation-delay:calc(var(--i,0)*50ms);text-align:left;width:100%}
-.cert-card:hover{border-color:var(--primary);box-shadow:0 22px 46px -22px var(--glow)}
-.cert-art{position:relative;height:150px;display:grid;place-items:center;background:linear-gradient(135deg,color-mix(in srgb,var(--primary) 20%,transparent),color-mix(in srgb,var(--accent) 12%,transparent));overflow:hidden}
-.cert-art::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent 0 14px,color-mix(in srgb,var(--border) 60%,transparent) 14px 15px);opacity:.5}
-.cert-art i{font-size:2.6rem;color:var(--primary);filter:drop-shadow(0 0 16px var(--glow));transition:transform .4s var(--ease)}
-.cert-card:hover .cert-art i{transform:scale(1.2)}
+.cert-card:hover{border-color:var(--primary);box-shadow:0 16px 36px -16px var(--glow);transform:translateY(-3px)}
+.cert-art{position:relative;height:110px;display:grid;place-items:center;background:linear-gradient(135deg,color-mix(in srgb,var(--primary) 18%,transparent),color-mix(in srgb,var(--accent) 10%,transparent));overflow:hidden}
+.cert-art::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent 0 14px,color-mix(in srgb,var(--border) 60%,transparent) 14px 15px);opacity:.4}
+.cert-art i{font-size:2rem;color:var(--primary);filter:drop-shadow(0 0 12px var(--glow));transition:transform .4s var(--ease);position:relative;z-index:1}
+.cert-issuer-img{position:relative;z-index:1;width:52px;height:52px;object-fit:contain;display:block;opacity:1 !important;visibility:visible !important}
+.cert-icon-wrap{position:relative;z-index:1;display:flex;align-items:center;justify-content:center}
+.cert-icon-wrap svg{display:block;border-radius:8px;box-shadow:0 2px 12px rgba(0,0,0,.18)}
+.cert-card:hover .cert-art i,.cert-card:hover .cert-issuer-img,.cert-card:hover .cert-icon-wrap{transform:scale(1.1)}
 .cert-seal{position:absolute;top:12px;right:12px;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:var(--surface-2);border:1px solid var(--border);color:var(--accent);font-size:.8rem}
-.cert-body{padding:18px 20px}
-.cert-body h3{font-size:.98rem;font-family:var(--font-display);margin-bottom:5px}
-.cert-body p{color:var(--muted);font-size:.78rem}
+.cert-body{padding:12px 14px 14px}
+.cert-body h3{font-size:.82rem;font-family:var(--font-display);margin-bottom:4px;line-height:1.3}
+.cert-body p{color:var(--muted);font-size:.72rem}
 .cert-tag{display:inline-block;margin-top:10px;font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border-radius:8px;border:1px solid var(--border);color:var(--muted)}
 
 /* lightbox */
@@ -1007,7 +1014,7 @@ html.theme-anim body::after{content:'';position:fixed;inset:0;z-index:300;backgr
 .cert-card { background: #ffffff; border-color: var(--border); border-radius: 6px; overflow: hidden; backdrop-filter: none; }
 .cert-card:hover { border-color: transparent; box-shadow: 0 18px 44px rgba(22,21,19,.15); }
 .cert-card::before { display: none; }
-.cert-art { background: linear-gradient(135deg,rgba(0,107,143,.15),rgba(0,141,181,.08)); height: 158px; }
+.cert-art { background: linear-gradient(135deg,rgba(0,107,143,.15),rgba(0,141,181,.08)); height: 110px; }
 .cert-art::before { opacity: .35; }
 .cert-art i { color: var(--primary); filter: none; }
 .cert-seal { color: var(--primary); border-color: var(--border); background: #ffffff; }
